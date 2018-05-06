@@ -1,11 +1,11 @@
 
 -- Drop DataBase
 USE master;
-DROP DATABASE senai_patrimonio;
+DROP DATABASE patrimonio_senai_db;
 
 -- Create DataBase
-CREATE DATABASE senai_patrimonio;
-USE senai_patrimonio;
+CREATE DATABASE patrimonio_senai_db;
+USE patrimonio_senai_db;
 
 
 -- Selects
