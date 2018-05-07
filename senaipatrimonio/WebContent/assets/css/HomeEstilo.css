@@ -1,0 +1,9 @@
+@charset "ISO-8859-1";
+
+h1{
+	align-self: center;	
+}
+body{
+	display: flex;
+	flex-direction: column-reverse;
+}

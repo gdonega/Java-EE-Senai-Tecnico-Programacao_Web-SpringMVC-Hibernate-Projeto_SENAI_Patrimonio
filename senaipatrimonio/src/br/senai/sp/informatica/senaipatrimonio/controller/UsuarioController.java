@@ -24,15 +24,6 @@ public class UsuarioController {
 	@Autowired
 	private SessionHelper session;
 
-	@GetMapping({ "/", "" })
-	public String abrirLogin(Model model) {
-		if (session.getUsuarioLogado() != null)
-			return "redirect:/app/home";
-		
-		model.addAttribute("usuario", new Usuario());
-
-		return "usuario/login";
-	}
 
 	@PostMapping({ "/usuario/logar" })
 	public String executarLogin(@Valid Usuario usuario, BindingResult brUsuario, Model model) {
@@ -54,10 +45,7 @@ public class UsuarioController {
 		return "usuario/login";
 	}
 
-	@GetMapping("/app/home")
-	public String abrirHome() {
-		return "home";
-	}
+	
 	
 	
 

@@ -44,26 +44,6 @@
 
 		<div id="tela">
 
-			<div id="superior">
-					<div id="superior_sonOne">
-						<img src="${images }/figura_login_superior_direito_circulo.svg" id="img_superior_direito_circulo">
-					</div>
-					<img src="${images }/figura_login_superior_esquerdo_traco.svg" id="img_superior_esquerdo_traco">
-			</div>
-
-			<div id="meio">
-				<h1 >Bem vindo ao sistema <br> SENAI patrimonio</h1>
-			</div>
-			
-			
-			<div id="inferior">
-				<div id="inferior_sonOne">
-					<img src="${images }/figura_login_direita_seta.svg" id="img_direita_seta">
-					<h2>Faça o login</h2>
-				</div>
-				<img src="${images }/figura_login_inferior_direito_espiral.svg" id="img_inferior_direito_espiral">
-			</div>
-
 		</div>
 	</div>
 </body>
