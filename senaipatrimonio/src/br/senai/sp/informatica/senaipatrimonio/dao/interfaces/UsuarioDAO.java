@@ -10,4 +10,7 @@ import br.senai.sp.informatica.senaipatrimonio.model.Usuario;
  */
 public interface UsuarioDAO extends DAO<Usuario> {
 
+	public Usuario buscarPorEmail(String email);
+
+	public Usuario buscarPorEmailESenha(String email, String senha);
 }

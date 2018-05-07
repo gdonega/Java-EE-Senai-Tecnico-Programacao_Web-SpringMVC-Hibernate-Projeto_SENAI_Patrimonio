@@ -1,0 +1,187 @@
+@charset "ISO-8859-1";
+
+/*Configura��es gerais*/
+#telaDeLogin{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	
+	height: 100%;
+}
+
+
+/*/////Start-- Configura��es do form do lado esquerdo/////*/
+	/*Div que emgloba tudo*/
+	#lateral{
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		order: 0; 
+		flex-grow: 0.2;
+		justify-content: center;
+		height: 100vh;
+		background-color: #330202;
+	}
+
+	/*imagem*/
+	#logoLateral{
+		margin: 10px;
+		flex-grow: 1;
+		align-self: initial;
+		display: flex;
+	}
+
+	/*formulario DIV*/
+	#formLateral{
+		flex-grow: 2;
+		display: flex;
+		align-items: center;
+	}
+	/*formulario Em si*/
+	#usuario{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	#usuario *{
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		background-color: transparent;
+		border-color: white;
+		color: white;
+	}
+	
+	#usuario label{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+	
+	
+
+	#usuario button{
+		margin: 15px;
+	}
+	
+	#usuario input{
+		margin: 5px;
+	}
+/*/////End-- Configura��es do form do lado esquerdo/////*/
+
+
+/*/////Start-- Configura��es da tela (lado direito)/////*/
+	/* Configura��e da tela (lado direito)*/
+	#tela{
+		flex-grow: 1;
+		order: 1;
+		flex-direction: column;
+		background-color: white;
+		align-self: baseline;
+		height: 100vh;
+	}
+
+	/*Superior*/
+	#superior{
+		display: flex;
+		flex-direction: row;
+		flex-grow: 2;
+		width: 100%;
+		height: 100%;
+	}
+	#img_superior_esquerdo_traco{
+		order: 1;
+		align-self: first baseline;
+		width: 30%;
+		flex-grow: 1;
+		justify-content: center;
+	}
+	#img_superior_direito_circulo{
+		width: 50%;
+		margin: 0px;
+	}
+	#superior_sonOne{
+		margin: 0px;
+		padding: 0px;
+		align-self: flex-start;
+		order: 2;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: row-reverse;
+	}
+
+	
+	/*meio*/
+	#meio{
+		flex-grow: 2;
+		text-align: center;
+		font-size: 20px;
+		height: 100%;
+	}
+
+	/*inferior*/
+
+	#inferior{
+		display: flex;
+		height: 100%;
+		flex-direction: row;
+		flex-grow: 2;
+	}
+
+	#img_direita_seta{
+		
+		width: 20vw;
+	}
+	#inferior_sonOne{
+		align-self: flex-end;
+		flex-grow: 123;
+	}
+
+	#inferior_sonOne h2{
+		text-align: center;
+	}
+
+	#img_inferior_direito_espiral{
+		align-self: flex-end;
+		width: 30vw;
+		flex-grow: 2;
+	}
+	/*/////End-- Configura��es da tela (lado direito)/////*/
+
+
+/*Adpata a tela para mobile*/
+@media screen and (max-width: 800px) {
+	#tela{
+		display: none;
+	}
+	#lateral{
+		width: 100vw;
+	}
+	#logoLateral{
+		width: 50vw;
+	}
+	#usuario button{
+		width: 80vw;
+	}
+	#usuario input{
+		width: 90vw;
+	}
+}
+
+/*Adapta a tela para PC*/
+@media screen and (min-width: 801px) {
+	#tela{
+		display: flex;
+	}
+	#logoLateral{
+		width:18vw;
+	}
+	#usuario button{
+		width: 10vw;
+	}
+	
+	#usuario input{
+		width: 20vw;
+	}
+}

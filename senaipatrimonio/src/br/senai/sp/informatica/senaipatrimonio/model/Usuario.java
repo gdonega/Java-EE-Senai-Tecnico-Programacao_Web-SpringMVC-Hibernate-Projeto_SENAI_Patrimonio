@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.util.DigestUtils;
+
 @Entity
 public class Usuario {
 
@@ -86,7 +88,19 @@ public class Usuario {
 	public void setTipo(TipoUsuario tipo) {
 		this.tipo = tipo;
 	}
+	
+	public void hashearSenha() {
+		this.senha = DigestUtils.md5DigestAsHex(this.senha.getBytes());
+	}
 
+	public Boolean isAdm() {
+		if(this.tipo.equals(TipoUsuario.ADMIN) ) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email + ", senha="
