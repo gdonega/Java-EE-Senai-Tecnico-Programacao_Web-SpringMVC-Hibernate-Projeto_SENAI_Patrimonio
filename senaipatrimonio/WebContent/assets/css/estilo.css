@@ -8,5 +8,8 @@ body{
     margin: 0px;
 }
 
+.nav li {
+	list-style: none; 
+}
 
 

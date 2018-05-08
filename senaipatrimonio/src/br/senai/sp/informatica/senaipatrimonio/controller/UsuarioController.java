@@ -41,7 +41,7 @@ public class UsuarioController {
 		}
 
 		model.addAttribute("usuario", usuario);
-		brUsuario.addError(new FieldError("usuario","email", "Email ou/e senha inválidos!"));
+		brUsuario.addError(new FieldError("usuario","senha", "Email ou/e senha inválidos!"));
 		return "usuario/login";
 	}
 
