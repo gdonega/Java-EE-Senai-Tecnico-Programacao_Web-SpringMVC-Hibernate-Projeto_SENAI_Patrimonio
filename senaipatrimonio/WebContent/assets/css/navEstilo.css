@@ -1,0 +1,56 @@
+@charset "ISO-8859-1";
+
+body{
+    display: flex; 
+    flex-direction: row;
+}
+
+.headerNav{
+    background-color: #5D0000;
+    margin-right: 10px;
+}
+
+nav{
+    display: flex;
+    flex-grow: 1;
+    margin: 0px;
+    padding: 10px;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+}
+nav *{
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.topNav{
+    flex-grow: 1;
+}
+
+.centerNav{
+    justify-self: flex-start;
+    justify-content: space-evenly;
+    flex-grow: 2;
+    align-self: center;
+}
+
+.bottomNav{
+    flex-grow: 1;
+}
+
+.imgUserFake{
+    width: 80px !important;
+}
+
+nav ul li{
+    list-style: none; 
+}
+nav ul li img{
+    width: 40px;
+}
+
+.conteudoDaPag{
+    flex-grow: 2;
+}

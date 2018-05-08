@@ -11,3 +11,6 @@
 <%-- Css/JS imports --%>
 <link rel="stylesheet" href="${css}/estilo.css">
 <link rel="icon" href="${images}/logo.svg">
+
+
+<link rel="stylesheet" href="${css}/navEstilo.css">

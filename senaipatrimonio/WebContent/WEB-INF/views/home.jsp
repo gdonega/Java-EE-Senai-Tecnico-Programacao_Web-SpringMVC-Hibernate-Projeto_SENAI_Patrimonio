@@ -4,19 +4,25 @@
 <c:url value="/assets/images" var="images" />
 <c:url value="/assets/css" var="css" />
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Home - SENAI PATRIMONIO</title>
-<link rel="stylesheet" href="${css}/HomeEstilo.css">
-<c:import url="templates/head.jsp" />
-</head>
-<c:import url="templates/header.jsp" />
-<body>
-<h1> Bem Vindo, ${usuarioLogado.nome} ${usuarioLogado.sobrenome}</h1>
+        <!DOCTYPE html>
+        <html>
 
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+                <link rel="stylesheet" href="${css}/HomeEstilo.css">
+                <c:import url="templates/head.jsp" />
+                <title>Home - SENAI PATRIMONIO</title>
+            </head>
 
+            <body>
 
-</body>
-</html>
+                <c:import url="templates/nav.jsp" />
+
+                <div class="conteudoDaPag">
+                    <h1> Bem Vindo, ${usuarioLogado.nome} ${usuarioLogado.sobrenome}</h1>
+
+                </div>
+
+            </body>
+
+        </html>
