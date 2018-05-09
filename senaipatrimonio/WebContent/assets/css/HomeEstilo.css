@@ -1,5 +1,32 @@
+
+@keyframes fx-fade-intro{
+    from{
+        opacity: 1;
+    }
+    
+    to{
+        opacity: 0;
+        width: 0px;
+    }
+}
+
 @charset "ISO-8859-1";
+
 
 h1{
 	align-self: center;	
+}
+
+
+.contentWellcome{
+    animation: fx-fade-intro 1s forwards;
+    animation-delay: 2s;
+    background-image: linear-gradient(to right, #890909 -90%, #662626 90%);
+}
+
+.dialog{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 99999;
 }

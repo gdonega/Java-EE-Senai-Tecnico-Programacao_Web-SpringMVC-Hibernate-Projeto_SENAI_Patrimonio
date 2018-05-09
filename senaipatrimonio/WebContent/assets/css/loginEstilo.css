@@ -29,6 +29,7 @@
 		flex-grow: 1;
 		align-self: initial;
 		display: flex;
+		flex-direction: column;
 	}
 
 	/*formulario DIV*/

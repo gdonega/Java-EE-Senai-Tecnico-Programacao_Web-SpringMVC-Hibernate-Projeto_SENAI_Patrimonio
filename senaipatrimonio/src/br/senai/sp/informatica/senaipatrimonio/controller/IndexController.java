@@ -9,7 +9,7 @@ import br.senai.sp.informatica.senaipatrimonio.model.Usuario;
 import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
 
 @Controller
-public class LoginController {
+public class IndexController {
 
 	@Autowired
 	private SessionHelper session;

@@ -38,17 +38,31 @@ nav *{
 
 .bottomNav{
     flex-grow: 1;
+    flex-direction: column-reverse;
+}
+
+.bottomNav li {
+	align-items: center;
+	margin: 5px;
+}
+
+#userButton{
+	order:2;
+}
+
+#logoutButton{
+	order:1;
 }
 
 .imgUserFake{
-    width: 80px !important;
+    width: 50px !important;
 }
 
 nav ul li{
     list-style: none; 
 }
 nav ul li img{
-    width: 40px;
+    width: 25px;
 }
 
 .conteudoDaPag{

@@ -19,8 +19,12 @@
                 <c:import url="templates/nav.jsp" />
 
                 <div class="conteudoDaPag">
-                    <h1> Bem Vindo, ${usuarioLogado.nome} ${usuarioLogado.sobrenome}</h1>
+                    
+                </div>
 
+
+                <div class="contentWellcome dialog" style="display: flex;align-content: center;justify-content: center;">
+                    <h1> Bem Vindo, ${usuarioLogado.nome} ${usuarioLogado.sobrenome}</h1>
                 </div>
 
             </body>

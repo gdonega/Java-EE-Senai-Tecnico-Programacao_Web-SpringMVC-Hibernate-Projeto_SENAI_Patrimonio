@@ -44,6 +44,12 @@ public class UsuarioController {
 		brUsuario.addError(new FieldError("usuario","senha", "Email ou/e senha inválidos!"));
 		return "usuario/login";
 	}
+	
+	@GetMapping({ "/usuario/logout" })
+	public String executarLogout() {
+		session.terminarSessao();
+		return "redirect:/";
+	}
 
 	
 	

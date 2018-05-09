@@ -19,5 +19,10 @@ public class SessionHelper {
 	public void setUsuarioLogado(Usuario usuario) {
 		session.setAttribute(Constantes.USUARIO_DA_SESSAO, usuario);
 	}
+	
+	public void terminarSessao() {
+		session.setAttribute(Constantes.USUARIO_DA_SESSAO, null);
+		session.invalidate();
+	}
 
 }

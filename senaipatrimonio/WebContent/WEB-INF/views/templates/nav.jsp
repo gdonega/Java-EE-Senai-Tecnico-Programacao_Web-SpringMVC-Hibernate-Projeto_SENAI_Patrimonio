@@ -1,36 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-        <c:url value="/assets/images" var="images" />
-        <div class="headerNav">
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:url value="/assets/images" var="images" />
 
-            <nav>
-                <ul class="topNav">
-                    <li>
-                        <a href="https://google.com">
-                            <img class="imgUserFake" src="${images }/logged_user_icon.svg">
-                        </a>
-                    </li>
-                </ul>
+<%-- urls das imagens --%>
+<c:url value="/app/home" var="homePage" />
+<c:url value="/usuario/logout" var="logout"/>
 
-                <ul class="centerNav">
-                    <li>
-                        <img src="${images }/property_icon.svg">
-                    </li>
-                    <li>
-                        <img src="${images }/user_icon.svg">
-                    </li>
-                    <li>
-                        <img src="${images }/categoria_icon.svg">
-                    </li>
-                    <li>
-                        <img src="${images }/enviroment_icon.svg">
-                    </li>
-                </ul>
+<div class="headerNav">
 
-                <ul class="bottomNav">
+	<nav>
+		<ul class="topNav">
+			<li><a href="${homePage }"><img class="imgUserFake" src="${images }/home_icon.svg"></a></li>
+		</ul>
 
-                </ul>
-            </nav>
+		<ul class="centerNav">
+			<li><img src="${images }/property_icon.svg"></li>
+			<li><img src="${images }/user_icon.svg"></li>
+			<li><img src="${images }/categoria_icon.svg"></li>
+			<li><img src="${images }/enviroment_icon.svg"></li>
+		</ul>
 
-        </div>
+		<ul class="bottomNav">
+			<li id="logoutButton"><a href="${logout }"><img src="${images }/logout.svg"></a></li>
+
+			<li id="userButton"><img src="${images }/logged_user_icon.svg">
+			</li>
+
+
+		</ul>
+	</nav>
+
+</div>
