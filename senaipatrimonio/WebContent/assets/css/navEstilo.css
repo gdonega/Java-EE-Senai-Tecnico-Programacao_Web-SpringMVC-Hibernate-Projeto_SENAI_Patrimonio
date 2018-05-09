@@ -8,6 +8,10 @@ body{
 .headerNav{
     background-color: #5D0000;
     margin-right: 10px;
+    height: 100vh;
+    flex-grow: 0.4;
+    display: flex;
+    justify-content: center;
 }
 
 nav{
@@ -18,6 +22,8 @@ nav{
     flex-direction: column;
     height: 100vh;
     justify-content: space-between;
+    position: fixed;
+    background-color: #5D0000;
 }
 nav *{
     padding: 0px;
@@ -27,6 +33,7 @@ nav *{
 
 .topNav{
     flex-grow: 1;
+    align-items: center;
 }
 
 .centerNav{
@@ -66,5 +73,6 @@ nav ul li img{
 }
 
 .conteudoDaPag{
-    flex-grow: 2;
+    flex-grow: 1;
+
 }
