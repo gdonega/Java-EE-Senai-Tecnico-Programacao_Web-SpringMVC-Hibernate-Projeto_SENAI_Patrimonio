@@ -90,6 +90,23 @@ nav ul li img{
         right: 0;
         bottom: 0;
     }
+    nav ul li img {
+    	width: 8vw;
+	}
+	.centerNav{
+		flex-direction: row !important;
+		margin-right: 2px;
+	}
+	.centerNav *{
+		justify-content: center;
+		margin-right: 2px;
+	}
+	.bottomNav{
+		flex-direction: row !important;
+		margin-right: 2px;
+		justify-content: center;
+	}
+
 
 }
 
@@ -116,10 +133,8 @@ nav ul li img{
 
 
 @media screen and (max-width: 480px) {
-	.centerNav{
-		flex-direction: row !important;
+	nav ul li img {
+    	width: 20vw;
 	}
-	.centerNav *{
-		margin-right: 2px;
-	}
+	
 }

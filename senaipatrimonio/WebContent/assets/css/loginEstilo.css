@@ -49,7 +49,7 @@
 		border-top: none;
 		border-left: none;
 		border-right: none;
-		background-color: transparent;
+		background-color: #5D0000;
 		border-color: white;
 		color: white;
 	}
@@ -164,7 +164,7 @@
 		width: 100vw;
 	}
 	#logoLateral{
-		width: 50vw;
+		width: 200px;
 	}
 	#usuario button{
 		width: 80vw;

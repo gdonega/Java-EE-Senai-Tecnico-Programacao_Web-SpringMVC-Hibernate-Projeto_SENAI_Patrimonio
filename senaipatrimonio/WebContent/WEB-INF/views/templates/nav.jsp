@@ -54,5 +54,9 @@
 			</div>
 
 			<div class="btnMobile">
-				<button id= "abrirNav">ásdfasdfa</button>
+				
+				<a id= "abrirNav">
+					<img class="imgUserFake" src="${images }/lista_icon.svg">
+				</a>
+				
 			</div>
