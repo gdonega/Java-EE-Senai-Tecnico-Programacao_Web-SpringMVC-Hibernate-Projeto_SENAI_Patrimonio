@@ -6,7 +6,8 @@
 
 		<%-- urls das imagens --%>
 			<c:url value="/app/home" var="homePage" />
-			<c:url value="/usuario/logout" var="logout" />
+			<c:url value="/app/usuario/logout" var="logout" />
+			<c:url value="/app/usuario/info" var="usuarioInfo" />
 
 			<script src="${js}/nav.js"></script>
 
@@ -31,9 +32,11 @@
 						<li>
 							<img src="${images }/enviroment_icon.svg">
 						</li>
-						<li>
-							<img src="${images }/user_icon.svg">
-						</li>
+						<c:if test="${usuarioLogado.admConfirm }">
+							<li>
+								<img src="${images }/user_icon.svg">
+							</li>
+						</c:if>
 					</ul>
 
 					<ul class="bottomNav">
@@ -45,7 +48,9 @@
 						</li>
 
 						<li id="userButton">
-							<img src="${images }/logged_user_icon.svg">
+							<a href="${usuarioInfo }">
+								<img src="${images }/logged_user_icon.svg">
+							</a>
 						</li>
 
 

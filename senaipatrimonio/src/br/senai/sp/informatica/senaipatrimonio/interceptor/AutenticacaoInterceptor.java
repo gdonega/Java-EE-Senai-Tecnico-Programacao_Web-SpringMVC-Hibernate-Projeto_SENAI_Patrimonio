@@ -29,7 +29,7 @@ public class AutenticacaoInterceptor extends HandlerInterceptorAdapter{
 			response.sendRedirect(request.getContextPath() + "/");
 			return false;
 		}
-		if(necessitaSerAdm && !usuarioLogado.isAdm()) {
+		if(necessitaSerAdm && !usuarioLogado.getAdmConfirm()) {
 			response.sendRedirect(request.getContextPath() + "/");
 			return false;
 		}

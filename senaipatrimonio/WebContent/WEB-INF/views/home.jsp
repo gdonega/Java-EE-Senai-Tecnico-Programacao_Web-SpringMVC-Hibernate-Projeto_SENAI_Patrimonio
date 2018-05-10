@@ -40,10 +40,13 @@
                             <h1>Categorias</h1>
                         </div>
 
-                        <div>
-                            <img src="${images }/user_icon.svg">
-                            <h1>Usuarios</h1>
-                        </div>
+
+						<c:if test="${usuarioLogado.admConfirm }">
+	                        <div>
+	                            <img src="${images }/user_icon.svg">
+	                            <h1>Usuarios</h1>
+	                        </div>
+                        </c:if>
 
                     </li>
                 </ul>

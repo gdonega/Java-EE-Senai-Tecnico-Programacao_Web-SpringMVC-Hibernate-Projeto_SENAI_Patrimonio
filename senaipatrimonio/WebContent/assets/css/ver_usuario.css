@@ -1,0 +1,41 @@
+@keyframes fx-grow{
+	from{
+		transform : scale(0);
+	}
+	
+	to{
+		transform : scale(1);
+	}
+}
+
+body{
+	margin: 0px;
+}
+
+.dialog{
+	background-color: rgba(30, 30, 30, 0.8);
+	color: white;
+	display: none;
+		
+	z-index: 99999999999;
+}
+
+.dialog.show{
+	display: block;
+	animation : fx-grow .2s;
+}
+
+.conteudoDaPag{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#mudarSenha{
+	flex-grow: 2;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: center;
+	align-items: center;
+}

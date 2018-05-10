@@ -45,12 +45,17 @@ public class UsuarioController {
 		return "usuario/login";
 	}
 	
-	@GetMapping({ "/usuario/logout" })
+	@GetMapping({ "/app/usuario/logout" })
 	public String executarLogout() {
 		session.terminarSessao();
 		return "redirect:/";
 	}
 
+	@GetMapping({ "/app/usuario/info" })
+	public String usuarioInfo() {
+		
+		return "usuario/ver_usuario";
+	}
 	
 	
 	

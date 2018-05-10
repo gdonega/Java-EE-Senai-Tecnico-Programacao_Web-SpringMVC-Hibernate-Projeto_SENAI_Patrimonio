@@ -93,7 +93,7 @@ public class Usuario {
 		this.senha = DigestUtils.md5DigestAsHex(this.senha.getBytes());
 	}
 
-	public Boolean isAdm() {
+	public Boolean getAdmConfirm() {
 		if(this.tipo.equals(TipoUsuario.ADMIN) ) {
 			return true;
 		}else {

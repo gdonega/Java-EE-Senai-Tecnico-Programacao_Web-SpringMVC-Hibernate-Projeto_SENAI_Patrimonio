@@ -12,13 +12,27 @@ body{
 
 h1{
 	text-align: center;
-	color: white;
+	
 }
 
 @media screen and (min-width: 480px) {
 	h1{
 		font-size: 56px !important;
 	}
+}
+
+button{
+    
+    border-color: white;
+    color: white;
+
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: transparent;
+    color: #5D0000;
+
+
 }
 
 
