@@ -38,7 +38,8 @@
 
 					<ul class="bottomNav">
 						<li id="logoutButton">
-							<a href="${logout }">
+							<!-- <a class="btnClickLogout">-->
+							<a class="btnClickLogout" href="${logout }"> 
 								<img src="${images }/logout.svg">
 							</a>
 						</li>

@@ -6,4 +6,12 @@ window.addEventListener('load', () => {
                 e.classList.remove("d-none");
             });
         }
-    });
+
+        document.querySelectorAll(".btnClickLogout").forEach((e) => {
+        	e.onclick = () => {
+        		localStorage.removeItem("jaViu");
+            };
+
+        });
+        
+});
