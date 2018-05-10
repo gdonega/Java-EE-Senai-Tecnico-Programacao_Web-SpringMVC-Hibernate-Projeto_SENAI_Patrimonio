@@ -51,7 +51,7 @@
             </div>
 
 
-            <div class="contentWellcome dialog">
+            <div class="contentWellcome dialog d-none">
                 <h1> Bem Vindo, ${usuarioLogado.nome} ${usuarioLogado.sobrenome}</h1>
             </div>
 

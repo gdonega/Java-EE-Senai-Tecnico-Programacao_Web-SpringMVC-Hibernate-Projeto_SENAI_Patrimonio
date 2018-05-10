@@ -2,10 +2,13 @@
 	pageEncoding="ISO-8859-1"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		<c:url value="/assets/images" var="images" />
+		<c:url value="/assets/js" var="js" />
 
 		<%-- urls das imagens --%>
 			<c:url value="/app/home" var="homePage" />
 			<c:url value="/usuario/logout" var="logout" />
+
+			<script src="${js}/nav.js"></script>
 
 			<div class="headerNav">
 
@@ -48,4 +51,8 @@
 					</ul>
 				</nav>
 
+			</div>
+
+			<div class="btnMobile">
+				<button id= "abrirNav">ásdfasdfa</button>
 			</div>

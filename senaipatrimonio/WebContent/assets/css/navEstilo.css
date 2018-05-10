@@ -1,17 +1,22 @@
 @charset "ISO-8859-1";
+/*Nav para pc*/
+@media screen and (min-width: 690px) {
+    body{
+        display: flex; 
+        flex-direction: row;
+        margin-right: 50px !important;
+    }
 
-body{
-    display: flex; 
-    flex-direction: row;
+    .btnMobile{
+        display: none;
+    }
 }
-
 .headerNav{
-    background-color: #5D0000;
-    margin-right: 10px;
     height: 100vh;
-    flex-grow: 0.4;
+    justify-content: space-between;
+    min-width: 70px;
+    margin-right: 20px;
     display: flex;
-    justify-content: center;
 }
 
 nav{
@@ -49,16 +54,16 @@ nav *{
 }
 
 .bottomNav li {
-	align-items: center;
-	margin: 5px;
+    align-items: center;
+    margin: 5px;
 }
 
 #userButton{
-	order:2;
+    order:2;
 }
 
 #logoutButton{
-	order:1;
+    order:1;
 }
 
 .imgUserFake{
@@ -75,4 +80,46 @@ nav ul li img{
 .conteudoDaPag{
     flex-grow: 1;
 
+}
+
+
+@media screen and (max-width: 690px) {
+    
+    .btnMobile{
+        position: fixed !important;
+        right: 0;
+        bottom: 0;
+    }
+
+}
+
+/*Funções para o mobile <---> pc*/
+.displayNone{
+    display: none;
+}
+
+.positionFixed{
+    position: fixed;
+}
+
+.notPositionFixed{
+    position: unset;
+}
+
+.showOnMobile{
+    width: 100vw;
+    top: 0;
+}
+
+
+
+
+
+@media screen and (max-width: 480px) {
+	.centerNav{
+		flex-direction: row !important;
+	}
+	.centerNav *{
+		margin-right: 2px;
+	}
 }

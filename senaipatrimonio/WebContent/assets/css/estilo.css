@@ -12,8 +12,13 @@ body{
 
 h1{
 	text-align: center;
-	font-size: 56px !important;
 	color: white;
+}
+
+@media screen and (min-width: 480px) {
+	h1{
+		font-size: 56px !important;
+	}
 }
 
 
