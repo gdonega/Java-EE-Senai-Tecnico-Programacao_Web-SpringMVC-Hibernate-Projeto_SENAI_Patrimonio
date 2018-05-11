@@ -52,8 +52,8 @@ public class UsuarioController {
 	}
 
 	@GetMapping({ "/app/usuario/info" })
-	public String usuarioInfo() {
-		
+	public String usuarioInfo(Model model) {
+		model.addAttribute("usuario",new Usuario());
 		return "usuario/ver_usuario";
 	}
 	
