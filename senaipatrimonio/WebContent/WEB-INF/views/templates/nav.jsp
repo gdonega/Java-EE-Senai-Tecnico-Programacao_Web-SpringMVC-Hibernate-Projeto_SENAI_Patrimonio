@@ -8,6 +8,7 @@
 			<c:url value="/app/home" var="homePage" />
 			<c:url value="/app/usuario/logout" var="logout" />
 			<c:url value="/app/usuario/info" var="usuarioInfo" />
+			<c:url value="/app/adm/usuario/lista" var="usuarioLink" />
 
 			<script src="${js}/nav.js"></script>
 
@@ -34,7 +35,9 @@
 						</li>
 						<c:if test="${usuarioLogado.admConfirm }">
 							<li>
-								<img src="${images }/user_icon.svg">
+								<a href="${usuarioLink }">
+									<img src="${images }/user_icon.svg">
+								</a>
 							</li>
 						</c:if>
 					</ul>

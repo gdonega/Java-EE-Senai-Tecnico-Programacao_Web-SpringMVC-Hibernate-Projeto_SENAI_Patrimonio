@@ -61,6 +61,18 @@ label{
 }
 
 
+th{
+	padding-right: 15px;
+	padding-left: 15px;
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	
+}
+
+td{
+	padding-right: 15px;
+	padding-left: 15px;
+}
 
 
 

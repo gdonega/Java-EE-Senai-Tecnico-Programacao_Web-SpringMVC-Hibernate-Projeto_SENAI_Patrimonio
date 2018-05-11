@@ -13,6 +13,17 @@ import org.springframework.util.DigestUtils;
 @Entity
 public class Usuario {
 
+	
+	
+	public Usuario(Long id) {
+		super();
+		this.id = id;
+	}
+
+	public Usuario() {
+		super();
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usu")

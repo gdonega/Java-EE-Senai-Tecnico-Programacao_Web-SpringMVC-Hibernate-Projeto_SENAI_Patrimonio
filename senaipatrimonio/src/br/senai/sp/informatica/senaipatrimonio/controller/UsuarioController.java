@@ -93,11 +93,30 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("app/adm/usuario/lista")
-	public String abrirLista() {
+	public String abrirLista(Model model) {
+		model.addAttribute("usuarios", usuarioDAO.buscarTodos());
 		return "usuario/lista";
 	}
 	
+	@GetMapping("app/adm/usuario/excluir")
+	public String excluirUsuario(@RequestParam(required=true) Long id) {
+		usuarioDAO.deletar(new Usuario(id));
+		return "redirect:/app/adm/usuario/lista";
+	}
 	
+	
+	@GetMapping("app/adm/usuario/form")
+	public String abrirFormUsuario(@RequestParam(required=false) Long id, Model model) {
+		
+		Usuario usuario;
+		if(id != null) {
+			usuario = usuarioDAO.buscarPeloId(id);
+		}else {
+			usuario = new Usuario();
+		}
+		model.addAttribute(usuario);
+		return"usuario/form";
+	}
 
 }
 

@@ -5,6 +5,8 @@
         <c:url value="/assets/css" var="css" />
         <c:url value="/assets/js" var="js" />
 
+<%--Url do site --%>
+			<c:url value="/app/adm/usuario/lista" var="usuarioLink" />
         <!DOCTYPE html>
         <html>
 
@@ -42,10 +44,12 @@
 
 
 						<c:if test="${usuarioLogado.admConfirm }">
-	                        <div>
-	                            <img src="${images }/user_icon.svg">
-	                            <h1>Usuarios</h1>
-	                        </div>
+							<a href="${usuarioLink }">
+		                        <div>
+		                            <img src="${images }/user_icon.svg">
+		                            <h1>Usuarios</h1>
+		                        </div>
+	                        </a>
                         </c:if>
 
                     </li>
