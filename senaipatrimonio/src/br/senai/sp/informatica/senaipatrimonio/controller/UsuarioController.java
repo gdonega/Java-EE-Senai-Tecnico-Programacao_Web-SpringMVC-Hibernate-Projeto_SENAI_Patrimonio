@@ -92,6 +92,10 @@ public class UsuarioController {
 		return "redirect:/app/home";
 	}
 	
+	@GetMapping("app/adm/usuario/lista")
+	public String abrirLista() {
+		return "usuario/lista";
+	}
 	
 	
 
