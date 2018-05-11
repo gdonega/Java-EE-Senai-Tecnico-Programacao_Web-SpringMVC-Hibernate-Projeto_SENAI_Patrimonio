@@ -5,23 +5,23 @@
         <c:url value="/assets/images" var="images" />
         <c:url value="/assets/css" var="css" />
         <c:url value="/assets/js" var="js" />
-
+		<c:url value="/app/usuario/senha/alterar" var="alterarSenha"/>
 
         <!DOCTYPE html>
         <html>
 
         <head>
+            
             <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
             <c:import url="../templates/head.jsp" />
             <link rel="stylesheet" href="${css}/ver_usuario.css">
             <title>Usuario - SENAI PATRIMONIO</title>
-            <script src="${js}/ver_usuario.js"></script>
         </head>
 
         <body>
             <c:import url="../templates/nav.jsp" />
             <div class="conteudoDaPag">
-
+            <script src="${js}/ver_usuario.js"></script>
                 <div id="titulo">
                     <h1>Suas informações</h1>
                 </div>
@@ -41,19 +41,23 @@
 	                    	
 	                    	<h2>Complete os espaços abaixo para alterar a sua senha:</h2>
 	                    	    
-	                        <form:form modelAttribute="usuario" action="${logar}" method="post">
+	                        <form:form modelAttribute="usuario" action="${alterarSenha}" method="post">
+	                            
+	                            <label for="inputSenhaAntiga" >
+	                                    <input type="password" required="required" placeholder="Senha antiga" id="inputSenhaAntiga" name="senhaAntiga"/>
+	                            </label>
+	                            
+	                            
 	                            <label>
-	                                <form:password placeholder="Senha antiga" required="true" path="senha" maxlength="20" />
-	                                <form:errors path="senha"></form:errors>
+	                                <form:password placeholder="Nova senha" required="true" path="senha" maxlength="20" />
 	                            </label>
-	                            
-	                            <label for="inputNovaSenha" >
-	                                    <input type="password" required="required" placeholder="Nova senha" id="inputNovaSenha" name="novaSenha"/>
-	                            </label>
-	                            
+	                               
+	                               
 	                            <label for="inputConfirmaNovaSenha">
 	                                    <input type="password" required="required" placeholder="Confirme a sua nova senha" id="inputConfirmaNovaSenha" name="confirmacaoNovaSenha"/>
 	                            </label>
+	                            
+	                            <form:errors class="spanErroSolto" path="senha"></form:errors>
 	                            <button type="submit" id="btnAlterarSenha">Salvar</button>
 	                        </form:form>
 	

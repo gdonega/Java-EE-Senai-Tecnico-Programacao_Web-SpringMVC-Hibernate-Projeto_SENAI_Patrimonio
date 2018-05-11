@@ -1,7 +1,15 @@
 
 window.addEventListener('load', () => {
 
+    document.querySelectorAll("a").forEach((e) => {
+        console.log("clickavel")
+        e.addEventListener('click', () => {
+            localStorage.removeItem("vendoDivSenha");
+            console.log("clickado")
 
+        });
+
+    });
 
     document.querySelectorAll("*[data-trigger-dialog]").forEach((e) => {
         let vendoDivSenha = localStorage.getItem("vendoDivSenha");
@@ -24,6 +32,7 @@ window.addEventListener('load', () => {
             }
         })
     });
+
 
 });
 

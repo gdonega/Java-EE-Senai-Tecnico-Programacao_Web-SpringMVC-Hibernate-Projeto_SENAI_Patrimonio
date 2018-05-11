@@ -5,6 +5,7 @@ var isPressed = false;
 window.addEventListener('load', () => {
     windowSize();
     setButtonClick();
+    aoAbrirUserPage();
 });
 
 //quando a pagina é redimencionada
@@ -74,4 +75,13 @@ function notPressedButton() {
     });
 
     isPressed = false;
+}
+
+
+
+
+function aoAbrirUserPage(){
+    document.getElementById("userButton").onclick = () => {
+        localStorage.removeItem("vendoDivSenha");
+    };
 }

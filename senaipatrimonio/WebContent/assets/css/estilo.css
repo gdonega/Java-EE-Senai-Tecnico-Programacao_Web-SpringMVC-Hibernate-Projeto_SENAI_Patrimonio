@@ -51,6 +51,13 @@ form{
 
 label{
 	margin: 5px;
+	color: red;
+	display: flex;
+	flex-direction: column;
+}
+
+.spanErroSolto{
+	color: red;
 }
 
 
