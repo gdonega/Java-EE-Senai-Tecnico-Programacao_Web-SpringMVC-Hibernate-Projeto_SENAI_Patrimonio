@@ -34,6 +34,7 @@ public class Usuario {
 	@Size(min = 1, max = 20)
 	private String nome;
 
+
 	@Column(name = "sobrenome", length = 40, nullable = false, unique = false)
 	@NotNull
 	@Size(min = 1, max = 40)

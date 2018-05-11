@@ -41,11 +41,21 @@ public class CriarAdmJob implements ApplicationListener<ContextRefreshedEvent> {
 		comum.hashearSenha();
 		comum.setSobrenome("do Sistema");
 		comum.setTipo(TipoUsuario.COMUM);
+		
+		Usuario admin2 = new Usuario();
+
+		admin2.setEmail("admin23@email.com");
+		admin2.setNome("ADM23");
+		admin2.setSenha("admin132");
+		admin2.hashearSenha();
+		admin2.setSobrenome("Legal");
+		admin2.setTipo(TipoUsuario.ADMIN);
 
 		
 		if (usuarioDAO.buscarPorEmail(admin.getEmail()) == null) {
 			usuarioDAO.persistir(admin);
 			usuarioDAO.persistir(comum);
+			usuarioDAO.persistir(admin2);
 		} else {
 			System.out.println("[JOB]: UsuarioADM já existe");
 		}

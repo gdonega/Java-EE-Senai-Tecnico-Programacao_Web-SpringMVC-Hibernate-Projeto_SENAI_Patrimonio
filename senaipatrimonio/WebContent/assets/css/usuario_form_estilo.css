@@ -1,0 +1,28 @@
+.conteudoDaPag{
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.formUser {
+    display: block !important;
+}
+.formUser label{
+    flex-direction: row !important;
+    align-items: center !important;
+    color: black;
+}
+
+.formUser label input, select{
+    margin: 15px;
+}
+
+.divForForm{
+    display: flex;
+    justify-content: center;
+}
+
+.flexDivCenter{
+    display: flex;
+    justify-content: center;
+}

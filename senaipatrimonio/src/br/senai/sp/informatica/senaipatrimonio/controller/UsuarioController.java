@@ -1,5 +1,8 @@
 package br.senai.sp.informatica.senaipatrimonio.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.UsuarioDAO;
+import br.senai.sp.informatica.senaipatrimonio.model.TipoUsuario;
 import br.senai.sp.informatica.senaipatrimonio.model.Usuario;
 import br.senai.sp.informatica.senaipatrimonio.utils.OutrosMetodos;
 import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
@@ -114,8 +118,24 @@ public class UsuarioController {
 		}else {
 			usuario = new Usuario();
 		}
-		model.addAttribute(usuario);
+		model.addAttribute("usuario",usuario);
+		model.addAttribute("tipos", new ArrayList<TipoUsuario>(Arrays.asList(TipoUsuario.values())));
 		return"usuario/form";
+	}
+	
+	@PostMapping("app/adm/usuario/salvar")
+	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, Model model) {
+		
+		if(result.hasFieldErrors("nome")||result.hasFieldErrors("sobrenome")||result.hasFieldErrors("tipo")) {
+			model.addAttribute(usuario);
+			return"usuario/form";	
+		}
+		
+		if(usuario.getId() == null) {
+			
+		}
+		
+		return "redirect:/app/adm/usuario/lista";
 	}
 
 }

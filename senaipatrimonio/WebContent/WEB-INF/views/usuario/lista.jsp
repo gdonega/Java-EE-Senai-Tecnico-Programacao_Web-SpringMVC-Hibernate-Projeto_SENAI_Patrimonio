@@ -11,18 +11,20 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<c:import url="../templates/head.jsp" />
-<link rel="stylesheet" href="${css}/usuario_lista_estilo.css">
-<title>Lista Usuarios - SENAI PATRIMONIO</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<c:import url="../templates/head.jsp" />
+	<link rel="stylesheet" href="${css}/usuario_lista_estilo.css">
+	<title>Lista Usuarios - SENAI PATRIMONIO</title>
 </head>
+
 <body>
 	<c:import url="../templates/nav.jsp" />
 	<div class="conteudoDaPag">
-	
+
 		<h1>Lista de Usuarios</h1>
-		
+
 		<table>
 
 			<thead>
@@ -45,18 +47,23 @@
 							<td>${u.sobrenome }</td>
 							<td>${u.email }</td>
 							<td>${u.tipo }</td>
-							<td><a href="${formUsuario }?id=${u.id}">Editar</a></td>
-							<td><a href="${excluirUsuario }?id=${u.id}">Excluir</a></td>
+							<td>
+								<a href="${formUsuario }?id=${u.id}">Editar</a>
+							</td>
+							<td>
+								<a href="${excluirUsuario }?id=${u.id}">Excluir</a>
+							</td>
 						</tr>
-						
+
 					</c:if>
 				</c:forEach>
 				<td colspan="7" align="center">
-					<a href="${formUsuario }">Add +</a> 
+					<a href="${formUsuario }">Add +</a>
 				</td>
 			</tbody>
 
 		</table>
 	</div>
 </body>
+
 </html>
