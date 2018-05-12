@@ -3,6 +3,7 @@ package br.senai.sp.informatica.senaipatrimonio.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.UsuarioDAO;
 import br.senai.sp.informatica.senaipatrimonio.model.TipoUsuario;
 import br.senai.sp.informatica.senaipatrimonio.model.Usuario;
+import br.senai.sp.informatica.senaipatrimonio.utils.Constantes;
+import br.senai.sp.informatica.senaipatrimonio.utils.EmailUtils;
 import br.senai.sp.informatica.senaipatrimonio.utils.OutrosMetodos;
 import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
 
@@ -48,7 +51,7 @@ public class UsuarioController {
 		}
 
 		model.addAttribute("usuario", usuario);
-		brUsuario.addError(new FieldError("usuario", "senha", "Email ou/e senha inv·lidos!"));
+		brUsuario.addError(new FieldError("usuario", "senha", "Email ou/e senha inv√°lidos!"));
 		return "usuario/login";
 	}
 
@@ -75,12 +78,12 @@ public class UsuarioController {
 				OutrosMetodos.hashString(usuario.getSenhaAntiga()));
 
 		if (usuarioAuten == null) {
-			brUsuario.addError(new FieldError("usuario", "senhaAntiga", "Senha atual inv·lida!"));
+			brUsuario.addError(new FieldError("usuario", "senhaAntiga", "Senha atual inv√°lida!"));
 			return "usuario/ver_usuario";
 		}
 
 		if (!usuario.getSenha().equals(usuario.getSenhaNovaConfirmacao())) {
-			brUsuario.addError(new FieldError("usuario", "senhaNovaConfirmacao", "As senhas n„o s„o iguais!"));
+			brUsuario.addError(new FieldError("usuario", "senhaNovaConfirmacao", "As senhas n√£o s√£o iguais!"));
 			return "usuario/ver_usuario";
 		}
 
@@ -138,7 +141,7 @@ public class UsuarioController {
 		Usuario usuarioProcurado = usuarioDAO.buscarPorEmail(usuario.getEmail());
 		if(usuarioProcurado!=null) {
 			if(usuarioProcurado.getId() != usuario.getId()) {
-				result.addError(new FieldError("usuario", "email", "Email inv·lido!"));
+				result.addError(new FieldError("usuario", "email", "Email inv√°lido!"));
 				model.addAttribute("tipos", new ArrayList<TipoUsuario>(Arrays.asList(TipoUsuario.values())));
 				return "usuario/form";
 			}
@@ -149,14 +152,12 @@ public class UsuarioController {
 
 			usuario.setSenha(senha);
 
-			System.out.println(senha);
-
-			/*
-			 * 
-			 * Email com senha
-			 * 
-			 */
-
+			try {
+				EmailUtils.enviarMensagem(Constantes.TITULO_EMAIL, OutrosMetodos.gerarCorpoDoEmail(usuario.getNome(), senha), usuario.getEmail());
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			
 			usuario.hashearSenha();
 
 			usuarioDAO.persistir(usuario);
