@@ -57,6 +57,7 @@
 						</c:forEach>
 					</form:select>
 				</label>
+					<form:errors path="tipo" class="spanErroSolto"></form:errors>
 				<div class="flexDivCenter">
 					<button class="btn" type="submit">Salvar</button>
 				</div>

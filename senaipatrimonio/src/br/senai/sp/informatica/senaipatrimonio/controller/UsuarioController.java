@@ -166,13 +166,15 @@ public class UsuarioController {
 			try {
 				EmailUtils.enviarMensagem(Constantes.TITULO_EMAIL,
 						OutrosMetodos.gerarCorpoDoEmail(usuario.getNome(), senha), usuario.getEmail());
+				usuario.hashearSenha();
+				usuarioDAO.persistir(usuario);
 			} catch (MessagingException e) {
 				e.printStackTrace();
+				model.addAttribute("tipos", new ArrayList<TipoUsuario>(Arrays.asList(TipoUsuario.values())));
+				result.addError(new FieldError("usuario", "tipo", "Erro ao salvar o usuario"));
+				return "usuario/form";
 			}
 
-			usuario.hashearSenha();
-
-			usuarioDAO.persistir(usuario);
 		} else {
 
 			Usuario usuarioAtualizar = usuarioDAO.buscarPeloId(usuario.getId());
