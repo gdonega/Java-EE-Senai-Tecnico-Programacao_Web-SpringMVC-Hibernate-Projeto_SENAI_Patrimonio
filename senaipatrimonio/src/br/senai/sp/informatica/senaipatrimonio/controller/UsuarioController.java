@@ -2,9 +2,9 @@ package br.senai.sp.informatica.senaipatrimonio.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -99,8 +99,20 @@ public class UsuarioController {
 	}
 
 	@GetMapping("app/adm/usuario/lista")
-	public String abrirLista(Model model) {
-		model.addAttribute("usuarios", usuarioDAO.buscarTodos());
+	public String abrirLista(Model model, @RequestParam(name = "filtro", required = false) TipoUsuario tipo) {
+
+		List<Usuario> usuarios;
+
+		if (tipo == null) {
+			usuarios = usuarioDAO.buscarTodos();
+		} else {
+			usuarios = usuarioDAO.buscarPorTipo(tipo);
+		}
+
+		model.addAttribute("usuarios", usuarios);
+
+		model.addAttribute("tiposBusca", TipoUsuario.values());
+
 		return "usuario/lista";
 	}
 
@@ -136,11 +148,10 @@ public class UsuarioController {
 			model.addAttribute(usuario);
 			return "usuario/form";
 		}
-		
-		
+
 		Usuario usuarioProcurado = usuarioDAO.buscarPorEmail(usuario.getEmail());
-		if(usuarioProcurado!=null) {
-			if(usuarioProcurado.getId() != usuario.getId()) {
+		if (usuarioProcurado != null) {
+			if (usuarioProcurado.getId() != usuario.getId()) {
 				result.addError(new FieldError("usuario", "email", "Email inválido!"));
 				model.addAttribute("tipos", new ArrayList<TipoUsuario>(Arrays.asList(TipoUsuario.values())));
 				return "usuario/form";
@@ -153,20 +164,25 @@ public class UsuarioController {
 			usuario.setSenha(senha);
 
 			try {
-				EmailUtils.enviarMensagem(Constantes.TITULO_EMAIL, OutrosMetodos.gerarCorpoDoEmail(usuario.getNome(), senha), usuario.getEmail());
+				EmailUtils.enviarMensagem(Constantes.TITULO_EMAIL,
+						OutrosMetodos.gerarCorpoDoEmail(usuario.getNome(), senha), usuario.getEmail());
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
-			
+
 			usuario.hashearSenha();
 
 			usuarioDAO.persistir(usuario);
-		}else {
-			
+		} else {
+
 			Usuario usuarioAtualizar = usuarioDAO.buscarPeloId(usuario.getId());
-			
-			BeanUtils.copyProperties(usuario, usuarioAtualizar,"id","senha");
-			
+
+			BeanUtils.copyProperties(usuario, usuarioAtualizar, "id", "senha");
+
+			if (session.getUsuarioLogado().getId() == usuarioAtualizar.getId()) {
+				session.setUsuarioLogado(usuarioAtualizar);
+			}
+
 			usuarioDAO.alterar(usuarioAtualizar);
 		}
 

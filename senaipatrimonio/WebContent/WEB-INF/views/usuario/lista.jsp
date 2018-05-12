@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url value="/assets/images" var="images" />
 <c:url value="/assets/css" var="css" />
 <c:url value="/assets/js" var="js" />
 <c:url value="/app/adm/usuario/form" var="formUsuario" />
 <c:url value="/app/adm/usuario/excluir" var="excluirUsuario" />
+<c:url value="/app/adm/usuario/lista" var="listaUsuario" />
 
 
 <!DOCTYPE html>
@@ -24,6 +25,17 @@
 	<div class="conteudoDaPag">
 
 		<h1>Lista de Usuarios</h1>
+
+		<form  action="${listaUsuario}" method="get" title="Selecione um tipo de filtro">				
+			<form:select path="tiposBusca" name="filtro" >
+				 <form:option value=""> --Selecione um tipo de filtragem--</form:option>
+				 <form:option  value=""> Todos os Usuarios</form:option>
+				 <form:options  items="${tiposBusca}"></form:options>
+			</form:select>
+
+			
+			<button type="submit">filtrar</button>		
+		</form>
 
 		<table>
 

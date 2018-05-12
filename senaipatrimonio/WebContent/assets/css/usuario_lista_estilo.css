@@ -5,3 +5,7 @@
 	padding: 15px;
 }
 
+form{
+	flex-direction: row;
+	margin-bottom:5vh;
+}

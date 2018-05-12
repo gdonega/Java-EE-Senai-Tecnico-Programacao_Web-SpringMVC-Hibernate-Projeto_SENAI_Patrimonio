@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.UsuarioDAO;
+import br.senai.sp.informatica.senaipatrimonio.model.TipoUsuario;
 import br.senai.sp.informatica.senaipatrimonio.model.Usuario;
 
 @Primary
@@ -88,4 +89,24 @@ public class UsuarioJPA implements UsuarioDAO {
 		return null;
 	}
 
+	@Override
+	public List<Usuario> buscarPorTipo(TipoUsuario tipo) {
+		String hql = "FROM Usuario u WHERE u.tipo = :tipo";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameter("tipo", tipo);
+
+		return query.list();
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
