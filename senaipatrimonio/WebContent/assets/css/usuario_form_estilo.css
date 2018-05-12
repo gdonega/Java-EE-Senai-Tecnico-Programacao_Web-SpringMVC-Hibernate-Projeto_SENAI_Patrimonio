@@ -5,12 +5,20 @@
 }
 
 .formUser {
-    display: block !important;
+    align-items: flex-start;
+	flex-direction: column;
 }
 .formUser label{
     flex-direction: row !important;
     align-items: center !important;
     color: black;
+}
+.formUser span{
+ 	align-self: center;
+}
+
+.formUser div button{
+ 	align-self: center;
 }
 
 .formUser label input, select{
@@ -25,4 +33,5 @@
 .flexDivCenter{
     display: flex;
     justify-content: center;
+    align-self: center;
 }

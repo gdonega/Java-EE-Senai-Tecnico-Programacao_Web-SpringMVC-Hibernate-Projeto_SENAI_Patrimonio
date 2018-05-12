@@ -43,21 +43,27 @@
 	                    	    
 	                        <form:form modelAttribute="usuario" action="${alterarSenha}" method="post">
 	                            
-	                            <label for="inputSenhaAntiga" >
-	                                    <input type="password" required="required" placeholder="Senha antiga" id="inputSenhaAntiga" name="senhaAntiga"/>
-	                            </label>
+	                            
 	                            
 	                            
 	                            <label>
+	                                <form:password placeholder="Senha antiga" required="true" path="senhaAntiga" maxlength="20" />
+		                            <form:errors  path="senhaAntiga"></form:errors>
+	                            </label>
+
+	                            <label>
 	                                <form:password placeholder="Nova senha" required="true" path="senha" maxlength="20" />
+	                                <form:errors path="senha"></form:errors>
+	                            </label>
+
+	                            <label>
+	                                <form:password placeholder="Confirmação da nova senha" required="true" path="senhaNovaConfirmacao" maxlength="20" />
+									<form:errors path="senhaNovaConfirmacao"></form:errors>
 	                            </label>
 	                               
 	                               
-	                            <label for="inputConfirmaNovaSenha">
-	                                    <input type="password" required="required" placeholder="Confirme a sua nova senha" id="inputConfirmaNovaSenha" name="confirmacaoNovaSenha"/>
-	                            </label>
 	                            
-	                            <form:errors class="spanErroSolto" path="senha"></form:errors>
+	                            
 	                            <button type="submit" id="btnAlterarSenha">Salvar</button>
 	                        </form:form>
 	

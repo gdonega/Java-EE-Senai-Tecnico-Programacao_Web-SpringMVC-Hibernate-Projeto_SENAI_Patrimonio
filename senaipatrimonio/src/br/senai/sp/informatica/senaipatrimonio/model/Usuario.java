@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -42,6 +43,7 @@ public class Usuario {
 
 	@Column(name = "email", length = 120, nullable = false, unique = true)
 	@NotNull
+	@Size(min = 1,max=120)
 	private String email;
 
 	@Column(name = "senha", length = 32, nullable = false, unique = false)
@@ -49,6 +51,14 @@ public class Usuario {
 	@Size(min = 6, max = 32)
 	private String senha;
 
+	@Transient
+	@Size(min = 6, max = 32)
+	private String senhaAntiga;
+
+	@Transient
+	@Size(min = 6, max = 32)
+	private String senhaNovaConfirmacao;
+	
 	@Column(name = "tipo", nullable = false, unique = false)
 	@NotNull
 	private TipoUsuario tipo;
@@ -92,6 +102,23 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+
+	public String getSenhaAntiga() {
+		return senhaAntiga;
+	}
+
+	public void setSenhaAntiga(String senhaAntiga) {
+		this.senhaAntiga = senhaAntiga;
+	}
+
+	public String getSenhaNovaConfirmacao() {
+		return senhaNovaConfirmacao;
+	}
+
+	public void setSenhaNovaConfirmacao(String senhaNovaConfirmacao) {
+		this.senhaNovaConfirmacao = senhaNovaConfirmacao;
+	}
 
 	public TipoUsuario getTipo() {
 		return tipo;
@@ -105,6 +132,10 @@ public class Usuario {
 		this.senha = DigestUtils.md5DigestAsHex(this.senha.getBytes());
 	}
 
+	public void trimEmail() {
+		this.email.trim();
+	}
+	
 	public Boolean getAdmConfirm() {
 		if(this.tipo.equals(TipoUsuario.ADMIN) ) {
 			return true;

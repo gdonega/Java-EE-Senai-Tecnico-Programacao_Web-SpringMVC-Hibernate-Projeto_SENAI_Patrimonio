@@ -40,22 +40,22 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${usuarios }" var="u">
-					<c:if test="${ u.id ne usuarioLogado.id }">
-						<tr>
-							<td>${u.id }</td>
-							<td>${u.nome }</td>
-							<td>${u.sobrenome }</td>
-							<td>${u.email }</td>
-							<td>${u.tipo }</td>
-							<td>
-								<a href="${formUsuario }?id=${u.id}">Editar</a>
-							</td>
+					<tr>
+						<td><c:out value="${u.id } " escapeXml="true" /></td>
+						<td> <c:out value="${u.nome }" escapeXml="true" /></td>
+						<td> <c:out value="${u.sobrenome }" escapeXml="true" /></td>
+						<td> <c:out value="${u.email }" escapeXml="true" /></td>
+						<td><c:out value="${u.tipo }" escapeXml="true" /></td>
+						<td>
+							<a href="${formUsuario }?id=${u.id}">Editar</a>
+						</td>
+						<c:if test="${ u.id ne usuarioLogado.id }">
 							<td>
 								<a href="${excluirUsuario }?id=${u.id}">Excluir</a>
 							</td>
-						</tr>
+						</c:if>
+				</tr>
 
-					</c:if>
 				</c:forEach>
 				<td colspan="7" align="center">
 					<a href="${formUsuario }">Add +</a>
