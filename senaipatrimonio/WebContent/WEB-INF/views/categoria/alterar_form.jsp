@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%-- Urls de Res --%>
@@ -8,29 +8,28 @@
 <c:url value="/assets/js" var="js" />
 
 <%--Urls de navegação --%>
-<c:url value="/app/adm/ambiente/alterar" var="alterarAmbiente" />
+<c:url value="/app/adm/categoria/alterar" var="categoriaAmbiente" />
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <c:import url="../templates/head.jsp" />
-<title>Alterar ambiente - SENAI PATRIMONIO</title>
+<title>Alterar categoria - SENAI PATRIMONIO</title>
 </head>
 <body>
 	<c:import url="../templates/nav.jsp" />
 
+		<div class="conteudoDaPag">
+		<h1>Alterar Categoria</h1>
 
-	<div class="conteudoDaPag">
-		<h1>Alterar Ambiente</h1>
-
-		<form:form modelAttribute="ambiente" action="${alterarAmbiente}" method="post">
+		<form:form modelAttribute="categoria" action="${alterarCategoria}" method="post">
 			<label> 
 				<form:hidden path="id" />
 			</label>
 			
 			<label> 
-				<form:input placeholder="Nome do ambiente" path="nome" type="text" required="required"/> 
+				<form:input placeholder="Nome da categoria" path="nome" type="text" required="required"/> 
 				<form:errors path="nome"></form:errors>
 			</label>
 			<button type="submit">Atualizar</button>

@@ -4,12 +4,15 @@
 		<c:url value="/assets/images" var="images" />
 		<c:url value="/assets/js" var="js" />
 
-		<%-- urls das imagens --%>
+			<%-- urls das imagens --%>
 			<c:url value="/app/home" var="homePage" />
 			<c:url value="/app/usuario/logout" var="logout" />
 			<c:url value="/app/usuario/info" var="usuarioInfo" />
+			
+			<%--Url do site --%>
 			<c:url value="/app/adm/usuario/lista" var="usuarioLink" />
 			<c:url value="/app/ambiente/lista" var="ambienteLink" />
+			<c:url value="/app/categoria/lista" var="categoriaLink" />
 
 			<script src="${js}/nav.js"></script>
 
@@ -29,7 +32,9 @@
 							<img src="${images }/property_icon.svg">
 						</li>
 						<li>
+							<a href="${categoriaLink }">
 								<img src="${images }/categoria_icon.svg">
+							</a>
 						</li>
 						<li>
 							<a href="${ambienteLink }">

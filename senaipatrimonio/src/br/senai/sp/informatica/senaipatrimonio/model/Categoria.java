@@ -11,6 +11,17 @@ import javax.validation.constraints.Size;
 @Entity
 public class Categoria {
 	
+	
+	
+	public Categoria(Long id) {
+		super();
+		this.id = id;
+	}
+
+	public Categoria() {
+		super();
+	}
+
 	//Columns
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

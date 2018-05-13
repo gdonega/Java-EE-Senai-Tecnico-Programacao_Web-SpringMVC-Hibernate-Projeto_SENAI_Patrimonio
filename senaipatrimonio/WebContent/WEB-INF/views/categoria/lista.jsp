@@ -8,9 +8,9 @@
 <c:url value="/assets/js" var="js" />
 
 <%--Urls de navegação --%>
-<c:url value="/app/adm/ambiente/alterar" var="alterarAmbiente" />
-<c:url value="/app/adm/ambiente/excluir" var="excluirAmbiente"/>
-<c:url value="/app/adm/ambiente/salvar" var="salvarAmbiente"/>
+<c:url value="/app/adm/categoria/alterar" var="alterarCategoria" />
+<c:url value="/app/adm/categoria/excluir" var="excluirCategoria"/>
+<c:url value="/app/adm/categoria/salvar" var="salvarCategoria"/>
 
 <!DOCTYPE html>
 <html>
@@ -19,14 +19,13 @@
 	<c:import url="../templates/head.jsp" />
 	<link rel="stylesheet" href="${css}/lista_estilo.css">
 	<link rel="stylesheet" href="${css}/lista_form_estilo.css">
-	<title>Lista Ambientes - SENAI PATRIMONIO</title>
+	<title>Lista Categoria - SENAI PATRIMONIO</title>
 </head>
 <body>
 	<c:import url="../templates/nav.jsp" />
 	
-	
-	<div class="conteudoDaPag">
-		<h1>Lista de Ambientes</h1>
+		<div class="conteudoDaPag">
+		<h1>Lista de Categorias</h1>
 		<div class="divAll">
 			<div class="divList">
 				<table>
@@ -34,26 +33,26 @@
 						<tr>
 							<th>#</th>
 							<th>Nome</th>
-							<c:if test="${usuarioLogado.admConfirm }">	
+							<c:if test="${usuarioLogado.admConfirm }">
 								<th>Editar</th>
 								<th>Excluir</th>
 							</c:if>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${ambientes }" var="a">
+						<c:forEach items="${categorias }" var="c">
 							<tr>
-								<td><c:out value="${a.id } " escapeXml="true" /></td>
-								<td> <c:out value="${a.nome }" escapeXml="true" /></td>
+								<td><c:out value="${c.id } " escapeXml="true" /></td>
+								<td> <c:out value="${c.nome }" escapeXml="true" /></td>
 								<c:if test="${usuarioLogado.admConfirm }">		
 									<td>
-										<a href="${alterarAmbiente }?id=${a.id}">Editar</a>
+										<a href="${alterarCategoria }?id=${c.id}">Editar</a>
 									</td>
 									<td>
-										<a href="${excluirAmbiente }?id=${a.id}">Excluir</a>
+										<a href="${excluirCategoria }?id=${c.id}">Excluir</a>
 									</td>
 								</c:if>
-						</tr>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
@@ -61,9 +60,9 @@
 			
 			<c:if test="${usuarioLogado.admConfirm }">	
 				<div class="divForm">
-					<form:form modelAttribute="ambiente" action="${salvarAmbiente}" method="post">
+					<form:form modelAttribute="categoria" action="${salvarCategoria}" method="post">
 						<label>
-							<form:input  placeholder="Novo Ambiente" path="nome" type="text" required="required" id="nome" />
+							<form:input  placeholder="Nova Categoria" path="nome" type="text" required="required" id="nome" />
 							<form:errors path="nome"></form:errors>
 						</label>
 						<button type="submit">Add+</button>	
@@ -73,6 +72,6 @@
 			
 		</div>
 	</div>
-	
+
 </body>
 </html>

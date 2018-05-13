@@ -5,9 +5,10 @@
         <c:url value="/assets/css" var="css" />
         <c:url value="/assets/js" var="js" />
 
-<%--Url do site --%>
+		<%--Url do site --%>
 		<c:url value="/app/adm/usuario/lista" var="usuarioLink" />
 		<c:url value="/app/ambiente/lista" var="ambienteLink" />
+		<c:url value="/app/categoria/lista" var="categoriaLink" />
         <!DOCTYPE html>
         <html>
 
@@ -40,10 +41,12 @@
                     </li>
 
                     <li>
-                        <div>
-                            <img src="${images }/categoria_icon.svg">
-                            <h1>Categorias</h1>
-                        </div>
+						<a href="${categoriaLink }">
+		                    <div>
+								<img src="${images }/categoria_icon.svg">
+		                        <h1>Categorias</h1>
+	                        </div>
+                        </a>
 
 
 						<c:if test="${usuarioLogado.admConfirm }">

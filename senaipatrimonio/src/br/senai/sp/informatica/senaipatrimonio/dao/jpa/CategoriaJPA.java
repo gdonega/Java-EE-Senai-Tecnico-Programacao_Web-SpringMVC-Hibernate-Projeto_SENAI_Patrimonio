@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.CategoriaDAO;
+import br.senai.sp.informatica.senaipatrimonio.model.Ambiente;
 import br.senai.sp.informatica.senaipatrimonio.model.Categoria;
 import br.senai.sp.informatica.senaipatrimonio.model.Usuario;
 
@@ -60,6 +61,20 @@ public class CategoriaJPA implements CategoriaDAO {
 		String hql = "FROM Categoria c";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		return query.list();
+	}
+
+	@Override
+	public Boolean jaEstaCadastrado(Categoria categoria) {
+		String hql = "FROM Categoria c WHERE c.nome = :nome";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameter("nome", categoria.getNome());
+
+		List<Categoria> resultados = query.list();
+
+		if (!resultados.isEmpty())
+			return true;
+
+		return false;
 	}
 
 }
