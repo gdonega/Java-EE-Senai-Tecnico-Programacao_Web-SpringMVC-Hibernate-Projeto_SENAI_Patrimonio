@@ -9,6 +9,7 @@
 		<c:url value="/app/adm/usuario/lista" var="usuarioLink" />
 		<c:url value="/app/ambiente/lista" var="ambienteLink" />
 		<c:url value="/app/categoria/lista" var="categoriaLink" />
+		<c:url value="/app/adm/patrimonio/lista" var="patrimonioLink" />
         <!DOCTYPE html>
         <html>
 
@@ -27,10 +28,12 @@
             <div class="conteudoDaPag">
                 <ul class="menu">
                     <li>
-                        <div>
-                            <img src="${images }/property_icon.svg">
-                            <h1>Patrimonios</h1>
-                        </div>
+                        <a href="${patrimonioLink }">
+	                        <div>
+	                            <img src="${images }/property_icon.svg">
+	                            <h1>Patrimonios</h1>
+                        	</div>
+                         </a>
 
                         <a href="${ambienteLink }">
     	                    <div>

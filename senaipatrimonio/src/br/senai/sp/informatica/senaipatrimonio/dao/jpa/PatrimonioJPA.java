@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.PatrimonioDAO;
+import br.senai.sp.informatica.senaipatrimonio.model.Categoria;
 import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
 import br.senai.sp.informatica.senaipatrimonio.model.Usuario;
 
@@ -56,6 +57,15 @@ public class PatrimonioJPA implements PatrimonioDAO {
 	public List<Patrimonio> buscarTodos() {
 		String hql = "FROM Patrimonio p";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		return query.list();
+	}
+
+	@Override
+	public List<Patrimonio> buscarPorCategoria(Categoria categoria) {
+		String hql = "FROM Patrimonio p WHERE p.categoria.id = :categoriaId";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameter("categoriaId", categoria.getId());
+
 		return query.list();
 	}
 
