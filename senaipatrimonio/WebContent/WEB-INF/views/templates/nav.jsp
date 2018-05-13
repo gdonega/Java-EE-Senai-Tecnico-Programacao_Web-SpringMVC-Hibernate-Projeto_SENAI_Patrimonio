@@ -9,6 +9,7 @@
 			<c:url value="/app/usuario/logout" var="logout" />
 			<c:url value="/app/usuario/info" var="usuarioInfo" />
 			<c:url value="/app/adm/usuario/lista" var="usuarioLink" />
+			<c:url value="/app/ambiente/lista" var="ambienteLink" />
 
 			<script src="${js}/nav.js"></script>
 
@@ -28,10 +29,12 @@
 							<img src="${images }/property_icon.svg">
 						</li>
 						<li>
-							<img src="${images }/categoria_icon.svg">
+								<img src="${images }/categoria_icon.svg">
 						</li>
 						<li>
-							<img src="${images }/enviroment_icon.svg">
+							<a href="${ambienteLink }">
+								<img src="${images }/enviroment_icon.svg">
+							</a>
 						</li>
 						<c:if test="${usuarioLogado.admConfirm }">
 							<li>

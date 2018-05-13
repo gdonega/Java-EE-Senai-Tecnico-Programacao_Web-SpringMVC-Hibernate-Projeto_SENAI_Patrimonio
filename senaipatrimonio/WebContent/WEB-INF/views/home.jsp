@@ -6,7 +6,8 @@
         <c:url value="/assets/js" var="js" />
 
 <%--Url do site --%>
-			<c:url value="/app/adm/usuario/lista" var="usuarioLink" />
+		<c:url value="/app/adm/usuario/lista" var="usuarioLink" />
+		<c:url value="/app/ambiente/lista" var="ambienteLink" />
         <!DOCTYPE html>
         <html>
 
@@ -30,10 +31,12 @@
                             <h1>Patrimonios</h1>
                         </div>
 
-                        <div>
-                            <img src="${images }/enviroment_icon.svg">
-                            <h1>Ambientes</h1>
-                        </div>
+                        <a href="${ambienteLink }">
+    	                    <div>
+	                            <img src="${images }/enviroment_icon.svg">
+	                            <h1>Ambientes</h1>
+	                        </div>
+                         </a>
                     </li>
 
                     <li>

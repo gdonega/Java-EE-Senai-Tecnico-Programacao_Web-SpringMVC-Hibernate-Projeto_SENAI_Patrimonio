@@ -16,7 +16,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<c:import url="../templates/head.jsp" />
-	<link rel="stylesheet" href="${css}/usuario_lista_estilo.css">
+	<link rel="stylesheet" href="${css}/lista_estilo.css">
 	<title>Lista Usuarios - SENAI PATRIMONIO</title>
 </head>
 

@@ -61,4 +61,18 @@ public class AmbienteJPA implements AmbienteDAO{
 		return query.list();
 	}
 
+	@Override
+	public Boolean jaEstaCadastrado(Ambiente ambiente) {
+		String hql = "FROM Ambiente a WHERE a.nome = :nome";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameter("nome", ambiente.getNome());
+
+		List<Ambiente> resultados = query.list();
+
+		if (!resultados.isEmpty())
+			return true;
+
+		return false;
+	}
+
 }

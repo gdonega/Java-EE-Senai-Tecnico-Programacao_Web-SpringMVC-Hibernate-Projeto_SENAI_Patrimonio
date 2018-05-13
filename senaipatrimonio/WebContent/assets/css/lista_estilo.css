@@ -9,3 +9,9 @@ form{
 	flex-direction: row;
 	margin-bottom:5vh;
 }
+
+.novoItemNaLista{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}

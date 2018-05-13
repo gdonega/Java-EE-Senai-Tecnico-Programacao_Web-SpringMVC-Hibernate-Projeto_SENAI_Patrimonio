@@ -4,4 +4,6 @@ import br.senai.sp.informatica.senaipatrimonio.model.Ambiente;
 
 public interface AmbienteDAO extends DAO<Ambiente>{
 
+	public Boolean jaEstaCadastrado(Ambiente ambiente);
+	
 }

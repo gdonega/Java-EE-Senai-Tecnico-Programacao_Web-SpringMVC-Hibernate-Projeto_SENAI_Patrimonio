@@ -11,6 +11,17 @@ import javax.validation.constraints.Size;
 @Entity
 public class Ambiente {
 	
+	
+	
+	public Ambiente(Long id) {
+		super();
+		this.id = id;
+	}
+
+	public Ambiente() {
+		super();
+	}
+
 	//Colunms
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
