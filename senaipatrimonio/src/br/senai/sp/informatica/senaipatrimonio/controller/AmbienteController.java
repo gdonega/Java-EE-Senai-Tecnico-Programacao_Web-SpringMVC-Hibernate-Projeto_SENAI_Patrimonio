@@ -40,7 +40,7 @@ public class AmbienteController {
 		
 		if(ambienteDAO.jaEstaCadastrado(ambiente)) {
 			model.addAttribute("ambientes", ambienteDAO.buscarTodos());
-			brAmbiente.addError(new FieldError("ambiente", "nome", "Esse ambiente já está cadastrado"));
+			brAmbiente.addError(new FieldError("ambiente", "nome", "Esse ambiente jÃ¡ estÃ¡ cadastrado"));
 			return "ambiente/lista";
 		}
 		
@@ -63,7 +63,7 @@ public class AmbienteController {
 		}
 		
 		if(ambienteDAO.jaEstaCadastrado(ambiente)) {
-			result.addError(new FieldError("ambiente", "nome", "Esse ambiente já está cadastrado"));
+			result.addError(new FieldError("ambiente", "nome", "Esse ambiente jï¿½ estï¿½ cadastrado"));
 			return "ambiente/alterar_form";
 		}
 		

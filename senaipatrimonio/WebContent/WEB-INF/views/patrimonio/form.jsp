@@ -22,15 +22,15 @@
 	<c:import url="../templates/nav.jsp" />
 	<div class="conteudoDaPag">
 		<c:if test="${ empty usuario.id }">
-			<h1>Novo Usuario</h1>
+			<h1>Novo Patrimonio</h1>
 		</c:if>
 		<c:if test="${ not empty usuario.id }">
-			<h1>Editar Usuario</h1>
+			<h1>Editar Patrimonio</h1>
 		</c:if>
 
 
 		<div class="divForForm">
-			<form:form class="formUser" modelAttribute="patrimonio" action="${salvarUsuario}" method="post" style="color: white">
+			<form:form class="formUser" modelAttribute="patrimonio" action="${salvarPatrimonio}" method="post" style="color: white">
 				<label> 
 					<form:hidden path="id" />
 				</label>
@@ -42,7 +42,7 @@
 
 				<label>
 					<form:select path="categoria" name="categoria">
-						<form:options items="${categorias}" itemLabel="nome" itemValue="id" />
+						<form:options items="${categorias}" itemLabel="nome" />
 					</form:select>
 				</label>
 					<form:errors path="categoria" class="spanErroSolto"></form:errors>

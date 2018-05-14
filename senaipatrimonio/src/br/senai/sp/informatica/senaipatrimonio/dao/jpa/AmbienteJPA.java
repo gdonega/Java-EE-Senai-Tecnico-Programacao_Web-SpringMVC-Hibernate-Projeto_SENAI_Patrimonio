@@ -17,7 +17,7 @@ import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
 public class AmbienteJPA implements AmbienteDAO{
 	
 	/*
-	 * Obj de sess„o com o db
+	 * Obj de sess√£o com o db
 	 */
 	@Autowired
 	private SessionFactory sessionFactory;
