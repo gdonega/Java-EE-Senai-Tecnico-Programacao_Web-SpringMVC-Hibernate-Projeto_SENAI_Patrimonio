@@ -11,9 +11,7 @@
         <html>
 
         <head>
-            
-            <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-            <c:import url="../templates/head.jsp" />
+       		<c:import url="../templates/head.jsp" />
             <link rel="stylesheet" href="${css}/ver_usuario.css">
             <title>Usuario - SENAI PATRIMONIO</title>
         </head>

@@ -34,6 +34,7 @@ public class AutenticacaoInterceptor extends HandlerInterceptorAdapter{
 			return false;
 		}
 		
+		response.setCharacterEncoding("UTF-8");
 		return true;	
 		
 		

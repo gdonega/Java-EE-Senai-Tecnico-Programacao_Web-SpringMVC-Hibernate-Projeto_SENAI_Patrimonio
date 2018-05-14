@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,10 +12,10 @@
 <c:url value="/app/adm/patrimonio/excluir" var="excluirPatrimonio" />
 <c:url value="/app/adm/patrimonio/lista" var="listaPatrimonio" />
 
+
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<c:import url="../templates/head.jsp" />
 	<link rel="stylesheet" href="${css}/lista_estilo.css">
 	<title>Lista Patrimonios - SENAI PATRIMONIO</title>
@@ -26,7 +26,7 @@
 	<c:import url="../templates/nav.jsp" />
 	<div class="conteudoDaPag">
 	
-	<h1>Lista de Patrimonios</h1>
+	<h1>Lista de Patrimônios</h1>
 
 	<form  action="${listaCategorias}" method="get" title="Selecione um tipo de filtro">				
 		<form:select path="tiposBusca" name="filtro">
@@ -62,11 +62,11 @@
 						
 						<c:if test="${usuarioLogado.admConfirm }">					
 							<td>
-								<a href="${formPatrimonio }?id=${u.id}">Editar</a>
+								<a href="${formPatrimonio }?id=${p.id}">Editar</a>
 							</td>
 							
 							<td>
-								<a href="${excluirPatrimonio }?id=${u.id}">Excluir</a>
+								<a href="${excluirPatrimonio }?id=${p.id}">Excluir</a>
 							</td>
 						</c:if>
 

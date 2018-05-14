@@ -26,7 +26,7 @@ public class CriarAdmJob implements ApplicationListener<ContextRefreshedEvent> {
 		Usuario admin = new Usuario();
 
 		admin.setEmail("admin@email.com");
-		admin.setNome("ADM");
+		admin.setNome("Donegá");
 		admin.setSenha("admin132");
 		admin.hashearSenha();
 		admin.setSobrenome("do Sistema");

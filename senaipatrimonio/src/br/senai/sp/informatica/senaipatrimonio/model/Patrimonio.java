@@ -8,8 +8,17 @@ import java.util.Date;
 
 @Entity
 public class Patrimonio {
+	
+    public Patrimonio(Long id) {
+		super();
+		this.id = id;
+	}
 
-    // Columns
+	public Patrimonio() {
+		super();
+	}
+
+	// Columns
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -32,7 +41,9 @@ public class Patrimonio {
     @NotNull
     private Categoria categoria;
 
-    // Getters && Setters
+    
+
+	// Getters && Setters
     public Long getId() {
         return id;
     }
