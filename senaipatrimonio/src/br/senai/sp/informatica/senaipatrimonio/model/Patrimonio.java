@@ -1,6 +1,9 @@
 package br.senai.sp.informatica.senaipatrimonio.model;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,6 +42,7 @@ public class Patrimonio {
     @ManyToOne
     @JoinColumn(name = "id_categoria", nullable = false)
     @NotNull
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
     private Categoria categoria;
 
     

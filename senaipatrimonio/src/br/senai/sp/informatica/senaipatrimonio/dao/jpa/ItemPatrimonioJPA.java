@@ -2,6 +2,7 @@ package br.senai.sp.informatica.senaipatrimonio.dao.jpa;
 
 import java.util.List;
 
+import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import br.senai.sp.informatica.senaipatrimonio.model.ItemPatrimonio;
 public class ItemPatrimonioJPA implements ItemPatrimonioDAO {
 
 	/*
-	 * Obj de sessão com o db
+	 * Obj de sessï¿½o com o db
 	 */
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -60,4 +61,12 @@ public class ItemPatrimonioJPA implements ItemPatrimonioDAO {
 		return query.list();
 	}
 
+	@Override
+	public List<ItemPatrimonio> buscarPorPatrimonio(Patrimonio patrimonio) {
+		String hql = "FROM ItemPatrimonio i WHERE i.patrimonio.id = :patrimonioId";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameter("patrimonioId", patrimonio.getId());
+
+		return query.list();
+	}
 }

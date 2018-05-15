@@ -81,5 +81,20 @@ public class PatrimonioJPA implements PatrimonioDAO {
         return false;
     }
 
+    @Override
+    public Boolean existeOutroComEsseNome(Patrimonio patrimonio) {
+        String hql = "FROM Patrimonio p WHERE p.nome = :nome and p.id != :id";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("nome", patrimonio.getNome());
+        query.setParameter("id", patrimonio.getId());
+
+        List<Patrimonio> resultados = query.list();
+
+        if (!resultados.isEmpty())
+            return true;
+
+        return false;
+    }
+
 
 }
