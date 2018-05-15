@@ -20,7 +20,7 @@ public class Constantes {
     public static String INICIO_NOME_IMAGEM = "foto_";
 
     public static String URL_BASE_FOTO_PATRIMONIO = "/assets/res/patrimonioFotos/";
-
+    
     public static String URL_BASE_FOTO_ITEM_PATRIMONIO = "/assets/res/itemPatrimonioFotos/";
 
 }

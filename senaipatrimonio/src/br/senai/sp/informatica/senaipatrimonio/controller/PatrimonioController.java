@@ -1,14 +1,12 @@
 package br.senai.sp.informatica.senaipatrimonio.controller;
 
-import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.CategoriaDAO;
-import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.ItemPatrimonioDAO;
-import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.PatrimonioDAO;
-import br.senai.sp.informatica.senaipatrimonio.model.Categoria;
-import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
-import br.senai.sp.informatica.senaipatrimonio.utils.Constantes;
-import br.senai.sp.informatica.senaipatrimonio.utils.OutrosMetodos;
-import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
-import org.apache.commons.io.FilenameUtils;
+import java.io.File;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,169 +19,165 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
-import javax.validation.Valid;
-import java.io.File;
-import java.util.Date;
-import java.util.List;
+import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.CategoriaDAO;
+import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.ItemPatrimonioDAO;
+import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.PatrimonioDAO;
+import br.senai.sp.informatica.senaipatrimonio.model.Categoria;
+import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
+import br.senai.sp.informatica.senaipatrimonio.utils.Constantes;
+import br.senai.sp.informatica.senaipatrimonio.utils.OutrosMetodos;
+import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
 
 @Controller
 public class PatrimonioController {
 
-    @Autowired
-    private PatrimonioDAO patrimonioDAO;
+	@Autowired
+	private PatrimonioDAO patrimonioDAO;
 
-    @Autowired
-    private CategoriaDAO categoriaDAO;
+	@Autowired
+	private CategoriaDAO categoriaDAO;
 
+	@Autowired
+	private ItemPatrimonioDAO itemPatrimonioDAO;
 
-    @Autowired
-    private ItemPatrimonioDAO itemPatrimonioDAO;
+	@Autowired
+	private SessionHelper session;
 
-    @Autowired
-    private SessionHelper session;
+	@Autowired
+	private ServletContext context;
 
-    @Autowired
-    private ServletContext context;
+	@GetMapping("app/adm/patrimonio/lista")
+	public String abrirLista(Model model, @RequestParam(name = "filtro", required = false) Long categoriaId) {
 
-    @GetMapping("app/adm/patrimonio/lista")
-    public String abrirLista(Model model, @RequestParam(name = "filtro", required = false) Long categoriaId) {
+		Categoria filtro = categoriaDAO.buscarPeloId(categoriaId);
 
-        Categoria filtro = categoriaDAO.buscarPeloId(categoriaId);
+		List<Patrimonio> patrimonios;
 
-        List<Patrimonio> patrimonios;
+		if (filtro == null) {
+			patrimonios = patrimonioDAO.buscarTodos();
+		} else {
+			patrimonios = patrimonioDAO.buscarPorCategoria(filtro);
+		}
 
-        if (filtro == null) {
-            patrimonios = patrimonioDAO.buscarTodos();
-        } else {
-            patrimonios = patrimonioDAO.buscarPorCategoria(filtro);
-        }
+		model.addAttribute("patrimonios", patrimonios);
 
-        model.addAttribute("patrimonios", patrimonios);
+		model.addAttribute("tiposBusca", categoriaDAO.buscarTodos());
 
-        model.addAttribute("tiposBusca", categoriaDAO.buscarTodos());
+		return "patrimonio/lista";
+	}
 
-        return "patrimonio/lista";
-    }
+	@GetMapping("app/adm/patrimonio/form")
+	public String abrirForm(@RequestParam(required = false) Long id, Model model) {
 
-    @GetMapping("app/adm/patrimonio/form")
-    public String abrirForm(@RequestParam(required = false) Long id, Model model) {
+		Patrimonio patrimonio;
+		if (id != null) {
+			patrimonio = patrimonioDAO.buscarPeloId(id);
+		} else {
+			patrimonio = new Patrimonio();
+		}
+		model.addAttribute("patrimonio", patrimonio);
+		model.addAttribute("categorias", categoriaDAO.buscarTodos());
+		return "patrimonio/form";
+	}
 
-        Patrimonio patrimonio;
-        if (id != null) {
-            patrimonio = patrimonioDAO.buscarPeloId(id);
-        } else {
-            patrimonio = new Patrimonio();
-        }
-        model.addAttribute("patrimonio", patrimonio);
-        model.addAttribute("categorias", categoriaDAO.buscarTodos());
-        return "patrimonio/form";
-    }
+	@PostMapping("app/adm/patrimonio/salvar")
+	public String salvarUsuario(@Valid Patrimonio patrimonio, BindingResult result,
+			@RequestPart(name = "fotoPatrimonio", required = false) MultipartFile arquivo, Model model) {
 
-    @PostMapping("app/adm/patrimonio/salvar")
-    public String salvarUsuario(@Valid Patrimonio patrimonio, BindingResult result
-            , @RequestPart(name = "fotoPatrimonio", required = false) MultipartFile arquivo
-            , Model model) {
+		System.err.println(patrimonio);
+		if (result.hasFieldErrors("nome") || result.hasFieldErrors("categoria")) {
+			model.addAttribute("categorias", categoriaDAO.buscarTodos());
+			model.addAttribute("patrimonio", patrimonio);
+			return "patrimonio/form";
+		}
 
-        System.err.println(patrimonio);
-        if (result.hasFieldErrors("nome") || result.hasFieldErrors("categoria")) {
-            model.addAttribute("categorias", categoriaDAO.buscarTodos());
-            model.addAttribute("patrimonio", patrimonio);
-            return "patrimonio/form";
-        }
+		Boolean estaCadastrado;
 
-        Boolean estaCadastrado;
+		if (patrimonio.getId() == null) {
+			estaCadastrado = patrimonioDAO.jaEstaCadastrado(patrimonio);
+		} else {
+			estaCadastrado = patrimonioDAO.existeOutroComEsseNome(patrimonio);
+		}
 
-        if (patrimonio.getId() == null) {
-            estaCadastrado = patrimonioDAO.jaEstaCadastrado(patrimonio);
-        } else {
-            estaCadastrado = patrimonioDAO.existeOutroComEsseNome(patrimonio);
-        }
+		if (estaCadastrado) {
+			model.addAttribute("categorias", categoriaDAO.buscarTodos());
+			model.addAttribute(patrimonio);
+			result.addError(new FieldError("patrimonio", "nome", "Esse patrimonio já está cadastrado!"));
+			return "patrimonio/form";
+		}
 
-        if (estaCadastrado) {
-            model.addAttribute("categorias", categoriaDAO.buscarTodos());
-            model.addAttribute(patrimonio);
-            result.addError(new FieldError("patrimonio", "nome", "Esse patrimonio já está cadastrado!"));
-            return "patrimonio/form";
-        }
+		if (patrimonio.getId() == null) {
 
-        if (patrimonio.getId() == null) {
+			patrimonio.setDt_cadastro(new Date());
+			patrimonio.setCadastrante(session.getUsuarioLogado());
 
-            patrimonio.setDt_cadastro(new Date());
-            patrimonio.setCadastrante(session.getUsuarioLogado());
+			System.err.println(patrimonio);
+			patrimonioDAO.persistir(patrimonio);
 
-            System.err.println(patrimonio);
-            patrimonioDAO.persistir(patrimonio);
+		} else {
 
-        } else {
+			Patrimonio patrimonioAtualizar = patrimonioDAO.buscarPeloId(patrimonio.getId());
 
-            Patrimonio patrimonioAtualizar = patrimonioDAO.buscarPeloId(patrimonio.getId());
+			BeanUtils.copyProperties(patrimonio, patrimonioAtualizar, "id", "dt_cadastro", "cadastrante");
 
-            BeanUtils.copyProperties(patrimonio, patrimonioAtualizar, "id", "dt_cadastro", "cadastrante");
+			System.out.println(patrimonioAtualizar);
 
-            System.out.println(patrimonioAtualizar);
+			patrimonioDAO.alterar(patrimonioAtualizar);
+		}
 
-            patrimonioDAO.alterar(patrimonioAtualizar);
-        }
+		// Upload da foto
+		if (arquivo != null) {
+			try {
 
+				// Diretório das fotos de patrimonio
+				String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_PATRIMONIO);
 
-        //Upload da foto
-        if (arquivo != null) {
-            try {
+				// Cria as pastas
+				File pasta = new File(caminhoDaPastaPatrimonioFotos);
+				if (!pasta.exists())
+					pasta.mkdirs();
 
-                System.err.println("Nome original do arquivo: " + arquivo.getOriginalFilename());
-                System.err.println("MIME Type: " + arquivo.getContentType());
-                System.err.println("Tamanho em bytes: " + arquivo.getSize());
+				// Define o caminho do arquivo
+				// + "."+ FilenameUtils.getExtension(arquivo.getOriginalFilename()
+				String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + patrimonio.getId();
 
-                //Diretório das fotos de patrimonio
-                String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_PATRIMONIO);
+				// Criar um obj File - classe responsavel por gerenciar arquivos e pastas
+				File file = new File(caminhoArquivo);
 
-                //Cria as pastas
-                File pasta = new File(caminhoDaPastaPatrimonioFotos);
-                if (!pasta.exists())
-                    pasta.mkdirs();
+				// Cria o arquivo caso ele n�o exista
+				if (!file.exists())
+					file.createNewFile();
 
-                //Define o caminho do arquivo
-                String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + patrimonio.getId()+ "."+ FilenameUtils.getExtension(arquivo.getOriginalFilename());
+				// Transfere os dados do aruqivo upado (multipart) para um arquivo na maquina
+				// (File)
+				arquivo.transferTo(file);
 
+				// BufferedImage <- classe que manipula imagens no java
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.err.println("Arquivo não enviado");
+		}
 
+		return "redirect:/app/adm/patrimonio/lista";
+	}
 
-                // Criar um obj File - classe responsavel por gerenciar arquivos e pastas
-                File file = new File(caminhoArquivo);
+	@GetMapping("app/adm/patrimonio/excluir")
+	public String excluirUsuario(@RequestParam(required = true) Long id) {
 
-                // Cria o arquivo caso ele n�o exista
-                if (!file.exists())
-                    file.createNewFile();
+		patrimonioDAO.deletar(new Patrimonio(id));
 
-                // Transfere os dados do aruqivo upado (multipart) para um arquivo na maquina
-                // (File)
-                arquivo.transferTo(file);
+		return "redirect:/app/adm/patrimonio/lista";
+	}
 
-                // BufferedImage <- classe que manipula imagens no java
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }else{
-            System.err.println("Arquivo não enviado");
-        }
-
-        return "redirect:/app/adm/patrimonio/lista";
-    }
-
-    @GetMapping("app/adm/patrimonio/excluir")
-    public String excluirUsuario(@RequestParam(required = true) Long id) {
-
-        patrimonioDAO.deletar(new Patrimonio(id));
-
-        return "redirect:/app/adm/patrimonio/lista";
-    }
-
-    @GetMapping("app/patrimonio/itens")
-    public String listaItensPatrimonio(@RequestParam(required = true, name = "id") Long patrimonioId, Model model) {
-        Patrimonio patrimonio = new Patrimonio(patrimonioId);
-        model.addAttribute("itens_patrimonios", itemPatrimonioDAO.buscarPorPatrimonio(patrimonio));
-        model.addAttribute("caminhoImagem", context.getRealPath(OutrosMetodos.getCaminhoPatrimonioImagem(patrimonio)));
-        return "item_patrimonio/lista";
-    }
+	@GetMapping("app/patrimonio/itens")
+	public String listaItensPatrimonio(@RequestParam(required = true, name = "id") Long patrimonioId, Model model) {
+		Patrimonio patrimonio = patrimonioDAO.buscarPeloId(patrimonioId);
+		model.addAttribute("patrimonio", patrimonio);
+		model.addAttribute("itens_patrimonios", itemPatrimonioDAO.buscarPorPatrimonio(patrimonio));
+		model.addAttribute("caminhoImagem", OutrosMetodos.getCaminhoPatrimonioImagem(patrimonio));
+		return "item_patrimonio/lista";
+	}
 
 }
