@@ -11,6 +11,7 @@
 <c:url value="/app/item/form" var="formSalvar"/>
 <c:url value="/app/adm/item/excluir" var="excluirItem"/>
 <c:url value="${caminhoImagem}" var="imagePath"/>
+<c:url value="/app/item/movimentacoes" var="verItem"/>
 
 
 <!DOCTYPE html>
@@ -61,7 +62,7 @@
         <tbody>
         <c:forEach items="${itens_patrimonios }" var="ip">
             <tr>
-                <td><c:out value="${ip.id } " escapeXml="true"/></td>
+                <td><a href="${verItem}?id=${ip.id}"><c:out value="${ip.id } " escapeXml="true"/></a></td>
                 <td><c:out value="${ip.ambienteAtual.nome }" escapeXml="true"/></td>
                 <td><c:out value="${ip.cadastrante.nome }" escapeXml="true"/></td>
 

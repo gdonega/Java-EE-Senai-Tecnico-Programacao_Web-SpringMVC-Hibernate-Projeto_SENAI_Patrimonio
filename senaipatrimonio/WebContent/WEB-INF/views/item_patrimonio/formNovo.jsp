@@ -44,7 +44,7 @@
             <form:errors path="ambienteAtual" class="spanErroSolto"></form:errors>
 
             <label>Foto
-                <input type="file" name="fotoItem">
+                <input type="file" name="fotoItemPatrimonio">
             </label>
 
 

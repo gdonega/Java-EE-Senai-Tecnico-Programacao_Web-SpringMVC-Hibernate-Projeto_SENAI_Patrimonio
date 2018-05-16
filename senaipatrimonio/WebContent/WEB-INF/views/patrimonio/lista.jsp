@@ -10,7 +10,7 @@
 <%-- Links --%>
 <c:url value="/app/adm/patrimonio/form" var="formPatrimonio"/>
 <c:url value="/app/adm/patrimonio/excluir" var="excluirPatrimonio"/>
-<c:url value="/app/adm/patrimonio/lista" var="listaPatrimonio"/>
+<c:url value="/app/patrimonio/lista" var="listaPatrimonio"/>
 <c:url value="/app/patrimonio/itens" var="itensPatrimonio"/>
 
 
@@ -74,9 +74,11 @@
             </tr>
 
         </c:forEach>
-        <td colspan="7" align="center">
-            <a href="${formPatrimonio }">Add +</a>
-        </td>
+        <c:if test="${usuarioLogado.admConfirm }">
+            <td colspan="7" align="center">
+                <a href="${formPatrimonio }">Add +</a>
+            </td>
+        </c:if>
         </tbody>
 
     </table>

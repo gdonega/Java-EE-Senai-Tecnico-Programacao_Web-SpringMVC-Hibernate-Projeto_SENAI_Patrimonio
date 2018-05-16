@@ -13,7 +13,7 @@
 			<c:url value="/app/adm/usuario/lista" var="usuarioLink" />
 			<c:url value="/app/ambiente/lista" var="ambienteLink" />
 			<c:url value="/app/categoria/lista" var="categoriaLink" />
-			<c:url value="/app/adm/patrimonio/lista" var="patrimonioLink" />
+			<c:url value="/app/patrimonio/lista" var="patrimonioLink" />
 
 			<script src="${js}/nav.js"></script>
 

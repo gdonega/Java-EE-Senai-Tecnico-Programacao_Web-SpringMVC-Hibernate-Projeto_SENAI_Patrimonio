@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
         <c:url value="/assets/images" var="images" />
@@ -9,7 +9,7 @@
 		<c:url value="/app/adm/usuario/lista" var="usuarioLink" />
 		<c:url value="/app/ambiente/lista" var="ambienteLink" />
 		<c:url value="/app/categoria/lista" var="categoriaLink" />
-		<c:url value="/app/adm/patrimonio/lista" var="patrimonioLink" />
+		<c:url value="/app/patrimonio/lista" var="patrimonioLink" />
         <!DOCTYPE html>
         <html>
 

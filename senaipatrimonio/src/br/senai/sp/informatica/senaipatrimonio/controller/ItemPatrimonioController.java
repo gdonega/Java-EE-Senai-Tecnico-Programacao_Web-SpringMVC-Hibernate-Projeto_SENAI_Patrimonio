@@ -5,6 +5,7 @@ import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.ItemPatrimonioDAO;
 import br.senai.sp.informatica.senaipatrimonio.model.ItemPatrimonio;
 import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
 import br.senai.sp.informatica.senaipatrimonio.utils.Constantes;
+import br.senai.sp.informatica.senaipatrimonio.utils.OutrosMetodos;
 import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,7 @@ public class ItemPatrimonioController {
 
     @GetMapping("app/item/form")
     public String formItem(@RequestParam(required = false) Long idPatrimonio
-                            , Model model) {
+            , Model model) {
 
         Patrimonio patrimonio = new Patrimonio();
         patrimonio.setId(idPatrimonio);
@@ -52,8 +53,8 @@ public class ItemPatrimonioController {
 
     @PostMapping("app/item/salvar")
     public String salvarItem(@Valid ItemPatrimonio itemPatrimonio, BindingResult result,
-                             @RequestPart(name = "fotoItem", required = false) MultipartFile arquivo
-                            , Model model) {
+                             @RequestPart(name = "fotoItemPatrimonio", required = false) MultipartFile arquivo
+            , Model model) {
 
         if (result.hasFieldErrors("patrimonio") || result.hasFieldErrors("ambienteAtual")) {
             model.addAttribute("itemPatrimonio", itemPatrimonio);
@@ -66,7 +67,10 @@ public class ItemPatrimonioController {
 
 
         // Upload da foto
-        if (arquivo != null) {
+
+        System.err.println(arquivo);
+
+        if (!arquivo.isEmpty()) {
             try {
 
                 // Diretório das fotos de patrimonio
@@ -102,6 +106,33 @@ public class ItemPatrimonioController {
 
 
         return "redirect:/app/patrimonio/itens?id=" + itemPatrimonio.getPatrimonio().getId();
+    }
+
+    @GetMapping("app/adm/item/excluir")
+    public String excluirItem(@RequestParam(required = true) Long id) {
+
+        Long idPatrimonio;
+
+        ItemPatrimonio item = itemPatrimonioDAO.buscarPeloId(id);
+
+        idPatrimonio = item.getPatrimonio().getId();
+
+        itemPatrimonioDAO.deletar(item);
+
+
+        OutrosMetodos.excluirFotoFile(id,context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO));
+
+
+        return "redirect:/app/patrimonio/itens?id=" + idPatrimonio;
+    }
+
+
+    @GetMapping("app/item/movimentacoes")
+    public String listaItensPatrimonio(@RequestParam(required = true, name = "id") Long itemId, Model model) {
+        ItemPatrimonio item = itemPatrimonioDAO.buscarPeloId(itemId);
+        model.addAttribute("itemPatrimonio", item);
+        model.addAttribute("caminhoImagem", OutrosMetodos.getCaminhoItemPatrimonioImagem(item, context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO)));
+        return "movimentacao/visualizar";
     }
 
     // //Futura alterao de foto
