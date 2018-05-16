@@ -9,7 +9,7 @@
 
 <%-- Links --%>
 <c:url value="${caminhoImagem}" var="imagePath"/>
-<c:url value="${novaMov}" var="/app/movimentacao/nova"/>
+<c:url value="/app/movimentacao/nova" var="novaMov"/>
 
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="${css}/lista_estilo.css">
     <link rel="stylesheet" href="${css}/lista_item_patrimonio.css">
     <link rel="stylesheet" href="${css}/lista_form_estilo.css">
-    <title>Item patrimonio - ${itemPatrimonio.patrimonio.nome}- SENAI PATRIMONIO</title>
+    <title>Item patrimonio - ${itemPatrimonio.patrimonio.nome} - SENAI PATRIMONIO</title>
 
 </head>
 <body>
@@ -72,11 +72,16 @@
             <div class="divForm">
                 <h2>Nova Movimentação</h2>
                 <form:form modelAttribute="movimentacao" action="${novaMov}" method="post" >
+                	<form:hidden path="itemMovido.id" value="${itemPatrimonio.id }" />
+                	<form:hidden path="executou.id" value="${usuarioLogado.id }" />
+                	<form:hidden path="ambienteOriginal.id" value="${itemPatrimonio.ambienteAtual.id }" />
+                
                     <label>
                         <form:select path="ambienteNovo.id">
                             <form:option value=""></form:option>
                             <form:options items="${ambientes}" itemLabel="nome" itemValue="id"/>
                         </form:select>
+                        <form:errors path="ambienteNovo"></form:errors>
                     </label>
                     <button type="submit">Add+</button>
                 </form:form>

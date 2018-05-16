@@ -1,5 +1,7 @@
 package br.senai.sp.informatica.senaipatrimonio.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +28,7 @@ public class ItemPatrimonio {
 	@JoinColumn(name = "id_cadastrante", nullable = false)
 	private Usuario cadastrante;
 
+	private Date dataMovimentacao;
 	
 	
 	// Getters && Setters
@@ -61,11 +64,22 @@ public class ItemPatrimonio {
 		this.cadastrante = cadastrante;
 	}
 
+	
+	public Date getDataMovimentacao() {
+		return dataMovimentacao;
+	}
+
+	public void setDataMovimentacao(Date dataMovimentacao) {
+		this.dataMovimentacao = dataMovimentacao;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemPatrimonio [id=" + id + ", patrimonio=" + patrimonio + ", ambienteAtual=" + ambienteAtual
-				+ ", cadastrante=" + cadastrante + "]";
+				+ ", cadastrante=" + cadastrante + ", dataMovimentacao=" + dataMovimentacao + "]";
 	}
+
+
 	
 	
 	

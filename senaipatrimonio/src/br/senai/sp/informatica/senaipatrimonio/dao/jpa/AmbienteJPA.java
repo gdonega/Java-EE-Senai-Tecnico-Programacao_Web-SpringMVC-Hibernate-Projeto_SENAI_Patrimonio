@@ -75,4 +75,13 @@ public class AmbienteJPA implements AmbienteDAO{
 		return false;
 	}
 
+	@Override
+	public List<Ambiente> buscarEliminandoUm(Ambiente ambiente) {
+		String hql = "FROM Ambiente a WHERE a.id != :idAmbiente";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameter("idAmbiente", ambiente.getId());
+
+		return query.list();
+	}
+
 }
