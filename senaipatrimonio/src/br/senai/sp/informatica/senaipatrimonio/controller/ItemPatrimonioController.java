@@ -1,10 +1,11 @@
 package br.senai.sp.informatica.senaipatrimonio.controller;
 
-import java.io.File;
-
-import javax.servlet.ServletContext;
-import javax.validation.Valid;
-
+import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.AmbienteDAO;
+import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.ItemPatrimonioDAO;
+import br.senai.sp.informatica.senaipatrimonio.model.ItemPatrimonio;
+import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
+import br.senai.sp.informatica.senaipatrimonio.utils.Constantes;
+import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,111 +16,113 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.AmbienteDAO;
-import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.ItemPatrimonioDAO;
-import br.senai.sp.informatica.senaipatrimonio.model.ItemPatrimonio;
-import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
-import br.senai.sp.informatica.senaipatrimonio.utils.Constantes;
-import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
+import javax.servlet.ServletContext;
+import javax.validation.Valid;
+import java.io.File;
 
 @Controller
 public class ItemPatrimonioController {
 
-	@Autowired
-	private ItemPatrimonioDAO itemPatrimonioDAO;
-	@Autowired
-	private AmbienteDAO ambienteDAO;
-	@Autowired
-	private SessionHelper sessionHelper;
+    @Autowired
+    private ItemPatrimonioDAO itemPatrimonioDAO;
+    @Autowired
+    private AmbienteDAO ambienteDAO;
+    @Autowired
+    private SessionHelper sessionHelper;
 
-	@Autowired
-	private ServletContext context;
+    @Autowired
+    private ServletContext context;
 
-	@GetMapping("app/item/form")
-	public String formItem(@RequestParam(required = false) Long idPatrimonio,
-			@RequestPart(name = "fotoItem", required = false) MultipartFile arquivo, Model model) {
+    @GetMapping("app/item/form")
+    public String formItem(@RequestParam(required = false) Long idPatrimonio
+                            , Model model) {
 
-		Patrimonio patrimonio = new Patrimonio();
-		patrimonio.setId(idPatrimonio);
+        Patrimonio patrimonio = new Patrimonio();
+        patrimonio.setId(idPatrimonio);
 
-		ItemPatrimonio item = new ItemPatrimonio();
+        ItemPatrimonio item = new ItemPatrimonio();
 
-		item.setPatrimonio(patrimonio);
+        item.setPatrimonio(patrimonio);
 
-		model.addAttribute("itemPatrimonio", item);
-		model.addAttribute("ambientes", ambienteDAO.buscarTodos());
+        model.addAttribute("itemPatrimonio", item);
+        model.addAttribute("ambientes", ambienteDAO.buscarTodos());
 
-		// Upload da foto
-		if (arquivo != null) {
-			try {
+        return "item_patrimonio/formNovo";
+    }
 
-				// Diretório das fotos de patrimonio
-				String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO);
+    @PostMapping("app/item/salvar")
+    public String salvarItem(@Valid ItemPatrimonio itemPatrimonio, BindingResult result,
+                             @RequestPart(name = "fotoItem", required = false) MultipartFile arquivo
+                            , Model model) {
 
-				// Cria as pastas
-				File pasta = new File(caminhoDaPastaPatrimonioFotos);
-				if (!pasta.exists())
-					pasta.mkdirs();
+        if (result.hasFieldErrors("patrimonio") || result.hasFieldErrors("ambienteAtual")) {
+            model.addAttribute("itemPatrimonio", itemPatrimonio);
+            model.addAttribute("ambientes", ambienteDAO.buscarTodos());
+            return "item_patrimonio/formNovo";
+        }
 
-				// Define o caminho do arquivo
-				// + "."+ FilenameUtils.getExtension(arquivo.getOriginalFilename()
-				String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + patrimonio.getId();
+        itemPatrimonio.setCadastrante(sessionHelper.getUsuarioLogado());
+        itemPatrimonioDAO.persistir(itemPatrimonio);
 
-				// Criar um obj File - classe responsavel por gerenciar arquivos e pastas
-				File file = new File(caminhoArquivo);
 
-				// Cria o arquivo caso ele n�o exista
-				if (!file.exists())
-					file.createNewFile();
+        // Upload da foto
+        if (arquivo != null) {
+            try {
 
-				// Transfere os dados do aruqivo upado (multipart) para um arquivo na maquina
-				// (File)
-				arquivo.transferTo(file);
+                // Diretório das fotos de patrimonio
+                String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO);
 
-				// BufferedImage <- classe que manipula imagens no java
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else {
-			System.err.println("Arquivo não enviado");
-		}
+                // Cria as pastas
+                File pasta = new File(caminhoDaPastaPatrimonioFotos);
+                if (!pasta.exists())
+                    pasta.mkdirs();
 
-		return "item_patrimonio/formNovo";
-	}
+                // Define o caminho do arquivo
+                // + "."+ FilenameUtils.getExtension(arquivo.getOriginalFilename()
+                String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + itemPatrimonio.getId();
 
-	@PostMapping("app/item/salvar")
-	public String salvarItem(@Valid ItemPatrimonio itemPatrimonio, BindingResult result, Model model) {
-		if (result.hasFieldErrors("patrimonio") || result.hasFieldErrors("ambienteAtual")) {
-			model.addAttribute("itemPatrimonio", itemPatrimonio);
-			model.addAttribute("ambientes", ambienteDAO.buscarTodos());
-			return "item_patrimonio/formNovo";
-		}
+                // Criar um obj File - classe responsavel por gerenciar arquivos e pastas
+                File file = new File(caminhoArquivo);
 
-		itemPatrimonio.setCadastrante(sessionHelper.getUsuarioLogado());
-		itemPatrimonioDAO.persistir(itemPatrimonio);
+                // Cria o arquivo caso ele n�o exista
+                if (!file.exists())
+                    file.createNewFile();
 
-		return "redirect:/app/patrimonio/itens?id=" + itemPatrimonio.getPatrimonio().getId();
-	}
+                // Transfere os dados do aruqivo upado (multipart) para um arquivo na maquina
+                // (File)
+                arquivo.transferTo(file);
 
-	// //Futura altera��o de foto
-	//
-	// @GetMapping("app/adm/item/alterarForm")
-	// public String formItemAlterar(@RequestParam(required = false) Long id, Model
-	// model) {
-	// model.addAttribute("itemPatrimonio", itemPatrimonioDAO.buscarPeloId(id));
-	// model.addAttribute("ambientes", ambienteDAO.buscarTodos());
-	//
-	// return "item_patrimonio/formAlterar";
-	// }
-	//
-	// @PostMapping("app/adm/item/alterar")
-	// public String salvartem(@Valid ItemPatrimonio itemPatrimonio, Model model) {
-	//
-	//
-	//
-	//
-	// return "redirect:/app/patrimonio/itens?id=" +
-	// itemPatrimonio.getPatrimonio().getId();
-	//
-	// }
+                // BufferedImage <- classe que manipula imagens no java
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Arquivo não enviado");
+        }
+
+
+        return "redirect:/app/patrimonio/itens?id=" + itemPatrimonio.getPatrimonio().getId();
+    }
+
+    // //Futura alterao de foto
+    //
+    // @GetMapping("app/adm/item/alterarForm")
+    // public String formItemAlterar(@RequestParam(required = false) Long id, Model
+    // model) {
+    // model.addAttribute("itemPatrimonio", itemPatrimonioDAO.buscarPeloId(id));
+    // model.addAttribute("ambientes", ambienteDAO.buscarTodos());
+    //
+    // return "item_patrimonio/formAlterar";
+    // }
+    //
+    // @PostMapping("app/adm/item/alterar")
+    // public String salvartem(@Valid ItemPatrimonio itemPatrimonio, Model model) {
+    //
+    //
+    //
+    //
+    // return "redirect:/app/patrimonio/itens?id=" +
+    // itemPatrimonio.getPatrimonio().getId();
+    //
+    // }
 }

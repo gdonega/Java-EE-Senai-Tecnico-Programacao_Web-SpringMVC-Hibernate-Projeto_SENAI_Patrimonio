@@ -16,8 +16,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
-	<c:import url="../templates/head.jsp"/>
+
+    <c:import url="../templates/head.jsp"/>
     <link rel="stylesheet" href="${css}/lista_estilo.css">
     <link rel="stylesheet" href="${css}/lista_item_patrimonio.css">
     <title>Lista Itens - SENAI PATRIMONIO</title>
@@ -28,18 +28,21 @@
 <div class="conteudoDaPag">
 
     <h1>Lista de Itens de patrimonio</h1>
-    
+
     <div class="infoPatrimonio">
-    	<img src="${imagePath}">
-    	<div>
-    	<p>#: ${patrimonio.id}</p>
-    	<p>Nome: ${patrimonio.nome}</p>
-    	<p>Categoria: ${patrimonio.categoria.nome}</p>
-    	<p>Data de cadastro: ${patrimonio.dt_cadastro}</p>
-    	<p>Usuario Castrante nome: ${patrimonio.cadastrante.nome}</p>
-    	<p>Usuario Castrante email: ${patrimonio.cadastrante.email}</p>
-    	</div>
-    	
+        <div>
+            <img src="${imagePath}">
+        </div>
+
+        <div>
+            <p>#: ${patrimonio.id}</p>
+            <p>Nome: ${patrimonio.nome}</p>
+            <p>Categoria: ${patrimonio.categoria.nome}</p>
+            <p>Data de cadastro: ${patrimonio.dt_cadastro}</p>
+            <p>Usuario Castrante nome: ${patrimonio.cadastrante.nome}</p>
+            <p>Usuario Castrante email: ${patrimonio.cadastrante.email}</p>
+        </div>
+
     </div>
 
 

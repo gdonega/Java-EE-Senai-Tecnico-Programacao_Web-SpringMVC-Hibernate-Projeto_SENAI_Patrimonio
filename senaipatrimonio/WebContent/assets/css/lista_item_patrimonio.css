@@ -1,10 +1,14 @@
-.infoPatrimonio img{
-	width: 30vw;
+.infoPatrimonio img {
+    width: 30vw;
 }
+
 .infoPatrimonio {
-	display: flex;
-	margin: 20px;
+    display: flex;
+    margin: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
-.infoPatrimonio div{
-	margin: 20px;
+
+.infoPatrimonio div {
+    margin: 20px;
 }
