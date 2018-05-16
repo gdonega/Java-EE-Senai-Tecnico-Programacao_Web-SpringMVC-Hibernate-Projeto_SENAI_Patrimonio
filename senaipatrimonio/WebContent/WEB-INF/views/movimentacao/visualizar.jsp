@@ -9,6 +9,7 @@
 
 <%-- Links --%>
 <c:url value="${caminhoImagem}" var="imagePath"/>
+<c:url value="${novaMov}" var="/app/movimentacao/nova"/>
 
 
 <!DOCTYPE html>
@@ -18,14 +19,15 @@
     <c:import url="../templates/head.jsp"/>
     <link rel="stylesheet" href="${css}/lista_estilo.css">
     <link rel="stylesheet" href="${css}/lista_item_patrimonio.css">
-    <title>Item patrimonio - ${itemPatrimonio}- SENAI PATRIMONIO</title>
+    <link rel="stylesheet" href="${css}/lista_form_estilo.css">
+    <title>Item patrimonio - ${itemPatrimonio.patrimonio.nome}- SENAI PATRIMONIO</title>
 
 </head>
 <body>
 <c:import url="../templates/nav.jsp"/>
 <div class="conteudoDaPag">
 
-    <h1>Lista de Itens de patrimonio</h1>
+    <h1>Lista de ${itemPatrimonio.patrimonio.nome}</h1>
 
     <div class="infoPatrimonio">
         <div>
@@ -34,51 +36,54 @@
 
         <div>
             <p>#: ${itemPatrimonio.id}</p>
+            <p>Patrimonio: ${itemPatrimonio.patrimonio.nome}</p>
             <p>Ambiente Atual: ${itemPatrimonio.ambienteAtual.nome}</p>
             <p>Cadastrante: ${itemPatrimonio.cadastrante.nome}</p>
-            <p>Patrimonio: ${itemPatrimonio.patrimonio.nome}</p>
         </div>
 
     </div>
 
-<!--
-    <table>
+    <div class="divAll">
 
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Ambiente Atual</th>
-            <th>Nome do cadastrante</th>
-            <c:if test="${usuarioLogado.admConfirm }">
-                <th>Excluir</th>
-            </c:if>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${itens_patrimonios }" var="ip">
+        <div class="divList">
+        <table>
+
+            <thead>
             <tr>
-                <td><c:out value="${ip.id } " escapeXml="true"/></td>
-                <td><c:out value="${ip.ambienteAtual.nome }" escapeXml="true"/></td>
-                <td><c:out value="${ip.cadastrante.nome }" escapeXml="true"/></td>
-
-                <c:if test="${usuarioLogado.admConfirm }">
-
-                    <td>
-                        <a href="${excluirItem }?id=${ip.id}">Excluir</a>
-                    </td>
-                </c:if>
-
+                <th>Origem</th>
+                <th>Destino</th>
+                <th>Usuario que realizou</th>
+                <th>Data que ocorreu</th>
             </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${movimentacoes }" var="m">
+                <tr>
+                    <td><c:out value="${m.ambienteOriginal.nome }" escapeXml="true"/></td>
+                    <td><c:out value="${m.ambienteNovo.nome }" escapeXml="true"/></td>
+                    <td><c:out value="${m.executou.nome }" escapeXml="true"/></td>
+                    <td><c:out value="${m.dataDaMovimentacao }" escapeXml="true"/></td>
+                </tr>
 
-        </c:forEach>
-        <td colspan="7" align="center">
-            <a href="${formSalvar }?idPatrimonio=${patrimonio.id}">Add +</a>
-        </td>
-        </tbody>
+            </c:forEach>
+        </table>
+        </div>
 
-    </table>
+            <div class="divForm">
+                <h2>Nova Movimentação</h2>
+                <form:form modelAttribute="movimentacao" action="${novaMov}" method="post" >
+                    <label>
+                        <form:select path="ambienteNovo.id">
+                            <form:option value=""></form:option>
+                            <form:options items="${ambientes}" itemLabel="nome" itemValue="id"/>
+                        </form:select>
+                    </label>
+                    <button type="submit">Add+</button>
+                </form:form>
+            </div>
 
--->
+    </div>
+
 </div>
 
 </body>

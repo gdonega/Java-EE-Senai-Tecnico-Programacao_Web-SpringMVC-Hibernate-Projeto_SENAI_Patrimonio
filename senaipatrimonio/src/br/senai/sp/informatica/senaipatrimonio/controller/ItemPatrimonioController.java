@@ -2,7 +2,9 @@ package br.senai.sp.informatica.senaipatrimonio.controller;
 
 import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.AmbienteDAO;
 import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.ItemPatrimonioDAO;
+import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.MovimentacaoDAO;
 import br.senai.sp.informatica.senaipatrimonio.model.ItemPatrimonio;
+import br.senai.sp.informatica.senaipatrimonio.model.Movimentacao;
 import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
 import br.senai.sp.informatica.senaipatrimonio.utils.Constantes;
 import br.senai.sp.informatica.senaipatrimonio.utils.OutrosMetodos;
@@ -30,9 +32,10 @@ public class ItemPatrimonioController {
     private AmbienteDAO ambienteDAO;
     @Autowired
     private SessionHelper sessionHelper;
-
     @Autowired
     private ServletContext context;
+    @Autowired
+    private MovimentacaoDAO movimentacaoDAO;
 
     @GetMapping("app/item/form")
     public String formItem(@RequestParam(required = false) Long idPatrimonio
@@ -120,11 +123,12 @@ public class ItemPatrimonioController {
         itemPatrimonioDAO.deletar(item);
 
 
-        OutrosMetodos.excluirFotoFile(id,context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO));
+        OutrosMetodos.excluirFotoFile(id, context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO));
 
 
         return "redirect:/app/patrimonio/itens?id=" + idPatrimonio;
     }
+
 
 
     @GetMapping("app/item/movimentacoes")
@@ -132,7 +136,18 @@ public class ItemPatrimonioController {
         ItemPatrimonio item = itemPatrimonioDAO.buscarPeloId(itemId);
         model.addAttribute("itemPatrimonio", item);
         model.addAttribute("caminhoImagem", OutrosMetodos.getCaminhoItemPatrimonioImagem(item, context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO)));
+
+        model.addAttribute("movimentacoes", movimentacaoDAO.buscarPorItemPatrimonio(item));
+        model.addAttribute("movimentacao", new Movimentacao());
+        model.addAttribute("ambientes", ambienteDAO.buscarTodos());
+
         return "movimentacao/visualizar";
+    }
+
+
+    @PostMapping("app/movimentacao/nova")
+    public String movimentar(@Valid Movimentacao movimentacao){
+        return null;
     }
 
     // //Futura alterao de foto

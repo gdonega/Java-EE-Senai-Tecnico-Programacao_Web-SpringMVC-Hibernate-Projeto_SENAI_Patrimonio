@@ -2,6 +2,7 @@ package br.senai.sp.informatica.senaipatrimonio.dao.jpa;
 
 import java.util.List;
 
+import br.senai.sp.informatica.senaipatrimonio.model.ItemPatrimonio;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
 @Repository
 public class MovimentacaoJPA implements MovimentacaoDAO{
 	/*
-	 * Obj de sessão com o db
+	 * Obj de sessï¿½o com o db
 	 */
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -61,4 +62,12 @@ public class MovimentacaoJPA implements MovimentacaoDAO{
 		return query.list();
 	}
 
+	@Override
+	public List<Movimentacao> buscarPorItemPatrimonio(ItemPatrimonio itemPatrimonio) {
+		String hql = "FROM Movimentacao m WHERE m.itemMovido.id = :itemId";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameter("itemId", itemPatrimonio.getId());
+
+		return query.list();
+	}
 }
