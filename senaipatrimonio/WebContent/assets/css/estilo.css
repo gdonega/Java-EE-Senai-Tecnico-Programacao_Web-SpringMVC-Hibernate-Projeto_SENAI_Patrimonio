@@ -76,3 +76,12 @@ td {
     color: red;
 }
 
+.imgInfo{
+    display: flex;
+    flex-direction: column;
+}
+.imgInfo div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

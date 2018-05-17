@@ -7,7 +7,7 @@
 <c:url value="/assets/js" var="js"/>
 
 
-<c:url value="/app/adm/item/salvar" var="salvarItem"/>
+<c:url value="/app/adm/item/alterarFoto" var="salvarItem"/>
 <!DOCTYPE html>
 <html>
 

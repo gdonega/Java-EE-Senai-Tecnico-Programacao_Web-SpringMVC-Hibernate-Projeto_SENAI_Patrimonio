@@ -182,4 +182,23 @@ public class PatrimonioController {
         return "item_patrimonio/lista";
     }
 
+
+    @GetMapping("app/adm/patrimonio/excluirFoto")
+    public String excluirFoto(@RequestParam(value = "id") Long idItem){
+
+        String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_PATRIMONIO);
+        File pasta = new File(caminhoDaPastaPatrimonioFotos);
+        if (!pasta.exists())
+            return "redirect:/app/patrimonio/itens?id=" + idItem;
+
+        String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + idItem;
+        File file = new File(caminhoArquivo);
+
+
+        if (file.exists()){
+            file.delete();
+        }
+
+        return "redirect:/app/patrimonio/itens?id=" + idItem;
+    }
 }

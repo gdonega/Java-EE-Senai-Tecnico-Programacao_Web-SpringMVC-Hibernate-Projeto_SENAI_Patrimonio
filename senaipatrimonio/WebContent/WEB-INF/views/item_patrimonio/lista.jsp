@@ -12,7 +12,7 @@
 <c:url value="/app/adm/item/excluir" var="excluirItem"/>
 <c:url value="${caminhoImagem}" var="imagePath"/>
 <c:url value="/app/item/movimentacoes" var="verItem"/>
-
+<c:url value="/app/adm/patrimonio/excluirFoto" var="excluirFoto"/>
 
 <!DOCTYPE html>
 <html>
@@ -31,8 +31,11 @@
     <h1>Lista de Itens de patrimonio</h1>
 
     <div class="infoPatrimonio">
-        <div>
+        <div class="imgInfo">
             <img src="${imagePath}">
+            <div>
+                <a href="${excluirFoto}?id=${patrimonio.id}">Excluir Foto</a>
+            </div>
         </div>
 
         <div>

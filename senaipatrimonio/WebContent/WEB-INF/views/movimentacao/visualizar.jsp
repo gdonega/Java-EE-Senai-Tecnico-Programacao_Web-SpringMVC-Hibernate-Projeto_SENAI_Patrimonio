@@ -10,6 +10,8 @@
 <%-- Links --%>
 <c:url value="${caminhoImagem}" var="imagePath"/>
 <c:url value="/app/movimentacao/nova" var="novaMov"/>
+<c:url value="/app/adm/item/alterarFoto" var="alterarFoto"/>
+<c:url value="/app/adm/item/excluirFoto" var="excluirFoto"/>
 
 
 <!DOCTYPE html>
@@ -30,8 +32,12 @@
     <h1>Lista de ${itemPatrimonio.patrimonio.nome}</h1>
 
     <div class="infoPatrimonio">
-        <div>
+        <div class="imgInfo">
             <img src="${imagePath}">
+            <div>
+                <a href="${alterarFoto}?id=${itemPatrimonio.id}">Alterar Foto</a>
+                <a href="${excluirFoto}?id=${itemPatrimonio.id}">Excluir Foto</a>
+            </div>
         </div>
 
         <div>
