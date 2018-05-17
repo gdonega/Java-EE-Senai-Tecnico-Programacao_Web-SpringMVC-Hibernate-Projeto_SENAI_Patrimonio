@@ -25,43 +25,43 @@
 
 		<h1>Lista de Usuarios</h1>
 
-		<form  action="${listaUsuario}" method="get" title="Selecione um tipo de filtro">				
+		<form  action="${listaUsuario}" method="get" title="Selecione um tipo de filtro">
 			<form:select path="tiposBusca" name="filtro" >
 				 <form:option value=""> --Selecione um tipo de filtragem--</form:option>
 				 <form:option  value=""> Todos os Usuarios</form:option>
 				 <form:options  items="${tiposBusca}"></form:options>
 			</form:select>
 
-			
-			<button type="submit">filtrar</button>		
+
+			<button type="submit">filtrar</button>
 		</form>
 
 		<table>
 
 			<thead>
 				<tr>
-					<th>#</th>
+					<th class="mobileNaoMostrar">#</th>
 					<th>Nome</th>
-					<th>Sobrenome</th>
-					<th>E-mail</th>
+					<th class="mobileNaoMostrar">Sobrenome</th>
+					<th class="mobileNaoMostrar">E-mail</th>
 					<th>Tipo</th>
-					<th>Editar</th>
-					<th>Excluir</th>
+					<th class="mobileNaoMostrar">Editar</th>
+					<th class="mobileNaoMostrar">Excluir</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${usuarios }" var="u">
 					<tr>
-						<td><c:out value="${u.id } " escapeXml="true" /></td>
+						<td class="mobileNaoMostrar"><c:out value="${u.id } " escapeXml="true" /></td>
 						<td> <c:out value="${u.nome }" escapeXml="true" /></td>
-						<td> <c:out value="${u.sobrenome }" escapeXml="true" /></td>
-						<td> <c:out value="${u.email }" escapeXml="true" /></td>
+						<td class="mobileNaoMostrar"> <c:out value="${u.sobrenome }" escapeXml="true" /></td>
+						<td class="mobileNaoMostrar"> <c:out value="${u.email }" escapeXml="true" /></td>
 						<td><c:out value="${u.tipo }" escapeXml="true" /></td>
-						<td>
+						<td class="mobileNaoMostrar">
 							<a href="${formUsuario }?id=${u.id}">Editar</a>
 						</td>
 						<c:if test="${ u.id ne usuarioLogado.id }">
-							<td>
+							<td class="mobileNaoMostrar">
 								<a href="${excluirUsuario }?id=${u.id}">Excluir</a>
 							</td>
 						</c:if>

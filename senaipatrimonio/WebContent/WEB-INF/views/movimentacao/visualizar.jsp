@@ -29,7 +29,7 @@
 <c:import url="../templates/nav.jsp"/>
 <div class="conteudoDaPag">
 
-    <h1>Lista de ${itemPatrimonio.patrimonio.nome}</h1>
+    <h1>Lista de Movimentações de ${itemPatrimonio.patrimonio.nome}</h1>
 
     <div class="infoPatrimonio">
         <div class="imgInfo">
@@ -52,46 +52,46 @@
     <div class="divAll">
 
         <div class="divList">
-        <table>
+            <table>
 
-            <thead>
-            <tr>
-                <th>Origem</th>
-                <th>Destino</th>
-                <th>Usuario que realizou</th>
-                <th>Data que ocorreu</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${movimentacoes }" var="m">
+                <thead>
+                <tr>
+                    <th>Origem</th>
+                    <th>Destino</th>
+                    <th class="mobileNaoMostrar">Usuario que realizou</th>
+                    <th class="mobileNaoMostrar">Data que ocorreu</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${movimentacoes }" var="m">
                 <tr>
                     <td><c:out value="${m.ambienteOriginal.nome }" escapeXml="true"/></td>
                     <td><c:out value="${m.ambienteNovo.nome }" escapeXml="true"/></td>
-                    <td><c:out value="${m.executou.nome }" escapeXml="true"/></td>
-                    <td><c:out value="${m.dataDaMovimentacao }" escapeXml="true"/></td>
+                    <td class="mobileNaoMostrar"><c:out value="${m.executou.nome }" escapeXml="true"/></td>
+                    <td class="mobileNaoMostrar"><c:out value="${m.dataDaMovimentacao }" escapeXml="true"/></td>
                 </tr>
 
-            </c:forEach>
-        </table>
+                </c:forEach>
+            </table>
         </div>
 
-            <div class="divForm">
-                <h2>Nova Movimentação</h2>
-                <form:form modelAttribute="movimentacao" action="${novaMov}" method="post" >
-                	<form:hidden path="itemMovido.id" value="${itemPatrimonio.id }" />
-                	<form:hidden path="executou.id" value="${usuarioLogado.id }" />
-                	<form:hidden path="ambienteOriginal.id" value="${itemPatrimonio.ambienteAtual.id }" />
-                
-                    <label>
-                        <form:select path="ambienteNovo.id">
-                            <form:option value=""></form:option>
-                            <form:options items="${ambientes}" itemLabel="nome" itemValue="id"/>
-                        </form:select>
-                        <form:errors path="ambienteNovo"></form:errors>
-                    </label>
-                    <button type="submit">Add+</button>
-                </form:form>
-            </div>
+        <div class="divForm">
+            <h2>Nova Movimentação</h2>
+            <form:form modelAttribute="movimentacao" action="${novaMov}" method="post">
+                <form:hidden path="itemMovido.id" value="${itemPatrimonio.id }"/>
+                <form:hidden path="executou.id" value="${usuarioLogado.id }"/>
+                <form:hidden path="ambienteOriginal.id" value="${itemPatrimonio.ambienteAtual.id }"/>
+
+                <label>
+                    <form:select path="ambienteNovo.id">
+                        <form:option value=""></form:option>
+                        <form:options items="${ambientes}" itemLabel="nome" itemValue="id"/>
+                    </form:select>
+                    <form:errors path="ambienteNovo"></form:errors>
+                </label>
+                <button type="submit">Add+</button>
+            </form:form>
+        </div>
 
     </div>
 

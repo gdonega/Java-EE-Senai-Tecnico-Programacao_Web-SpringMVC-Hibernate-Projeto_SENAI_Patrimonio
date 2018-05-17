@@ -40,6 +40,9 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
 }
 
 .telaCheia {
@@ -79,9 +82,20 @@ td {
 .imgInfo{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 .imgInfo div{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+.imgInfo div a{
+    margin : 10px;
+}
+
+
+@media screen and (max-width: 480px) {
+    .mobileNaoMostrar {
+        display: none;
+    }
 }

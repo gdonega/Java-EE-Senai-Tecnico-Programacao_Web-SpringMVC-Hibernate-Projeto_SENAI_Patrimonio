@@ -38,51 +38,51 @@
 
         <button type="submit">filtrar</button>
     </form>
+    <div>
+        <table>
 
-    <table>
-
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Nome</th>
-            <th>Categoria</th>
-            <th>Data de cadastro</th>
-            <c:if test="${usuarioLogado.admConfirm }">
-                <th>Editar</th>
-                <th>Excluir</th>
-            </c:if>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${patrimonios }" var="p">
+            <thead>
             <tr>
-                <td><c:out value="${p.id } " escapeXml="true"/></td>
-                <td><a href="${itensPatrimonio}?id=${p.id}"><c:out value="${p.nome }" escapeXml="true"/></a></td>
-                <td><c:out value="${p.categoria.nome }" escapeXml="true"/></td>
-                <td><c:out value="${p.dt_cadastro }" escapeXml="true"/></td>
-
+                <th class="mobileNaoMostrar">#</th>
+                <th>Nome</th>
+                <th class="mobileNaoMostrar">Categoria</th>
+                <th class="mobileNaoMostrar">Data de cadastro</th>
                 <c:if test="${usuarioLogado.admConfirm }">
-                    <td>
-                        <a href="${formPatrimonio }?id=${p.id}">Editar</a>
-                    </td>
-
-                    <td>
-                        <a href="${excluirPatrimonio }?id=${p.id}">Excluir</a>
-                    </td>
+                    <th>Editar</th>
+                    <th>Excluir</th>
                 </c:if>
-
             </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${patrimonios }" var="p">
+                <tr>
+                    <td class="mobileNaoMostrar"><c:out value="${p.id } " escapeXml="true"/></td>
+                    <td><a href="${itensPatrimonio}?id=${p.id}"><c:out value="${p.nome }" escapeXml="true"/></a></td>
+                    <td class="mobileNaoMostrar"><c:out value="${p.categoria.nome }" escapeXml="true"/></td>
+                    <td class="mobileNaoMostrar"><c:out value="${p.dt_cadastro }" escapeXml="true"/></td>
 
-        </c:forEach>
-        <c:if test="${usuarioLogado.admConfirm }">
-            <td colspan="7" align="center">
-                <a href="${formPatrimonio }">Add +</a>
-            </td>
-        </c:if>
-        </tbody>
+                    <c:if test="${usuarioLogado.admConfirm }">
+                        <td>
+                            <a href="${formPatrimonio }?id=${p.id}">Editar</a>
+                        </td>
 
-    </table>
+                        <td>
+                            <a href="${excluirPatrimonio }?id=${p.id}">Excluir</a>
+                        </td>
+                    </c:if>
 
+                </tr>
+
+            </c:forEach>
+            <c:if test="${usuarioLogado.admConfirm }">
+                <td colspan="7" align="center">
+                    <a href="${formPatrimonio }">Add +</a>
+                </td>
+            </c:if>
+            </tbody>
+
+        </table>
+    </div>
 
 </div>
 

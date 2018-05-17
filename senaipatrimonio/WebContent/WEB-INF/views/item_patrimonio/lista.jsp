@@ -56,10 +56,10 @@
         <tr>
             <th>#</th>
             <th>Ambiente Atual</th>
-            <th>Nome do cadastrante</th>
-            <th>Ultima Movimentação</th>
+            <th class="mobileNaoMostrar">Nome do cadastrante</th>
+            <th class="mobileNaoMostrar">Ultima Movimentação</th>
             <c:if test="${usuarioLogado.admConfirm }">
-                <th>Excluir</th>
+                <th class="mobileNaoMostrar">Excluir</th>
             </c:if>
         </tr>
         </thead>
@@ -68,12 +68,12 @@
             <tr>
                 <td><a href="${verItem}?id=${ip.id}"><c:out value="${ip.id } " escapeXml="true"/></a></td>
                 <td><c:out value="${ip.ambienteAtual.nome }" escapeXml="true"/></td>
-                <td><c:out value="${ip.cadastrante.nome }" escapeXml="true"/></td>
-                <td><c:out value="${ip.dataMovimentacao }" escapeXml="true"/></td>
+                <td class="mobileNaoMostrar"><c:out value="${ip.cadastrante.nome }" escapeXml="true"/></td>
+                <td class="mobileNaoMostrar"><c:out value="${ip.dataMovimentacao }" escapeXml="true"/></td>
 
                 <c:if test="${usuarioLogado.admConfirm }">
 
-                    <td>
+                    <td class="mobileNaoMostrar">
                         <a href="${excluirItem }?id=${ip.id}">Excluir</a>
                     </td>
                 </c:if>

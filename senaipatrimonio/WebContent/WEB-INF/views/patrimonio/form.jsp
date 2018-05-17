@@ -47,7 +47,7 @@
             </label>
             <form:errors path="categoria" class="spanErroSolto"></form:errors>
 
-            <label>Foto
+            <label class="uploadFoto">Foto
                 <input type="file" name="fotoPatrimonio">
             </label>
 

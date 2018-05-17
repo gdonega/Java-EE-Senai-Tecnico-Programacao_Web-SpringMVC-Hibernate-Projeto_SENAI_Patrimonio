@@ -32,7 +32,7 @@
                 <form:hidden path="id"/>
             </label>
            
-            <label>Foto
+            <label class="uploadFoto">Foto
                 <input type="file" name="fotoItem">
             </label>
 

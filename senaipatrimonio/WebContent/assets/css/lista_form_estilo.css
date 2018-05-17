@@ -9,6 +9,9 @@
 .divList{
 	
 }
-
-.divForm{
+@media screen and (max-width: 480px) {
+    .divForm {
+        border-top-style: dashed;
+        margin-top: 100px;
+    }
 }

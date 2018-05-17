@@ -8,9 +8,29 @@
     align-items: flex-start;
 	flex-direction: column;
 }
-.formUser label{
-    flex-direction: row !important;
-    align-items: center !important;
+@media screen and (min-width: 480px) {
+    .formUser label {
+        flex-direction: row !important;
+        align-items: center !important;
+        color: black;
+    }
+}
+@media screen and (max-width: 480px) {
+    .formUser label {
+        justify-content: center;
+        flex-wrap: wrap;
+        color: black;
+    }
+    .uploadFoto input{
+        width: 100%;
+    }
+
+    .uploadFoto{
+        width: 82%;
+    }
+
+}
+.formUser label {
     color: black;
 }
 .formUser span{
