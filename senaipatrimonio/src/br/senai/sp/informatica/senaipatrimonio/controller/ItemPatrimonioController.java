@@ -24,16 +24,27 @@ import java.io.File;
 @Controller
 public class ItemPatrimonioController {
 
+	//Objetos injetados pelo Spring
     @Autowired
     private ItemPatrimonioDAO itemPatrimonioDAO;
+    
     @Autowired
     private AmbienteDAO ambienteDAO;
+    
     @Autowired
     private SessionHelper sessionHelper;
+    
     @Autowired
     private ServletContext context;
 
 
+    /**
+     * Abrir pagina de cadastro de Item Patrimonio 
+     * 
+     * @param idPatrimonio
+     * @param model
+     * @return String
+     */
     @GetMapping("app/item/form")
     public String formItem(@RequestParam(required = false) Long idPatrimonio, Model model) {
 
@@ -50,10 +61,21 @@ public class ItemPatrimonioController {
         return "item_patrimonio/formNovo";
     }
 
+    /**
+     * Salva um Item de Patrimonio
+     * 
+     * @param itemPatrimonio
+     * @param result
+     * @param arquivo
+     * @param model
+     * 
+     * @return String 
+     */
     @PostMapping("app/item/salvar")
     public String salvarItem(@Valid ItemPatrimonio itemPatrimonio, BindingResult result,
                              @RequestPart(name = "fotoItemPatrimonio", required = false) MultipartFile arquivo, Model model) {
 
+    	//Confere as regras de negócio
         if (result.hasFieldErrors("patrimonio") || result.hasFieldErrors("ambienteAtual")) {
             model.addAttribute("itemPatrimonio", itemPatrimonio);
             model.addAttribute("ambientes", ambienteDAO.buscarTodos());
@@ -67,10 +89,11 @@ public class ItemPatrimonioController {
 
         System.err.println(arquivo);
 
+        //Faz o upload de arquivo
         if (!arquivo.isEmpty()) {
             try {
 
-                // DiretÃ³rio das fotos de patrimonio
+                // Diretório das fotos de patrimonio
                 String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO);
 
                 // Cria as pastas
@@ -79,7 +102,6 @@ public class ItemPatrimonioController {
                     pasta.mkdirs();
 
                 // Define o caminho do arquivo
-                // + "."+ FilenameUtils.getExtension(arquivo.getOriginalFilename()
                 String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + itemPatrimonio.getId();
 
                 // Criar um obj File - classe responsavel por gerenciar arquivos e pastas
@@ -104,6 +126,12 @@ public class ItemPatrimonioController {
         return "redirect:/app/patrimonio/itens?id=" + itemPatrimonio.getPatrimonio().getId();
     }
 
+    /**
+     * Exclui um Item de patrimonio
+     * 
+     * @param id
+     * @return String
+     */
     @GetMapping("app/adm/item/excluir")
     public String excluirItem(@RequestParam(required = true) Long id) {
 
@@ -121,6 +149,13 @@ public class ItemPatrimonioController {
     }
 
 
+    /**
+     * Abrir pagina de alteração de item de patrimonio
+     * 
+     * @param id
+     * @param model
+     * @return String
+     */
     @GetMapping("app/adm/item/alterarFoto")
     public String alterarItem(@RequestParam(required = true) Long id, Model model) {
         itemPatrimonioDAO.buscarPeloId(id);
@@ -128,6 +163,7 @@ public class ItemPatrimonioController {
         return "item_patrimonio/formAlterar";
     }
 
+    
     @PostMapping("app/adm/item/alterarFoto")
     public String alterarItem(ItemPatrimonio itemP, @RequestParam(value = "fotoItem") MultipartFile arquivo) {
         String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO);

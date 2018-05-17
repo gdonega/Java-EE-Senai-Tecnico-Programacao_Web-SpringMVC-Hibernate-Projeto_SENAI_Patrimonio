@@ -16,26 +16,35 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class PersistenceConfig {
 
+	/**
+	 * Cria conexão com banco de dados
+	 * 
+	 * @return DataSource
+	 */
 	@Bean
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 
-//		//SENAI - MYSQL
-//		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//		dataSource.setUrl("jdbc:mysql://localhost:3306/senai_patrimonio?serverTimezone=UTC");
-//		dataSource.setUsername("root");
-//		dataSource.setPassword("root132");
+		// MYSQL
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/senai_patrimonio?serverTimezone=UTC");
+		dataSource.setUsername("root");
+		dataSource.setPassword("root132");
 
-		
-		//HOME - SQLSERVER
-		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		dataSource.setUrl("jdbc:sqlserver://localhost:1433;databaseName=patrimonio_senai_db;integratedSecurity=false");
-		dataSource.setUsername("sa");
-		dataSource.setPassword("sa132");
-//		
+		// SQLSERVER
+		// dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		// dataSource.setUrl("jdbc:sqlserver://localhost:1433;databaseName=patrimonio_senai_db;integratedSecurity=false");
+		// dataSource.setUsername("sa");
+		// dataSource.setPassword("sa132");
+
 		return dataSource;
 	}
 
+	/**
+	 * Cria objeto com as propriedades do hibernate 
+	 * 
+	 * @return Properties
+	 */
 	public Properties getHibernateProperties() {
 		Properties props = new Properties();
 		props.setProperty("hibernate.show_sql", "true");
@@ -45,11 +54,20 @@ public class PersistenceConfig {
 		props.setProperty("hibernate.connection.characterEncoding", "utf8");
 		props.setProperty("hibernate.connection.useUnicode", "utf8");
 
-		props.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServer2012Dialect");
-//		props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		// Dialect para o SQL SERVER
+		// props.setProperty("hibernate.dialect","org.hibernate.dialect.SQLServer2012Dialect");
+		
+		// Dialect para o MYSQL
+		props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		return props;
 	}
 
+	
+
+	/**
+	 * Gera o objeto (LocalSessionFactoryBean) que gera o objeto de conexão com o banco de dados(SessionFactory) para o Spring injetar
+	 * @return LocalSessionFactoryBean
+	 */
 	@Bean
 	public LocalSessionFactoryBean getSessionFactory() {
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
@@ -59,11 +77,16 @@ public class PersistenceConfig {
 		return factoryBean;
 	}
 
+	
+	/**
+	 * Objeto para fazer operações/transações no banco de dados 
+	 * @return HibernateTransactionManager 
+	 */
 	@Bean
 	@Autowired
 	public HibernateTransactionManager getTransactionManager() {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-		transactionManager.setSessionFactory(getSessionFactory().getObject());
+		transactionManager.setSessionFactory(getSessionFactory().getObject()); //gera o SessionFactory e colocar ele para o 
 
 		return transactionManager;
 	}

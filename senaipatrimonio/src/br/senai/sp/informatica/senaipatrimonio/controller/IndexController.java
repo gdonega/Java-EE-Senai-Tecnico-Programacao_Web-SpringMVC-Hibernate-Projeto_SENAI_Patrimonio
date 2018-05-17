@@ -11,9 +11,16 @@ import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
 @Controller
 public class IndexController {
 
+	//Objetos injetados pelo Spring
 	@Autowired
 	private SessionHelper session;
 	
+	/**
+	 * Abrir pagina de login
+	 * 
+	 * @param model
+	 * @return String
+	 */
 	@GetMapping({ "/", "" })
 	public String abrirLogin(Model model) {
 		if (session.getUsuarioLogado() != null)
@@ -24,6 +31,11 @@ public class IndexController {
 		return "usuario/login";
 	}
 
+	/**
+	 * Abrir pagina home do usuario
+	 * 
+	 * @return
+	 */
 	@GetMapping("/app/home")
 	public String abrirHome() {
 		return "home";

@@ -11,13 +11,17 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-@Configuration
+@Configuration 
 @EnableWebMvc
 @ComponentScan("br.senai.sp.informatica.senaipatrimonio")
 @Import(PersistenceConfig.class)
 public class WebConfig implements WebMvcConfigurer {
 
 
+	
+	/**
+	 * Configuração de acesso as paginas jsp
+	 */
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -29,18 +33,27 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 
+    /**
+     * Define a pasta de resource (jsp, css) da aplicação
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
-
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
+    /**
+     * Configuração das Urls que vão ser Interceptadas
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(getAutenticacaoInterceptor()).addPathPatterns("/**");
     }
 
+    
+    /**
+     * Configuração do Interceptor
+     * @return AutenticacaoInterceptor
+     */
     @Bean
     public AutenticacaoInterceptor getAutenticacaoInterceptor() {
         return new AutenticacaoInterceptor();
@@ -49,7 +62,7 @@ public class WebConfig implements WebMvcConfigurer {
     /**
      * Configure o MultipartResolver (classe que gerencia o protocolo multipart)
      *
-     * @return
+     * @return MultipartResolver
      */
     @Bean
     public MultipartResolver multipartResolver() {
