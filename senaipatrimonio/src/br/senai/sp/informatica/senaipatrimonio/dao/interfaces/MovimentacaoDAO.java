@@ -1,13 +1,18 @@
 package br.senai.sp.informatica.senaipatrimonio.dao.interfaces;
 
+import java.util.List;
+
 import br.senai.sp.informatica.senaipatrimonio.model.ItemPatrimonio;
 import br.senai.sp.informatica.senaipatrimonio.model.Movimentacao;
 
-import java.util.List;
+public interface MovimentacaoDAO extends DAO<Movimentacao> {
 
-public interface MovimentacaoDAO extends DAO<Movimentacao>{
-
-
-    List<Movimentacao> buscarPorItemPatrimonio(ItemPatrimonio itemPatrimonio);
+	/**
+	 * Lista movimentações de um item
+	 * 
+	 * @param itemPatrimonio
+	 * @return List<Movimentacao>
+	 */
+	List<Movimentacao> buscarPorItemPatrimonio(ItemPatrimonio itemPatrimonio);
 
 }

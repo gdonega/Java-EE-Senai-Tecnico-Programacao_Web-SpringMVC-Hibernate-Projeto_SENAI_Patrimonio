@@ -2,9 +2,11 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- Urls de Res --%>
 <c:url value="/assets/images" var="images" />
 <c:url value="/assets/css" var="css" />
 <c:url value="/assets/js" var="js" />
+<%-- Urls de Navegação --%>
 <c:url value="/app/adm/usuario/form" var="formUsuario" />
 <c:url value="/app/adm/usuario/excluir" var="excluirUsuario" />
 <c:url value="/app/adm/usuario/lista" var="listaUsuario" />

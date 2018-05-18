@@ -32,10 +32,10 @@ public class PersistenceConfig {
 		dataSource.setPassword("root132");
 
 		// SQLSERVER
-		// dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		// dataSource.setUrl("jdbc:sqlserver://localhost:1433;databaseName=patrimonio_senai_db;integratedSecurity=false");
-		// dataSource.setUsername("sa");
-		// dataSource.setPassword("sa132");
+//		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		dataSource.setUrl("jdbc:sqlserver://localhost:1433;databaseName=patrimonio_senai_db;integratedSecurity=false");
+//		dataSource.setUsername("sa");
+//		dataSource.setPassword("sa132");
 
 		return dataSource;
 	}
@@ -55,7 +55,7 @@ public class PersistenceConfig {
 		props.setProperty("hibernate.connection.useUnicode", "utf8");
 
 		// Dialect para o SQL SERVER
-		// props.setProperty("hibernate.dialect","org.hibernate.dialect.SQLServer2012Dialect");
+//		props.setProperty("hibernate.dialect","org.hibernate.dialect.SQLServer2012Dialect");
 		
 		// Dialect para o MYSQL
 		props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");

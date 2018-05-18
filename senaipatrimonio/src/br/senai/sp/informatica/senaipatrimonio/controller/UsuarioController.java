@@ -29,12 +29,21 @@ import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
 @Controller
 public class UsuarioController {
 
+	// Objetos injetados pelo Spring
 	@Autowired
 	private UsuarioDAO usuarioDAO;
 
 	@Autowired
 	private SessionHelper session;
 
+	/**
+	 * Logar usuario
+	 * 
+	 * @param usuario
+	 * @param brUsuario
+	 * @param model
+	 * @return String
+	 */
 	@PostMapping({ "/usuario/logar" })
 	public String executarLogin(@Valid Usuario usuario, BindingResult brUsuario, Model model) {
 
@@ -55,18 +64,36 @@ public class UsuarioController {
 		return "usuario/login";
 	}
 
+	/**
+	 * Desloga usuario
+	 * 
+	 * @return String
+	 */
 	@GetMapping({ "/app/usuario/logout" })
 	public String executarLogout() {
 		session.terminarSessao();
 		return "redirect:/";
 	}
 
+	/**
+	 * Abre a pagina de informações do usuario
+	 * 
+	 * @param model
+	 * @return String
+	 */
 	@GetMapping({ "/app/usuario/info" })
 	public String usuarioInfo(Model model) {
 		model.addAttribute("usuario", new Usuario());
 		return "usuario/ver_usuario";
 	}
 
+	/**
+	 * Altera a senha do usuario
+	 * 
+	 * @param usuario
+	 * @param brUsuario
+	 * @return String
+	 */
 	@PostMapping("app/usuario/senha/alterar")
 	public String usuarioAlterarSenha(@Valid Usuario usuario, BindingResult brUsuario) {
 
@@ -98,6 +125,13 @@ public class UsuarioController {
 		return "redirect:/app/home";
 	}
 
+	/**
+	 * Lista usarios
+	 * 
+	 * @param model
+	 * @param tipo
+	 * @return String
+	 */
 	@GetMapping("app/adm/usuario/lista")
 	public String abrirLista(Model model, @RequestParam(name = "filtro", required = false) TipoUsuario tipo) {
 
@@ -116,12 +150,25 @@ public class UsuarioController {
 		return "usuario/lista";
 	}
 
+	/**
+	 * Exclui um usuario
+	 * 
+	 * @param id
+	 * @return String
+	 */
 	@GetMapping("app/adm/usuario/excluir")
 	public String excluirUsuario(@RequestParam(required = true) Long id) {
 		usuarioDAO.deletar(new Usuario(id));
 		return "redirect:/app/adm/usuario/lista";
 	}
 
+	/**
+	 * Abre cadastro de usuario
+	 * 
+	 * @param id
+	 * @param model
+	 * @return String
+	 */
 	@GetMapping("app/adm/usuario/form")
 	public String abrirFormUsuario(@RequestParam(required = false) Long id, Model model) {
 
@@ -136,6 +183,14 @@ public class UsuarioController {
 		return "usuario/form";
 	}
 
+	/**
+	 * Salva um usuario
+	 * 
+	 * @param usuario
+	 * @param result
+	 * @param model
+	 * @return String
+	 */
 	@PostMapping("app/adm/usuario/salvar")
 	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, Model model) {
 

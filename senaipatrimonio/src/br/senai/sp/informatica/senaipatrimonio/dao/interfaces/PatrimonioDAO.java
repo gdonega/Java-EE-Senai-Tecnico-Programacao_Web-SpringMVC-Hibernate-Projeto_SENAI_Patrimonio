@@ -7,9 +7,27 @@ import java.util.List;
 
 public interface PatrimonioDAO extends DAO<Patrimonio> {
 
-    List<Patrimonio> buscarPorCategoria(Categoria categoria);
+	/**
+	 * Busca patrimonios por categoria
+	 * 
+	 * @param categoria
+	 * @return List<Patrimonio>
+	 */
+	List<Patrimonio> buscarPorCategoria(Categoria categoria);
 
-    Boolean jaEstaCadastrado(Patrimonio patrimonio);
+	/**
+	 * Confere se já foi cadastrado
+	 * 
+	 * @param patrimonio
+	 * @return Boolean
+	 */
+	Boolean jaEstaCadastrado(Patrimonio patrimonio);
 
-    Boolean existeOutroComEsseNome(Patrimonio patrimonio);
+	/**
+	 * Confere se existe outro com o mesmo nome
+	 * 
+	 * @param patrimonio
+	 * @return Boolean
+	 */
+	Boolean existeOutroComEsseNome(Patrimonio patrimonio);
 }

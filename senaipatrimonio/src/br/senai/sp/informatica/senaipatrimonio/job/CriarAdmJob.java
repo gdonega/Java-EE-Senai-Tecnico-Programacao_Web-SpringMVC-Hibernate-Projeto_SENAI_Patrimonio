@@ -26,7 +26,7 @@ public class CriarAdmJob implements ApplicationListener<ContextRefreshedEvent> {
 		Usuario admin = new Usuario();
 
 		admin.setEmail("admin@email.com");
-		admin.setNome("Donegá");
+		admin.setNome("ADM");
 		admin.setSenha("admin132");
 		admin.hashearSenha();
 		admin.setSobrenome("do Sistema");
@@ -42,20 +42,11 @@ public class CriarAdmJob implements ApplicationListener<ContextRefreshedEvent> {
 		comum.setSobrenome("do Sistema");
 		comum.setTipo(TipoUsuario.COMUM);
 		
-		Usuario admin2 = new Usuario();
-
-		admin2.setEmail("admin23@email.com");
-		admin2.setNome("ADM23");
-		admin2.setSenha("admin132");
-		admin2.hashearSenha();
-		admin2.setSobrenome("Legal");
-		admin2.setTipo(TipoUsuario.ADMIN);
-
+		
 		
 		if (usuarioDAO.buscarPorEmail(admin.getEmail()) == null) {
 			usuarioDAO.persistir(admin);
 			usuarioDAO.persistir(comum);
-			usuarioDAO.persistir(admin2);
 		} else {
 			System.out.println("[JOB]: UsuarioADM já existe");
 		}

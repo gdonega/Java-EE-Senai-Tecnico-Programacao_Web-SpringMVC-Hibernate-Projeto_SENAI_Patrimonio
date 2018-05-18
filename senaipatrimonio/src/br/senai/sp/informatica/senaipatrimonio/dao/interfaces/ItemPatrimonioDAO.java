@@ -5,8 +5,14 @@ import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
 
 import java.util.List;
 
-public interface ItemPatrimonioDAO extends DAO<ItemPatrimonio>{
+public interface ItemPatrimonioDAO extends DAO<ItemPatrimonio> {
 
-    List<ItemPatrimonio> buscarPorPatrimonio(Patrimonio patrimonio);
+	/**
+	 * Lista Itens de um patrimonio
+	 * 
+	 * @param patrimonio
+	 * @return List<ItePatrimonio>
+	 */
+	List<ItemPatrimonio> buscarPorPatrimonio(Patrimonio patrimonio);
 
 }

@@ -2,9 +2,12 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%-- Urls de Res --%>
 <c:url value="/assets/images" var="images" />
 <c:url value="/assets/css" var="css" />
 <c:url value="/assets/js" var="js" />
+
+<%-- Urls de Navegação --%>
 <c:url value="/app/adm/usuario/salvar" var="salvarUsuario" />
 
 
@@ -49,7 +52,7 @@
 				</label>
 					<form:errors path="email" class="spanErroSolto"></form:errors>
 				
-				<label> Nï¿½vel de acesso
+				<label> Nível de acesso
 					<form:select path="tipo" id="tipo">
 						<c:forEach items="${tipos}" var="tipo">
 							<form:option value="${tipo}">${tipo}</form:option>

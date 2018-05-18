@@ -1,12 +1,10 @@
 package br.senai.sp.informatica.senaipatrimonio.controller;
 
-import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.AmbienteDAO;
-import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.ItemPatrimonioDAO;
-import br.senai.sp.informatica.senaipatrimonio.model.ItemPatrimonio;
-import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
-import br.senai.sp.informatica.senaipatrimonio.utils.Constantes;
-import br.senai.sp.informatica.senaipatrimonio.utils.OutrosMetodos;
-import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
+import java.io.File;
+
+import javax.servlet.ServletContext;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,196 +15,215 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
-import javax.validation.Valid;
-import java.io.File;
+import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.AmbienteDAO;
+import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.ItemPatrimonioDAO;
+import br.senai.sp.informatica.senaipatrimonio.model.ItemPatrimonio;
+import br.senai.sp.informatica.senaipatrimonio.model.Patrimonio;
+import br.senai.sp.informatica.senaipatrimonio.utils.Constantes;
+import br.senai.sp.informatica.senaipatrimonio.utils.OutrosMetodos;
+import br.senai.sp.informatica.senaipatrimonio.utils.SessionHelper;
 
 @Controller
 public class ItemPatrimonioController {
 
-	//Objetos injetados pelo Spring
-    @Autowired
-    private ItemPatrimonioDAO itemPatrimonioDAO;
-    
-    @Autowired
-    private AmbienteDAO ambienteDAO;
-    
-    @Autowired
-    private SessionHelper sessionHelper;
-    
-    @Autowired
-    private ServletContext context;
+	// Objetos injetados pelo Spring
+	@Autowired
+	private ItemPatrimonioDAO itemPatrimonioDAO;
 
+	@Autowired
+	private AmbienteDAO ambienteDAO;
 
-    /**
-     * Abrir pagina de cadastro de Item Patrimonio 
-     * 
-     * @param idPatrimonio
-     * @param model
-     * @return String
-     */
-    @GetMapping("app/item/form")
-    public String formItem(@RequestParam(required = false) Long idPatrimonio, Model model) {
+	@Autowired
+	private SessionHelper sessionHelper;
 
-        Patrimonio patrimonio = new Patrimonio();
-        patrimonio.setId(idPatrimonio);
+	@Autowired
+	private ServletContext context;
 
-        ItemPatrimonio item = new ItemPatrimonio();
+	/**
+	 * Abrir pagina de cadastro de Item Patrimonio
+	 * 
+	 * @param idPatrimonio
+	 * @param model
+	 * @return String
+	 */
+	@GetMapping("app/item/form")
+	public String formItem(@RequestParam(required = false) Long idPatrimonio, Model model) {
 
-        item.setPatrimonio(patrimonio);
+		Patrimonio patrimonio = new Patrimonio();
+		patrimonio.setId(idPatrimonio);
 
-        model.addAttribute("itemPatrimonio", item);
-        model.addAttribute("ambientes", ambienteDAO.buscarTodos());
+		ItemPatrimonio item = new ItemPatrimonio();
 
-        return "item_patrimonio/formNovo";
-    }
+		item.setPatrimonio(patrimonio);
 
-    /**
-     * Salva um Item de Patrimonio
-     * 
-     * @param itemPatrimonio
-     * @param result
-     * @param arquivo
-     * @param model
-     * 
-     * @return String 
-     */
-    @PostMapping("app/item/salvar")
-    public String salvarItem(@Valid ItemPatrimonio itemPatrimonio, BindingResult result,
-                             @RequestPart(name = "fotoItemPatrimonio", required = false) MultipartFile arquivo, Model model) {
+		model.addAttribute("itemPatrimonio", item);
+		model.addAttribute("ambientes", ambienteDAO.buscarTodos());
 
-    	//Confere as regras de negócio
-        if (result.hasFieldErrors("patrimonio") || result.hasFieldErrors("ambienteAtual")) {
-            model.addAttribute("itemPatrimonio", itemPatrimonio);
-            model.addAttribute("ambientes", ambienteDAO.buscarTodos());
-            return "item_patrimonio/formNovo";
-        }
+		return "item_patrimonio/formNovo";
+	}
 
-        itemPatrimonio.setCadastrante(sessionHelper.getUsuarioLogado());
-        itemPatrimonioDAO.persistir(itemPatrimonio);
+	/**
+	 * Salva um Item de Patrimonio
+	 * 
+	 * @param itemPatrimonio
+	 * @param result
+	 * @param arquivo
+	 * @param model
+	 * 
+	 * @return String
+	 */
+	@PostMapping("app/item/salvar")
+	public String salvarItem(@Valid ItemPatrimonio itemPatrimonio, BindingResult result,
+			@RequestPart(name = "fotoItemPatrimonio", required = false) MultipartFile arquivo, Model model) {
 
-        // Upload da foto
+		// Confere as regras de negócio
+		if (result.hasFieldErrors("patrimonio") || result.hasFieldErrors("ambienteAtual")) {
+			model.addAttribute("itemPatrimonio", itemPatrimonio);
+			model.addAttribute("ambientes", ambienteDAO.buscarTodos());
+			return "item_patrimonio/formNovo";
+		}
 
-        System.err.println(arquivo);
+		itemPatrimonio.setCadastrante(sessionHelper.getUsuarioLogado());
+		itemPatrimonioDAO.persistir(itemPatrimonio);
 
-        //Faz o upload de arquivo
-        if (!arquivo.isEmpty()) {
-            try {
+		// Upload da foto
 
-                // Diretório das fotos de patrimonio
-                String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO);
+		System.err.println(arquivo);
 
-                // Cria as pastas
-                File pasta = new File(caminhoDaPastaPatrimonioFotos);
-                if (!pasta.exists())
-                    pasta.mkdirs();
+		// Faz o upload de arquivo
+		if (!arquivo.isEmpty()) {
+			try {
 
-                // Define o caminho do arquivo
-                String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + itemPatrimonio.getId();
+				// Diretório das fotos de patrimonio
+				String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO);
 
-                // Criar um obj File - classe responsavel por gerenciar arquivos e pastas
-                File file = new File(caminhoArquivo);
+				// Cria as pastas
+				File pasta = new File(caminhoDaPastaPatrimonioFotos);
+				if (!pasta.exists())
+					pasta.mkdirs();
 
-                // Cria o arquivo caso ele nï¿½o exista
-                if (!file.exists())
-                    file.createNewFile();
+				// Define o caminho do arquivo
+				String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + itemPatrimonio.getId();
 
-                // Transfere os dados do aruqivo upado (multipart) para um arquivo na maquina
-                // (File)
-                arquivo.transferTo(file);
+				// Criar um obj File - classe responsavel por gerenciar arquivos e pastas
+				File file = new File(caminhoArquivo);
 
-                // BufferedImage <- classe que manipula imagens no java
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.err.println("Arquivo nÃ£o enviado");
-        }
+				// Cria o arquivo caso ele nï¿½o exista
+				if (!file.exists())
+					file.createNewFile();
 
-        return "redirect:/app/patrimonio/itens?id=" + itemPatrimonio.getPatrimonio().getId();
-    }
+				// Transfere os dados do aruqivo upado (multipart) para um arquivo na maquina
+				// (File)
+				arquivo.transferTo(file);
 
-    /**
-     * Exclui um Item de patrimonio
-     * 
-     * @param id
-     * @return String
-     */
-    @GetMapping("app/adm/item/excluir")
-    public String excluirItem(@RequestParam(required = true) Long id) {
+				// BufferedImage <- classe que manipula imagens no java
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.err.println("Arquivo nÃ£o enviado");
+		}
 
-        Long idPatrimonio;
+		return "redirect:/app/patrimonio/itens?id=" + itemPatrimonio.getPatrimonio().getId();
+	}
 
-        ItemPatrimonio item = itemPatrimonioDAO.buscarPeloId(id);
+	/**
+	 * Exclui um Item de patrimonio
+	 * 
+	 * @param id
+	 * @return String
+	 */
+	@GetMapping("app/adm/item/excluir")
+	public String excluirItem(@RequestParam(required = true) Long id) {
 
-        idPatrimonio = item.getPatrimonio().getId();
+		Long idPatrimonio;
 
-        itemPatrimonioDAO.deletar(item);
+		ItemPatrimonio item = itemPatrimonioDAO.buscarPeloId(id);
 
-        OutrosMetodos.excluirFotoFile(id, context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO));
+		idPatrimonio = item.getPatrimonio().getId();
 
-        return "redirect:/app/patrimonio/itens?id=" + idPatrimonio;
-    }
+		itemPatrimonioDAO.deletar(item);
 
+		OutrosMetodos.excluirFotoFile(id, context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO));
 
-    /**
-     * Abrir pagina de alteração de item de patrimonio
-     * 
-     * @param id
-     * @param model
-     * @return String
-     */
-    @GetMapping("app/adm/item/alterarFoto")
-    public String alterarItem(@RequestParam(required = true) Long id, Model model) {
-        itemPatrimonioDAO.buscarPeloId(id);
-        model.addAttribute("itemPatrimonio", itemPatrimonioDAO.buscarPeloId(id));
-        return "item_patrimonio/formAlterar";
-    }
+		return "redirect:/app/patrimonio/itens?id=" + idPatrimonio;
+	}
 
-    
-    @PostMapping("app/adm/item/alterarFoto")
-    public String alterarItem(ItemPatrimonio itemP, @RequestParam(value = "fotoItem") MultipartFile arquivo) {
-        String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO);
-        File pasta = new File(caminhoDaPastaPatrimonioFotos);
-        if (!pasta.exists())
-            pasta.mkdirs();
-        String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + itemP.getId();
-        File file = new File(caminhoArquivo);
+	/**
+	 * Abrir pagina de alteração de item de patrimonio
+	 * 
+	 * @param id
+	 * @param model
+	 * @return String
+	 */
+	@GetMapping("app/adm/item/alterarFoto")
+	public String alterarItem(@RequestParam(required = true) Long id, Model model) {
+		itemPatrimonioDAO.buscarPeloId(id);
+		model.addAttribute("itemPatrimonio", itemPatrimonioDAO.buscarPeloId(id));
+		return "item_patrimonio/formAlterar";
+	}
 
-        if (!arquivo.isEmpty()) {
-            try {
-                if (!file.exists())
-                    file.createNewFile();
-                arquivo.transferTo(file);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            if (file.exists()){
-                file.delete();
-            }
-        }
+	@PostMapping("app/adm/item/alterarFoto")
+	public String alterarItem(ItemPatrimonio itemP, @RequestParam(value = "fotoItem") MultipartFile arquivo) {
+		// Constrói o caminho absoluto da pasta
+		String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO);
+		// guarda a pasta em um File
+		File pasta = new File(caminhoDaPastaPatrimonioFotos);
+		// caso não exista a pasta, cria todas até ela
+		if (!pasta.exists())
+			pasta.mkdirs();
 
-        return "redirect:/app/item/movimentacoes?id=" + itemP.getId();
-    }
+		// Constrói o caminho absoluto do arquivo
+		String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + itemP.getId();
+		// guarda o arquivo em um File
+		File file = new File(caminhoArquivo);
 
-    @GetMapping("app/adm/item/excluirFoto")
-    public String excluirFoto(@RequestParam(value = "id") Long idItem){
+		// Caso o arquivo enviado não esteja vazio
+		if (!arquivo.isEmpty()) {
+			// Tenta trasferir ele para o arquivo no servidor
+			try {
+				if (!file.exists())
+					file.createNewFile();
 
-        String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO);
-        File pasta = new File(caminhoDaPastaPatrimonioFotos);
-        if (!pasta.exists())
-            return "redirect:/app/item/movimentacoes?id=" + idItem;
+				arquivo.transferTo(file);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			// caso esteja vazio, deleta qualquer arquivo no servidor
+			if (file.exists()) {
+				file.delete();
+			}
+		}
 
-        String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + idItem;
-        File file = new File(caminhoArquivo);
+		return "redirect:/app/item/movimentacoes?id=" + itemP.getId();
+	}
 
+	@GetMapping("app/adm/item/excluirFoto")
+	public String excluirFoto(@RequestParam(value = "id") Long idItem) {
+		// Constrói o caminho absoluto da pasta
+		String caminhoDaPastaPatrimonioFotos = context.getRealPath(Constantes.URL_BASE_FOTO_ITEM_PATRIMONIO);
 
-        if (file.exists()){
-            file.delete();
-        }
+		// guarda o arquivo em um File
+		File pasta = new File(caminhoDaPastaPatrimonioFotos);
+		
+		// Caso a pasta não exista, já redireciona para a listagem de movimentações de
+		// novo
+		if (!pasta.exists())
+			return "redirect:/app/item/movimentacoes?id=" + idItem;
+		
+		// Constrói o caminho absoluto do arquivo
+		String caminhoArquivo = caminhoDaPastaPatrimonioFotos + "foto_" + idItem;
+		
+		// guarda o arquivo em um File
+		File file = new File(caminhoArquivo);
+		
+		// Caso ele exista, deleta ele do servidor
+		if (file.exists()) {
+			file.delete();
+		}
 
-        return "redirect:/app/item/movimentacoes?id=" + idItem;
-    }
+		return "redirect:/app/item/movimentacoes?id=" + idItem;
+	}
 
 }
