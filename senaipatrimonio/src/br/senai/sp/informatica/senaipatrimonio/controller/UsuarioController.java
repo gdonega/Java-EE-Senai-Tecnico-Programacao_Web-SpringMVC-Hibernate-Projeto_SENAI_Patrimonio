@@ -47,7 +47,7 @@ public class UsuarioController {
 	@PostMapping({ "/usuario/logar" })
 	public String executarLogin(@Valid Usuario usuario, BindingResult brUsuario, Model model) {
 
-		if (brUsuario.hasFieldErrors("senha") || brUsuario.hasFieldErrors("senha")) {
+		if (brUsuario.hasFieldErrors("email") || brUsuario.hasFieldErrors("senha")) {
 			System.out.println("CAPTUROU OS ERROS");
 			return "usuario/login";
 		}
