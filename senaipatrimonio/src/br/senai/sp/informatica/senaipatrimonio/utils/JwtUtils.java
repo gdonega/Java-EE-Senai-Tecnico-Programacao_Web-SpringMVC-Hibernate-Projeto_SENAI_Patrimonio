@@ -15,6 +15,8 @@ import br.senai.sp.informatica.senaipatrimonio.model.Usuario;
 
 public class JwtUtils {
 
+	private static String secret = "17A449272F9A4818CC6C8C6CA091064AC2E21C948CD1A1E226328403761A3E75";
+	
 	/**
 	 * Cria um token válido
 	 * 
@@ -44,7 +46,7 @@ public class JwtUtils {
 				.withClaim("email", usuario.getEmail())
 				
 				
-				.sign(Algorithm.HMAC512("17A449272F9A4818CC6C8C6CA091064AC2E21C948CD1A1E226328403761A3E75"))
+				.sign(Algorithm.HMAC512(secret))
 				;
 	}
 	
@@ -57,7 +59,7 @@ public class JwtUtils {
 	 */
 	public static void validarToken(String token) throws JWTVerificationException, IllegalArgumentException, UnsupportedEncodingException {
 		JWT
-			.require(Algorithm.HMAC512("17A449272F9A4818CC6C8C6CA091064AC2E21C948CD1A1E226328403761A3E75"))
+			.require(Algorithm.HMAC512(secret))
 			.build()
 			.verify(token);
 	}
