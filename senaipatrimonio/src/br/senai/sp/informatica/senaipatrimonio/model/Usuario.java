@@ -133,12 +133,13 @@ public class Usuario extends UsuarioBase
 //		this.tipo = tipo;
 //	}
 	
+	@JsonIgnore
 	public void hashearSenha() {
 		this.senha = DigestUtils.md5DigestAsHex(this.senha.getBytes());
 	}
 
 
-	
+	@JsonIgnore
 	public Boolean getAdmConfirm() {
 		if(this.getTipo().equals(TipoUsuario.ADMIN) ) {
 			return true;
@@ -150,9 +151,11 @@ public class Usuario extends UsuarioBase
 	@Override
 	public String toString() {
 		return "Usuario [sobrenome=" + sobrenome + ", senha=" + senha + ", senhaAntiga=" + senhaAntiga
-				+ ", senhaNovaConfirmacao=" + senhaNovaConfirmacao + ", toString()=" + super.toString() + "]";
+				+ ", senhaNovaConfirmacao=" + senhaNovaConfirmacao + ", getId()=" + getId() + ", getNome()=" + getNome()
+				+ ", getTipo()=" + getTipo() + ", getEmail()=" + getEmail() + "]";
 	}
-	
+
+
 
 	
 	

@@ -29,7 +29,7 @@ public class UsuarioJWT extends UsuarioBase implements Authentication{
 
 	@Override
 	public Object getPrincipal() {
-		return null;
+		return this;
 	}
 
 	@Override
@@ -41,5 +41,14 @@ public class UsuarioJWT extends UsuarioBase implements Authentication{
 	public void setAuthenticated(boolean arg0) throws IllegalArgumentException {		
 	}
 
+	@Override
+	public String toString() {
+		return "UsuarioJWT [id=" + id + ", getId()=" + getId() + ", getNome()=" + getNome() + ", getTipo()=" + getTipo()
+				+ ", getEmail()=" + getEmail() + "]";
+	}
+
+	
+	
+	
 
 }

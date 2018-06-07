@@ -72,5 +72,12 @@ public abstract class UsuarioBase {
 	public void trimEmail() {
 		this.email.trim();
 	}
+
+	@Override
+	public String toString() {
+		return "UsuarioBase [id=" + id + ", nome=" + nome + ", tipo=" + tipo + ", email=" + email + "]";
+	}
+
+	
 	
 }
