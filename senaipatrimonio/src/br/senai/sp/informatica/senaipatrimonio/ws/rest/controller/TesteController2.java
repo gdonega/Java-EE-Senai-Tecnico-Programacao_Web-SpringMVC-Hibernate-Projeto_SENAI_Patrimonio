@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("rest/teste")
-public class TesteController {
+@RequestMapping("/teste")
+public class TesteController2 {
 
 	
 	static List<String> bancoDeDados = new LinkedList<>();
 	static Long ultimoId = 3L;
 
-	public TesteController() {
+	public TesteController2() {
 
 
 		bancoDeDados.add("adsfa");

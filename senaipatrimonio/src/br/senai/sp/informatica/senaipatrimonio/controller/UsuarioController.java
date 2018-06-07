@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.UsuarioDAO;
@@ -47,6 +48,8 @@ public class UsuarioController {
 	@PostMapping({ "/usuario/logar" })
 	public String executarLogin(@Valid Usuario usuario, BindingResult brUsuario, Model model) {
 
+		System.out.println(brUsuario.getFieldErrors().toString());
+		
 		if (brUsuario.hasFieldErrors("email") || brUsuario.hasFieldErrors("senha")) {
 			System.out.println("CAPTUROU OS ERROS");
 			return "usuario/login";

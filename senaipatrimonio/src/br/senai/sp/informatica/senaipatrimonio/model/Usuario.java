@@ -1,5 +1,7 @@
 package br.senai.sp.informatica.senaipatrimonio.model;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +11,12 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.DigestUtils;
 
 @Entity
-public class Usuario {
-
-	
+public class Usuario implements Authentication{
 	
 	public Usuario(Long id) {
 		super();
@@ -148,6 +150,42 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email + ", senha="
 				+ senha + ", tipo=" + tipo + "]";
+	}
+
+
+	
+	@Override
+	public String getName() {
+		return nome;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
+
+	@Override
+	public Object getCredentials() {
+		return null;
+	}
+
+	@Override
+	public Object getDetails() {
+		return null;
+	}
+
+	@Override
+	public Object getPrincipal() {
+		return null;
+	}
+
+	@Override
+	public boolean isAuthenticated() {
+		return true;
+	}
+
+	@Override
+	public void setAuthenticated(boolean arg0) throws IllegalArgumentException {		
 	}
 
 }
