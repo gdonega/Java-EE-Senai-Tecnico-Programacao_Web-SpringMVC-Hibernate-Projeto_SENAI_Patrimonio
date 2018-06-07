@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
-import br.senai.sp.informatica.senaipatrimonio.model.Usuario;
+import br.senai.sp.informatica.senaipatrimonio.model.UsuarioJWT;
 import br.senai.sp.informatica.senaipatrimonio.utils.JwtUtils;
 
 @Component
@@ -45,7 +45,7 @@ public class JwtFilter extends GenericFilterBean {
 					JwtUtils.validarToken(token);
 
 					// 2º Extrair o Usuario do token
-					Usuario usuarioToken = JwtUtils.extrairUsuario(token);
+					UsuarioJWT usuarioToken = (UsuarioJWT) JwtUtils.extrairUsuario(token);
 
 					// 3º Determina que o usuairo do token está autenticado
 					SecurityContextHolder.getContext().setAuthentication(usuarioToken);

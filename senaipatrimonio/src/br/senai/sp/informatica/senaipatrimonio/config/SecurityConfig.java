@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.and()
 			
 			.authorizeRequests()
-				.antMatchers("/rest/auth/jwt", "/rest/auth/jwt/").permitAll() //permite o livre acesso ao endpoint de geração do token
+				.antMatchers("/rest/auth/**").permitAll() //permite o livre acesso ao endpoint de geração do token
 				.antMatchers("/rest/**").authenticated() //permite o acesso a todos os outros endpoints aos usuarios atenticados (que possuem o token)
 			
 			.and()

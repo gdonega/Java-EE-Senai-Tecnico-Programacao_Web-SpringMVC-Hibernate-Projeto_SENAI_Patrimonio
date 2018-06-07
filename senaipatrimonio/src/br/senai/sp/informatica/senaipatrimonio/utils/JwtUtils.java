@@ -12,6 +12,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 
 import br.senai.sp.informatica.senaipatrimonio.model.TipoUsuario;
 import br.senai.sp.informatica.senaipatrimonio.model.Usuario;
+import br.senai.sp.informatica.senaipatrimonio.model.UsuarioBase;
+import br.senai.sp.informatica.senaipatrimonio.model.UsuarioJWT;
 
 public class JwtUtils {
 
@@ -69,9 +71,9 @@ public class JwtUtils {
 	 * @param token
 	 * @return Usuario
 	 */
-	public static Usuario extrairUsuario(String token) {
+	public static UsuarioBase extrairUsuario(String token) {
 	
-		Usuario usuario = new Usuario();
+		UsuarioBase usuario = new UsuarioJWT();
 		
 		DecodedJWT jwtDecodificado = JWT.decode(token);
 		usuario.setId(jwtDecodificado.getClaim("id").asLong());
