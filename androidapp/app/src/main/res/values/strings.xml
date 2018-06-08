@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Senai Patrimonio</string>
+    <string name="HINT_etEmail">Email</string>
+    <string name="HINT_etSenha">Senha</string>
+    <string name="HINT_btnLogar">Logar</string>
+
+</resources>
