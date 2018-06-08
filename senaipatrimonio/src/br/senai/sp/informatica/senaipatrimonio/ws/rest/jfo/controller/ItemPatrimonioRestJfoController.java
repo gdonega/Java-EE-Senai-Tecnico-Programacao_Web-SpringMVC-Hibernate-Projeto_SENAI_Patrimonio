@@ -77,7 +77,7 @@ public class ItemPatrimonioRestJfoController {
 				builder.withJfo(jfo);
 			
 			//Gera o json
-			JsonObject json = builder.serialize(item);
+			JsonObject json = builder.serialize(item).asJsonObject();
 			
 			
 			return ResponseEntity.ok(json.toString());

@@ -11,6 +11,7 @@ import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.ItemPatrimonioDAO;
 import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.MovimentacaoDAO;
 import br.senai.sp.informatica.senaipatrimonio.exceptions.ChangeEnviromentException;
 import br.senai.sp.informatica.senaipatrimonio.exceptions.EntityNotFoundException;
+import br.senai.sp.informatica.senaipatrimonio.exceptions.ValidationException;
 import br.senai.sp.informatica.senaipatrimonio.model.Ambiente;
 import br.senai.sp.informatica.senaipatrimonio.model.ItemPatrimonio;
 import br.senai.sp.informatica.senaipatrimonio.model.Movimentacao;
@@ -79,14 +80,20 @@ public class ItemPatrimonioServices {
 	 * @return ItemPatrimonio
 	 * @throws EntityNotFoundException
 	 * @throws ChangeEnviromentException
+	 * @throws ValidationException 
 	 */
-	public ItemPatrimonio moverItem(Long idItem, Long novoAmbienteId) throws EntityNotFoundException, ChangeEnviromentException {
+	public ItemPatrimonio moverItem(Long idItem, Movimentacao movimentacao) throws EntityNotFoundException, ChangeEnviromentException, ValidationException {
 		ItemPatrimonio itemBuscado = buscarPorId(idItem);
 		
-		if(itemBuscado.getAmbienteAtual().getId() == novoAmbienteId) 
+		Ambiente ambienteNovo = movimentacao.getAmbienteNovo();
+		if(ambienteNovo == null || ambienteNovo.getId() == null)
+			throw new ValidationException();
+		
+		Ambiente ambienteBuscado = ambienteServices.buscarPorId(ambienteNovo.getId());
+		
+		if(itemBuscado.getAmbienteAtual().getId() == ambienteBuscado.getId()) 
 			throw new ChangeEnviromentException();
 		
-		Ambiente ambienteBuscado = ambienteServices.buscarPorId(novoAmbienteId);
 		
 		UsuarioJWT usuarioJWT = (UsuarioJWT) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
@@ -96,8 +103,7 @@ public class ItemPatrimonioServices {
 		
 		
 
-		Movimentacao movimentacao = new Movimentacao();
-		movimentacao.setAmbienteNovo(ambienteBuscado);
+		
 		movimentacao.setAmbienteOriginal(itemBuscado.getAmbienteAtual());
 		movimentacao.setDataDaMovimentacao(new Date());
 		movimentacao.setExecutou(usuarioAuth);
