@@ -8,7 +8,7 @@ import retrofit2.http.POST;
 
 public interface RestEndPoints {
 
-    @POST("rest/auth/jwt")
+    @POST("auth/jwt")
     Call<ResponseBody> auth(@Body User user);
 
 }

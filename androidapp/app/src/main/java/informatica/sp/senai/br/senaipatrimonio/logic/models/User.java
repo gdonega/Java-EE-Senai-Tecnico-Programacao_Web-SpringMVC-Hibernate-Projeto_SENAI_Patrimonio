@@ -3,10 +3,10 @@ package informatica.sp.senai.br.senaipatrimonio.logic.models;
 public class User {
 
     private Long id;
-    private String name;
-    private UserType type;
+    private String nome;
+    private TipoUsuario tipo;
     private String email;
-    private String password;
+    private String senha;
 
     public Long getId() {
         return id;
@@ -16,20 +16,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public UserType getType() {
-        return type;
+    public TipoUsuario getTipo() {
+        return tipo;
     }
 
-    public void setType(UserType type) {
-        this.type = type;
+    public void setTipo(TipoUsuario tipo) {
+        this.tipo = tipo;
     }
 
     public String getEmail() {
@@ -40,11 +40,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

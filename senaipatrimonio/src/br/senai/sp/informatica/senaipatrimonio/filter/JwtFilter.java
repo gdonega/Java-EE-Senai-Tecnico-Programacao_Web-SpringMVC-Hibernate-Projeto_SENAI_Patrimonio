@@ -29,6 +29,8 @@ public class JwtFilter extends GenericFilterBean {
 		// Pega a requesição
 		HttpServletRequest request = (HttpServletRequest) req;
 
+		System.out.println("Meth"+request.getMethod());
+		
 		String authorization = request.getHeader("Authorization");
 
 		// Caso tenha enviado o token

@@ -31,7 +31,7 @@ public class AuthRestController {
 	@PostMapping(value = {"/jwt", "/jwt/"})
 	public ResponseEntity<Object> gerarJwt(@Valid @RequestBody Usuario usuario, BindingResult brUsuario){
 		
-		
+		System.out.println(usuario);
 		try {
 			Usuario usuarioBuscado = usuarioServices.buscarPorEmailESenha(usuario, brUsuario);
 			Map<String, String> mapaToken = new HashMap<>();

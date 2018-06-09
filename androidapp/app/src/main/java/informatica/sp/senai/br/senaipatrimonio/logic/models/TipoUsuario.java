@@ -1,5 +1,5 @@
 package informatica.sp.senai.br.senaipatrimonio.logic.models;
 
-public enum UserType {
+public enum TipoUsuario {
     ADMIN,STANDARD
 }

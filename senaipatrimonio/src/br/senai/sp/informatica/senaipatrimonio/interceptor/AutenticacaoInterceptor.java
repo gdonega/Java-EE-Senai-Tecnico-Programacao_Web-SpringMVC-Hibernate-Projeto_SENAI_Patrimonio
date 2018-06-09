@@ -18,7 +18,9 @@ public class AutenticacaoInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
+		
+		
+		
 		Usuario usuarioLogado = (Usuario) request.getSession().getAttribute(Constantes.USUARIO_DA_SESSAO);
 		String uri = request.getRequestURI();
 
