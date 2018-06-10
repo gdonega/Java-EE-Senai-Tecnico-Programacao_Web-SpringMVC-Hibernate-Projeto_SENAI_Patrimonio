@@ -43,6 +43,8 @@ public final class JSerializerConverterFactory extends Converter.Factory{
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
         Log.d("testesDonega", "requessssttttConverrrrr");
 
+
+
         return new JSerializerRequestBodyConverter(jSerializer, type);
     }
 

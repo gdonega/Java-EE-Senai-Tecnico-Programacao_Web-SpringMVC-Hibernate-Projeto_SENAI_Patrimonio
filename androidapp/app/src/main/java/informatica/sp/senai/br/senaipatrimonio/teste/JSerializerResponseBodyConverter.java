@@ -30,7 +30,7 @@ public class JSerializerResponseBodyConverter<T> implements Converter<ResponseBo
     @Override
     public T convert(ResponseBody value) throws IOException {
 
-//
+////
 //        JsonStructure json = JSerializer.json().parse(value.string());
 //        Log.e("testesDonega",json.toString());
 //
@@ -38,8 +38,8 @@ public class JSerializerResponseBodyConverter<T> implements Converter<ResponseBo
 //            Log.e("testesDonega", "54654654564");
 //            T t = null;
 //
-////            t = json.asJsonObject().to((Class<? extends T>) ?);
-////            Log.e("testesDonega",t.toString());
+//            t = json.asJsonObject().to(T.);
+//            Log.e("testesDonega",t.toString());
 //            return (T) t;
 //
 //        } else {

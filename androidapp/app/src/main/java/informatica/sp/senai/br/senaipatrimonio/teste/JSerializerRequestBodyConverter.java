@@ -9,9 +9,17 @@ import java.io.Writer;
 import java.lang.reflect.Type;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.ObjectWithFilter;
 import io.felipepoliveira.jserializer.JSerializer;
+import io.felipepoliveira.jserializer.json.JfoObject;
+import io.felipepoliveira.jserializer.json.JsonObject;
+import io.felipepoliveira.jserializer.json.JsonSerializationBuilder;
 import io.felipepoliveira.jserializer.json.JsonStructure;
+import io.felipepoliveira.jserializer.json.JsonValue;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okio.Buffer;
@@ -37,15 +45,29 @@ public class JSerializerRequestBodyConverter<T> implements Converter<T, RequestB
     @Override
     public RequestBody convert(T value) throws IOException {
 
-        JsonStructure json = jSerializer.json().serialize(value);
+        JsonSerializationBuilder builder = jSerializer.json();
 
-//        Log.e("testesDonega", json.asJsonObject().toString());
+        JsonStructure jsonStructure;
 
+        try {
+            ObjectWithFilter objectWithFilter = (ObjectWithFilter) value;
+            JfoObject filter = objectWithFilter.getFilter();
 
-        if(json.isJsonObject()) {
-            return RequestBody.create(MEDIA_TYPE, json.asJsonObject().toString());
+            Log.e("JSerializer", "User: " + objectWithFilter.getT().toString());
+            Log.e("JSerializer", "Filter: " + filter.getFilteredFields().toString());
+
+            jsonStructure = builder.withJfo(filter).serialize(objectWithFilter.getT());
+        }catch (Exception e){
+            Log.e("JSerializer", "Request without filter");
+            jsonStructure = builder.serialize(value);
+        }
+
+        Log.e("JSerializer","Final Json: "+ jsonStructure.toString());
+
+        if(jsonStructure.isJsonObject()) {
+            return RequestBody.create(MEDIA_TYPE, jsonStructure.asJsonObject().toString());
         }else{
-            return RequestBody.create(MEDIA_TYPE, json.asJsonArray().toString());
+            return RequestBody.create(MEDIA_TYPE, jsonStructure.asJsonArray().toString());
         }
 
     }
