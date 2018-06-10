@@ -34,6 +34,7 @@ public final class JSerializerConverterFactory extends Converter.Factory{
 
         Log.d("testesDonega", "resssponserrrrr");
 
+
         return new JSerializerResponseBodyConverter(jSerializer, type);
     }
 

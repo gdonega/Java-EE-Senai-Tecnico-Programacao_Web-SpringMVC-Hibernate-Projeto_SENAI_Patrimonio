@@ -39,9 +39,14 @@ public class JSerializerRequestBodyConverter<T> implements Converter<T, RequestB
 
         JsonStructure json = jSerializer.json().serialize(value);
 
-        Log.e("testesDonega", json.asJsonObject().toString());
-        return RequestBody.create(MEDIA_TYPE,json.asJsonObject().toString().getBytes());
+//        Log.e("testesDonega", json.asJsonObject().toString());
 
+
+        if(json.isJsonObject()) {
+            return RequestBody.create(MEDIA_TYPE, json.asJsonObject().toString());
+        }else{
+            return RequestBody.create(MEDIA_TYPE, json.asJsonArray().toString());
+        }
 
     }
 

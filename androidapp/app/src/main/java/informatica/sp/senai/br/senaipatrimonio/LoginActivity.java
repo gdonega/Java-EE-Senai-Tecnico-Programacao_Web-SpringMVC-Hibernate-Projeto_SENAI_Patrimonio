@@ -1,11 +1,13 @@
 package informatica.sp.senai.br.senaipatrimonio;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -16,8 +18,11 @@ import java.util.List;
 import informatica.sp.senai.br.senaipatrimonio.logic.daotestes.AuthRetrofitDAO;
 import informatica.sp.senai.br.senaipatrimonio.logic.daotestes.MethInterfaceDAO;
 import informatica.sp.senai.br.senaipatrimonio.logic.models.User;
+import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.RetrofitConfig;
+import informatica.sp.senai.br.senaipatrimonio.utils.TokenUtils;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, PropertyChangeListener {
@@ -26,11 +31,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnLogin;
     private EditText etEmail;
     private EditText etPassword;
+    private TextView tvTeste;
+
     private AuthRetrofitDAO dao = new AuthRetrofitDAO();
-    private String token = null;
     private List<Object> okArgs = new ArrayList<Object>();
     private List<Object> failureArgs = new ArrayList<Object>();
     private List<Object> results = new ArrayList<>();
+
 
 
     @Override
@@ -43,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogin = findViewById(R.id.btnLogin);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        tvTeste = findViewById(R.id.tvTeste);
 
         //setClick
         btnLogin.setOnClickListener(this);
@@ -54,50 +62,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (v.getId() == R.id.btnLogin)
             doLogin();
-
-
     }
 
 
     public void doLogin() {
-        Log.e("testesDonega", etEmail.getText().toString());
-        Log.e("testesDonega", etPassword.getText().toString());
-//        Log.e("testesDonega", JSerializer.json().serialize(new TesteClass("NomeManeiro", "LegalManeiro")).asJsonObject().toString());
-
         User user = new User();
         user.setEmail(etEmail.getText().toString());
         user.setSenha(etPassword.getText().toString());
-
-//        Call<ResponseBody> call = new RetrofitConfig().getResteEndPoint().auth(user);
-//
-//
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//
-//                if (response.isSuccessful()) {
-//                    try {
-//                        JSONObject objeto = new JSONObject(response.body().string());
-//                        Log.e("testesDonega", "Token: "+ objeto.getString("token"));
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }else{
-//                    Log.e("testesDonega", "deu bosta: " );
-//
-//                }
-//
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//                Log.e("testesDonega", "deu bosta: " + t.getMessage());
-//            }
-//        });
 
 
         dao.getToken(user, okArgs, failureArgs, results,new MethInterfaceDAO() {
@@ -111,14 +82,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
-
-
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        if (AuthRetrofitDAO.AUTH.equals(propertyChangeEvent.getPropertyName()))
-            Log.e("testesDonega", "Token: " + results.get(0));
+        if (AuthRetrofitDAO.AUTH.equals(propertyChangeEvent.getPropertyName())) {
+            TokenUtils.saveTokenWithoutBearer(this, (String) results.get(0));
+
+        }
     }
+
+
 }
 
