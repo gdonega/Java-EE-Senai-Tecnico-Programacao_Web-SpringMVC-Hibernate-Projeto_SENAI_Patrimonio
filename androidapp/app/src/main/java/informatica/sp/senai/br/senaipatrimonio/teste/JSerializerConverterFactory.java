@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import io.felipepoliveira.jserializer.JSerializer;
@@ -32,19 +33,12 @@ public final class JSerializerConverterFactory extends Converter.Factory{
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
 
-        Log.d("testesDonega", "resssponserrrrr");
-
-
         return new JSerializerResponseBodyConverter(jSerializer, type);
     }
 
     @Nullable
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        Log.d("testesDonega", "requessssttttConverrrrr");
-
-
-
         return new JSerializerRequestBodyConverter(jSerializer, type);
     }
 

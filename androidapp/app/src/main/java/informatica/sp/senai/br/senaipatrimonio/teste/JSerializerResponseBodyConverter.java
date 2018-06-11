@@ -1,17 +1,20 @@
 package informatica.sp.senai.br.senaipatrimonio.teste;
 
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.util.Log;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
-import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Collection;
 import java.util.List;
 
-import informatica.sp.senai.br.senaipatrimonio.logic.models.User;
 import io.felipepoliveira.jserializer.JSerializer;
-import io.felipepoliveira.jserializer.json.JsonArray;
 import io.felipepoliveira.jserializer.json.JsonStructure;
+import io.felipepoliveira.jserializer.json.JsonValue;
+import io.felipepoliveira.jserializer.utils.ReflectionUtils;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 
@@ -27,8 +30,55 @@ public class JSerializerResponseBodyConverter<T> implements Converter<ResponseBo
         this.type = type;
     }
 
+    @SuppressLint("NewApi")
     @Override
     public T convert(ResponseBody value) throws IOException {
+        JsonStructure json = JSerializer.json().parse(value.string());
+
+
+//            Log.e("aaaaaaTeste", "Bom Dia: "+String.valueOf(TypeToken.get(type)));
+//            ParameterizedType ty = (ParameterizedType) type;
+//            Log.e("aaaaaaTeste", "Bom Dia: "+String.valueOf("BOm dia: "+type.getClass().getDeclaredFields().length));
+            Log.e("aaaaaaTeste", "Bom Dia: "+String.valueOf("BOm dia: "+type.getClass().));
+//        if (json.isJsonArray()) {
+//            List<JsonValue> values = json.asJsonArray().getValues();
+////type.getClass().asSubclass(a);
+//
+//            for (JsonValue t : values) {
+////                T loo = t.asJsonObject().to((Class<? extends T>) a.getClass());
+////                Log.e("aaaaaaTeste", String.valueOf());
+//            }
+//        }
+//
+//        T oo = null;
+//        Log.e("aaaaaaTeste", json.toString());
+//        Log.e("aaaaaaTeste", "pkg: " + String.valueOf(type.toString()));
+//        Log.e("aaaaaaTeste", "pkg: " + String.valueOf(oo.getClass().toString()));
+//
+//
+//        try {
+////            T[] aaa = json.asJsonArray().to(type.);
+//
+////            Log.e("aaaaaaTeste", "pkg: " + aaa.toString());
+//
+//        } catch (Exception e) {
+//            Log.e("aaaaaaTeste", "pkg: " + "DEU MERDA");
+//            e.printStackTrace();
+//        }
+//
+//        if (json.isJsonArray()) {
+//            try {
+//                Log.e("aaaaaaTeste", "A: " + json.asJsonArray().to(Class.forName(type.getClass().getName())).toString());
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            try {
+//                Log.e("aaaaaaTeste", "A: " + json.asJsonObject().to(Class.forName(type.getClass().getName())).toString());
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
 ////
 //        JsonStructure json = JSerializer.json().parse(value.string());
@@ -55,6 +105,6 @@ public class JSerializerResponseBodyConverter<T> implements Converter<ResponseBo
 //            return (T) json.asJsonArray();
 //        }
 //
-return null;
+        return null;
     }
 }

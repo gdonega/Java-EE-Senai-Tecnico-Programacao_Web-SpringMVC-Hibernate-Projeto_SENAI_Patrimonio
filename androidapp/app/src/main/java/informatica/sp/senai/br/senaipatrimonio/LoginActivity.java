@@ -92,19 +92,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         /**
          * Sem JFO
          */
-        dao.getToken(user, okArgs, failureArgs, results,new MethInterfaceDAO() {
+//        dao.getToken(user, okArgs, failureArgs, results,new MethInterfaceDAO() {
+//            @Override
+//            public void okResponse(Call<ResponseBody> call, Response<ResponseBody> response, List<Object> argsOK, List<Object> results) throws IOException {
+//
+//            }
+//
+//            @Override
+//            public void failureResponse(Call<ResponseBody> call, Throwable t, List<Object> argsFailure) {
+//
+//            }
+//        });
+
+
+        //Teste
+
+        List<User> users = new ArrayList<>();
+        users.add(user);
+        users.add(user);
+        users.add(user);
+        users.add(user);
+        Call<List<User>> call = new RetrofitConfig().getResteEndPoint().testeInputLista(users);
+        call.enqueue(new Callback<List<User>>() {
             @Override
-            public void okResponse(Call<ResponseBody> call, Response<ResponseBody> response, List<Object> argsOK, List<Object> results) throws IOException {
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
 
             }
 
             @Override
-            public void failureResponse(Call<ResponseBody> call, Throwable t, List<Object> argsFailure) {
+            public void onFailure(Call<List<User>> call, Throwable t) {
 
             }
         });
-
-
 
     }
 

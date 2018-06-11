@@ -14,8 +14,8 @@ public class RetrofitConfig {
     public RetrofitConfig() {
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(Statics.SERVER_URL)
-//                .addConverterFactory(JSerializerConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(JSerializerConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
     }
@@ -23,8 +23,8 @@ public class RetrofitConfig {
     public RetrofitConfig(OkHttpClient client) {
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(Statics.SERVER_URL)
-//                .addConverterFactory(JSerializerConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(JSerializerConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
     }

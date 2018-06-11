@@ -27,9 +27,9 @@ public interface RestEndPoints {
 //    Call<User> testeInputObject(@Body User user);
 //
 //
-//    @POST("teste/input/lista")
-//    @Headers("X-Filter: JFO {\"require\" : [\"id\"]}")
-//    Call<List<User>> testeInputLista(@Body List<User> user);
+    @POST("teste/input/lista")
+    @Headers("X-Filter: JFO {\"require\" : [\"id\"]}")
+    Call<List<User>> testeInputLista(@Body List<User> user);
 //
 //    @POST("teste/input/lista")
 //    Call<List<User>> testeInputLista(@Body ObjectWithFilter<List<User>> user);
