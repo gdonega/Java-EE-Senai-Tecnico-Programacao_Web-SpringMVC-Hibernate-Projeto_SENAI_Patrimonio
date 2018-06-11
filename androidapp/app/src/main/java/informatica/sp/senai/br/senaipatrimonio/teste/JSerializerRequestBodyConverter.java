@@ -35,11 +35,11 @@ public class JSerializerRequestBodyConverter<T> implements Converter<T, RequestB
 
 
     private final JSerializer jSerializer;
-    private final Type type;
 
-    JSerializerRequestBodyConverter(JSerializer jSerializer, Type type) {
+
+    JSerializerRequestBodyConverter(JSerializer jSerializer) {
         this.jSerializer = jSerializer;
-        this.type = type;
+
     }
 
     @Override

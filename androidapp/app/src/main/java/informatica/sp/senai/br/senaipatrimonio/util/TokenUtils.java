@@ -2,6 +2,7 @@ package informatica.sp.senai.br.senaipatrimonio.utils;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.support.v7.app.AppCompatActivity;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -11,11 +12,12 @@ import static android.content.Context.MODE_PRIVATE;
 public class TokenUtils {
 
     private static String tokenSharedName = "token";
+    private static String tokenKeyName = "token";
 
     public static void saveToken(Activity activity, String token){
         SharedPreferences preferences = activity.getSharedPreferences(tokenSharedName, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("token", token);
+        editor.putString(tokenKeyName, token);
         editor.apply();
     }
     public static void saveTokenWithoutBearer(Activity activity, String tokenWithoutBearer){
@@ -24,7 +26,7 @@ public class TokenUtils {
     }
 
     public static String getToken(Activity activity){
-        SharedPreferences preferences = activity.getSharedPreferences("token", MODE_PRIVATE);
+        SharedPreferences preferences = activity.getSharedPreferences(tokenKeyName, MODE_PRIVATE);
         return preferences.getString(tokenSharedName, null);
     }
 }

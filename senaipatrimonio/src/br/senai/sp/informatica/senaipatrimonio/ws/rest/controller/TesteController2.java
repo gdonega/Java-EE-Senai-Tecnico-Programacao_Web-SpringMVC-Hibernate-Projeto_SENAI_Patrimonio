@@ -46,27 +46,12 @@ public class TesteController2 {
 
 	@PostMapping(value = { "/input" })
 	public ResponseEntity<Object> busTodos(@RequestBody Usuario usuario) {
+		usuario.setNome("HAHAHAHAH VEIO DO SERVER"); 
 		return ResponseEntity.ok(usuario);
 	}
 
 	@PostMapping(value = { "/input/lista" })
-	public ResponseEntity<Object> busTodosA(@RequestBody List<Usuario> usuario) {
-
-		// Recupera o jfo da requesição
-		JfoObject jfo = requestUtils.getJFO();
-
-		// Inicializa o jsonbuilder
-		JsonSerializationBuilder builder = JSerializer.json();
-
-		// Confere se veio jfo, caso esteja vazio ele ignora o filtro
-		if (jfo != null)
-			builder.withJfo(jfo);
-
-		// Gera o json
-		JsonArray json = builder.serializeArray(usuario.toArray());
-
-		System.out.println("TOP: "+json.toString());
-		
-		return ResponseEntity.ok(json.toString());
+	public ResponseEntity<Object> busTodosA(@RequestBody List<Usuario> usuario) {		
+		return ResponseEntity.ok(usuario);
 	}
 }

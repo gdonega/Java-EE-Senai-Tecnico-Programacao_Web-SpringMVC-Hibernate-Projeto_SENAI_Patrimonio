@@ -1,6 +1,8 @@
 package br.senai.sp.informatica.senaipatrimonio.config;
 
 import br.senai.sp.informatica.senaipatrimonio.interceptor.AutenticacaoInterceptor;
+import io.felipepoliveira.jserializer.plugins.spring.JSerializationConfiguration;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +13,10 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-@Configuration 
+@Configuration
 @EnableWebMvc
 @ComponentScan("br.senai.sp.informatica.senaipatrimonio")
-@Import(PersistenceConfig.class)
+@Import({PersistenceConfig.class, JSerializationConfiguration.class})
 public class WebConfig implements WebMvcConfigurer {
 
 

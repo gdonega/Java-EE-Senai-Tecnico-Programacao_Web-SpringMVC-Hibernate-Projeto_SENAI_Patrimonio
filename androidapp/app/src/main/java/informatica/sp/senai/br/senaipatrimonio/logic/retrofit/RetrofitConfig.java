@@ -2,6 +2,7 @@ package informatica.sp.senai.br.senaipatrimonio.logic.retrofit;
 
 import informatica.sp.senai.br.senaipatrimonio.teste.JSerializerConverterFactory;
 import informatica.sp.senai.br.senaipatrimonio.utils.Statics;
+import io.felipepoliveira.jserializer.JSerializer;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

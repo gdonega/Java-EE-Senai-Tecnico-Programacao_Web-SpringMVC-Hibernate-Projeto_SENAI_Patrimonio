@@ -21,8 +21,11 @@ public final class JSerializerConverterFactory extends Converter.Factory{
     private final JSerializer jSerializer;
 
     public static JSerializerConverterFactory create(){
-        Log.e("testesDonega", "jserrrrr");
         return new JSerializerConverterFactory(new JSerializer());
+    }
+
+    public static JSerializerConverterFactory create(JSerializer jSerializer){
+        return new JSerializerConverterFactory(jSerializer);
     }
 
     private JSerializerConverterFactory(JSerializer jSerializer) {
@@ -39,7 +42,7 @@ public final class JSerializerConverterFactory extends Converter.Factory{
     @Nullable
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return new JSerializerRequestBodyConverter(jSerializer, type);
+        return new JSerializerRequestBodyConverter(jSerializer);
     }
 
 }
