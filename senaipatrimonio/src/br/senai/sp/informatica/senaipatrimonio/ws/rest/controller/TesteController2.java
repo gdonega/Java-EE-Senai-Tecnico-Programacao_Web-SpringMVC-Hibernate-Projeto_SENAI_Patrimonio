@@ -47,6 +47,9 @@ public class TesteController2 {
 	@PostMapping(value = { "/input" })
 	public ResponseEntity<Object> busTodos(@RequestBody Usuario usuario) {
 		usuario.setNome("HAHAHAHAH VEIO DO SERVER"); 
+		
+		System.out.println(usuario.toString());
+		
 		return ResponseEntity.ok(usuario);
 	}
 
