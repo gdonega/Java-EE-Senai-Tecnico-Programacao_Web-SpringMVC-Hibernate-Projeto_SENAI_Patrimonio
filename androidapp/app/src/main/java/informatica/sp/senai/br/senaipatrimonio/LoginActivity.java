@@ -71,9 +71,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         user.setEmail(etEmail.getText().toString());
         user.setSenha(etPassword.getText().toString());
 
-//        /**
-//         * Com o JFO
-//         */
+        /**
+         * Com o JFO
+         */
 //        JfoObject jfoObject = JSerializer.json().parseJfo("{\"require\" : [\"senha\", \"email\"]}");
 //
 //        ObjectWithFilter<User> requestObj = new ObjectWithFilter<User>(user, jfoObject);
@@ -117,32 +117,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         ObjectWithFilter<User> requestObj = new ObjectWithFilter<User>(user, jfoObject);
 
-//        Call<User> call = new RetrofitConfig().getResteEndPoint().testeInputObject(requestObj);
-//        call.enqueue(new Callback<User>() {
-//            @Override
-//            public void onResponse(Call<User> call, Response<User> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<User> call, Throwable t) {
-//
-//            }
-//        });
-
-        Call<List<User>> calll =new RetrofitConfig().getResteEndPoint().testeInputLista(users);
-
-        calll.enqueue(new Callback<List<User>>() {
+        Call<User> call = new RetrofitConfig().getResteEndPoint().testeInputObject(requestObj);
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                Log.e("AAAA", "No login "+ response.body().toString());
 
             }
 
             @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
 
             }
         });
+
+//        Call<List<User>> calll =new RetrofitConfig().getResteEndPoint().testeInputLista(users);
+//
+//        calll.enqueue(new Callback<List<User>>() {
+//            @Override
+//            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<User>> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     @Override

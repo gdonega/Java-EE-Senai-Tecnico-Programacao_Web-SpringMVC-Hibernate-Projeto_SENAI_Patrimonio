@@ -42,7 +42,8 @@ public final class JSerializerConverterFactory extends Converter.Factory{
     @Nullable
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return new JSerializerRequestBodyConverter(jSerializer);
+
+        return new JSerializerRequestBodyConverter<>(jSerializer);
     }
 
 }

@@ -1,7 +1,5 @@
 package informatica.sp.senai.br.senaipatrimonio.teste;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.io.IOException;
@@ -16,7 +14,7 @@ import retrofit2.Converter;
 /**
  * Created by Gustavo Donegá Queiroz(gdonega).
  */
-public class JSerializerResponseBodyConverter implements Converter<ResponseBody, JsonStructure> {
+public class JSerializerResponseBodyConverter<T> implements Converter<ResponseBody, Object> {
 
     private final JSerializer jSerializer;
     private final Type type;
@@ -28,36 +26,47 @@ public class JSerializerResponseBodyConverter implements Converter<ResponseBody,
 
 
     @Override
-    public JsonStructure convert(ResponseBody value) throws IOException {
+    public Object convert(ResponseBody value) throws IOException {
+
+//        Log.e("OI", value.string().toString());
+        String jsonA = "{\"nome\":\"HAHAHAHAH VEIO DO SERVER\"}";
+//        String jsonToParse = String.valueOf(value.string().toString());
+//        Log.e("OI", jsonToParse);
+//        if(JSerializer.json().parse(jsonA).isJsonObject()){
+//            Log.e("OI", "OKKKKKK TA TUDO CERTO");
+//
+//        }
+
+            Log.e("OI", "OKKKKKK TA TUDO CERTO");
+
+//        Log.e("OI", type.toString());
+//        JsonStructure json = JSerializer.json().parse(value.string()).asJsonObject();
+        JsonStructure json = JSerializer.json().parse(jsonA).asJsonObject();
+        String okk = type.toString().split(" ")[1];
+
 
         try {
-            T t = type.getClass().newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+             Class<? extends Class> t = (Class<? extends Class>) Class.forName(okk);
 
-//        Log.e("ResponseDonega",value.string());
-//        Log.e("ResponseDonega",type.getClass().getSimpleName());
-//        Log.e("ResponseDonega",type.getClass().getClass().toString());
-//        Log.e("ResponseDonega",type.getClass().getClasses().toString());
-//        Log.e("ResponseDonega",type.getClass().getClasses().getClass().getComponentType().toString());
-//        Log.e("ResponseDonega",type.getClass().getClasses().getClass().getComponentType().getClasses().toString());
-//        Log.e("ResponseDonega",type.getClass().getClasses().getClass().getComponentType().getClasses().toString());
+            Log.e("asdfasdf", "AAAAA: " + okk);
+            Log.e("asdfasdf", "Tenha um bom dia: " + t.toString());
 
-        try {
-            JsonStructure json =  JSerializer.json().parse(value.string());
+            if (json.isJsonObject()) {
 
-//            if(json.isJsonArray()){
+                Log.e("asdfasdf", "Tá fofo: " + t.toString());
+                Object tzz = json.asJsonObject().to(Class.forName(okk));
+                Log.e("asd"," "+ tzz.toString());
+                return tzz;
+//                return t;
+            } else {
+                Log.e("asdfasdf", "ta uma bosta");
 //                json.asJsonArray().to(?);
-//            }
-//            else{
-//                json.asJsonObject().to(?);
-//            }
-        }catch (Exception e){
-
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+
         return null;
     }
+
 }
