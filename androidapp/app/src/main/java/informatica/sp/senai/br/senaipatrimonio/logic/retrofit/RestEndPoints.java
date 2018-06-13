@@ -24,15 +24,17 @@ public interface RestEndPoints {
 
 
     @POST("teste/input")
-    @Headers("X-Filter: JFO {\"require\" : [\"nome\"]}")
+//    @Headers("X-Filter: JFO {\"require\" : [\"nome\"]}")
     Call<User> testeInputObject(@Body ObjectWithFilter<User> user);
 
 
     @POST("teste/input/lista")
-    @Headers("X-Filter: JFO {\"require\" : [\"id\"]}")
+//    @Headers("X-Filter: JFO {\"require\" : [\"id\"]}")
     Call<List<User>> testeInputLista(@Body List<User> user);
 
     @POST("teste/obj/array")
+//    @Headers("X-Filter: JFO {\"require\" : [\"id\",\"nome\",\"tipo\",\"email\",\"senha\"]}")
+    @Headers("X-Filter: JFO {\"require\" : [\"id\",\"nome\",\"email\",\"senha\"]}")
     Call<List<User>> testeInputObjRetList(@Body ObjectWithFilter<User> user);
 //
 //    @POST("teste/input/lista")

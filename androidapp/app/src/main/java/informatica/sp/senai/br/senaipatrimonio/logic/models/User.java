@@ -1,5 +1,7 @@
 package informatica.sp.senai.br.senaipatrimonio.logic.models;
 
+import io.felipepoliveira.jserializer.SerializationAccess;
+
 public class User {
 
     private Long id;
