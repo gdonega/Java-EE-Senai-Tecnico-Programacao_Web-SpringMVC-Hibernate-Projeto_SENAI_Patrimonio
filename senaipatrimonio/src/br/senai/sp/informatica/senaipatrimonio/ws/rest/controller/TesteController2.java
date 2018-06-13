@@ -52,6 +52,15 @@ public class TesteController2 {
 		
 		return ResponseEntity.ok(usuario);
 	}
+	
+	@PostMapping(value = { "/obj/array" })
+	public ResponseEntity<Object> bussTodos(@RequestBody Usuario usuario) {
+//		usuario.setNome("HAHAHAHAH VEIO DO SERVER"); 
+//		
+//		System.out.println(usuario.toString());
+		
+		return ResponseEntity.ok(dao.buscarTodos());
+	}
 
 	@PostMapping(value = { "/input/lista" })
 	public ResponseEntity<Object> busTodosA(@RequestBody List<Usuario> usuario) {		

@@ -43,7 +43,7 @@ public class JSerializerRequestBodyConverter<T> implements Converter<T, RequestB
     }
 
     @Override
-    public RequestBody convert(T value) throws IOException {
+    public RequestBody convert(T value) {
 
         JsonSerializationBuilder builder = jSerializer.json();
 
@@ -52,17 +52,10 @@ public class JSerializerRequestBodyConverter<T> implements Converter<T, RequestB
         try {
             ObjectWithFilter objectWithFilter = (ObjectWithFilter) value;
             JfoObject filter = objectWithFilter.getFilter();
-
-            Log.e("JSerializer", "User: " + objectWithFilter.getT().toString());
-            Log.e("JSerializer", "Filter: " + filter.getFilteredFields().toString());
-
             jsonStructure = builder.withJfo(filter).serialize(objectWithFilter.getT());
         }catch (Exception e){
-            Log.e("JSerializer", "Request without filter");
             jsonStructure = builder.serialize(value);
         }
-
-        Log.e("JSerializer","Final Json: "+ jsonStructure.toString());
 
         if(jsonStructure.isJsonObject()) {
             return RequestBody.create(MEDIA_TYPE, jsonStructure.asJsonObject().toString());

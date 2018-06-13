@@ -121,14 +121,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                    Log.e("LoginActivity", "No login: \n");
 
-                Log.e("AAAA", "No login "+ response.body().toString());
-
+                if (response.isSuccessful()) {
+                    Log.e("LoginActivity", response.body().toString());
+                } else {
+                    Log.e("LoginActivity", "No login " + "resposta não obtida");
+                }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
 
+                Log.e("LoginActivity", "No login " + "Deu merda");
             }
         });
 
@@ -153,6 +158,41 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             TokenUtils.saveTokenWithoutBearer(this, (String) results.get(0));
             tvTeste.setText(TokenUtils.getToken(this));
         }
+    }
+
+    public void voltaArray(View view) {
+
+        User user = new User();
+        user.setEmail(etEmail.getText().toString());
+        user.setSenha(etPassword.getText().toString());
+
+        JfoObject jfoObject = JSerializer.json().parseJfo("{\"require\" : [\"senha\", \"email\"]}");
+
+        ObjectWithFilter<User> requestObj = new ObjectWithFilter<User>(user, jfoObject);
+
+        Call<List<User>> call = new RetrofitConfig().getResteEndPoint().testeInputObjRetList(requestObj);
+
+        call.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.isSuccessful()) {
+                    List<User> users = response.body();
+
+                        Log.e("LoginActivity", "No login: \n" );
+                    for (User user: users) {
+                        Log.e("LoginActivity", user.toString());
+                    }
+                } else {
+                    Log.e("LoginActivity", "No login " + "resposta não obtida");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+
+                Log.e("LoginActivity", "No login: \n\n" + "deu merda");
+            }
+        });
     }
 }
 
