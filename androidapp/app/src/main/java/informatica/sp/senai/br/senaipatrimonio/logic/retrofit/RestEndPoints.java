@@ -21,6 +21,16 @@ public interface RestEndPoints {
     @POST("auth/jwt")
     Call<ResponseBody> auth(@Body ObjectWithFilter<User> req);
 
+    @GET("jwt/valid")
+    Call<ResponseBody> validToken();
+
+
+
+
+
+
+
+
 
 
     @POST("teste/input")
@@ -29,8 +39,8 @@ public interface RestEndPoints {
 
 
     @POST("teste/input/lista")
-//    @Headers("X-Filter: JFO {\"require\" : [\"id\"]}")
-    Call<List<User>> testeInputLista(@Body List<User> user);
+    @Headers("X-Filter: JFO {\"require\" : [\"id\"]}")
+    Call<List<User>> testeInputLista(@Body ObjectWithFilter<List<User>> user);
 
     @POST("teste/obj/array")
 //    @Headers("X-Filter: JFO {\"require\" : [\"id\",\"nome\",\"tipo\",\"email\",\"senha\"]}")

@@ -75,6 +75,26 @@ public class AuthRetrofitDAO {
 
     }
 
+    public void validToken(List<Object> argsOk, List<Object> argsFailure, List<Object> results, MethInterfaceDAO methods){
+        Call<ResponseBody> call = new RetrofitConfig().getResteEndPoint().validToken();
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    Log.e("bom dia", "bom dia");
+                }else{
+                    Log.e("deu ruim", "deu ruim");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     public void addPropertyChangeListener(PropertyChangeListener prop) {
         changes.addPropertyChangeListener(prop);

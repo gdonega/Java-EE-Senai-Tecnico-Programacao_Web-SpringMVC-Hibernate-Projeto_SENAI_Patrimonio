@@ -59,6 +59,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+
+    @Override
     public void onClick(View v) {
 
         if (v.getId() == R.id.btnLogin)
@@ -74,82 +81,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         /**
          * Com o JFO
          */
-//        JfoObject jfoObject = JSerializer.json().parseJfo("{\"require\" : [\"senha\", \"email\"]}");
-//
-//        ObjectWithFilter<User> requestObj = new ObjectWithFilter<User>(user, jfoObject);
-//
-//        dao.getToken(requestObj, okArgs, failureArgs, results, new MethInterfaceDAO() {
-//            @Override
-//            public void okResponse(Call<ResponseBody> call, Response<ResponseBody> response, List<Object> argsOK, List<Object> results) throws IOException {
-//            }
-//
-//            @Override
-//            public void failureResponse(Call<ResponseBody> call, Throwable t, List<Object> argsFailure) {
-//            }
-//        });
-
-
-        /**
-         * Sem JFO
-         */
-//        dao.getToken(user, okArgs, failureArgs, results,new MethInterfaceDAO() {
-//            @Override
-//            public void okResponse(Call<ResponseBody> call, Response<ResponseBody> response, List<Object> argsOK, List<Object> results) throws IOException {
-//
-//            }
-//
-//            @Override
-//            public void failureResponse(Call<ResponseBody> call, Throwable t, List<Object> argsFailure) {
-//
-//            }
-//        });
-
-
-//        //Teste
-//
-        List<User> users = new ArrayList<>();
-        users.add(user);
-        users.add(user);
-        users.add(user);
-        users.add(user);
-
         JfoObject jfoObject = JSerializer.json().parseJfo("{\"require\" : [\"senha\", \"email\"]}");
 
         ObjectWithFilter<User> requestObj = new ObjectWithFilter<User>(user, jfoObject);
 
-        Call<User> call = new RetrofitConfig().getResteEndPoint().testeInputObject(requestObj);
-        call.enqueue(new Callback<User>() {
+        dao.getToken(requestObj, okArgs, failureArgs, results, new MethInterfaceDAO() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                    Log.e("LoginActivity", "No login: \n");
-
-                if (response.isSuccessful()) {
-                    Log.e("LoginActivity", response.body().toString());
-                } else {
-                    Log.e("LoginActivity", "No login " + "resposta não obtida");
-                }
+            public void okResponse(Call<ResponseBody> call, Response<ResponseBody> response, List<Object> argsOK, List<Object> results){
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
-                Log.e("LoginActivity", "No login " + "Deu merda");
+            public void failureResponse(Call<ResponseBody> call, Throwable t, List<Object> argsFailure) {
             }
         });
-
-//        Call<List<User>> calll =new RetrofitConfig().getResteEndPoint().testeInputLista(users);
-//
-//        calll.enqueue(new Callback<List<User>>() {
-//            @Override
-//            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<User>> call, Throwable t) {
-//
-//            }
-//        });
     }
 
     @Override
@@ -160,39 +104,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    public void voltaArray(View view) {
 
-        User user = new User();
-        user.setEmail(etEmail.getText().toString());
-        user.setSenha(etPassword.getText().toString());
-
-        JfoObject jfoObject = JSerializer.json().parseJfo("{\"require\" : [\"senha\", \"email\"]}");
-
-        ObjectWithFilter<User> requestObj = new ObjectWithFilter<User>(user, jfoObject);
-
-        Call<List<User>> call = new RetrofitConfig().getResteEndPoint().testeInputObjRetList(requestObj);
-
-        call.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                if (response.isSuccessful()) {
-                    List<User> users = response.body();
-
-                        Log.e("LoginActivity", "No login: \n" );
-                    for (User user: users) {
-                        Log.e("LoginActivity", user.toString());
-                    }
-                } else {
-                    Log.e("LoginActivity", "No login " + "resposta não obtida");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-
-                Log.e("LoginActivity", "No login: \n\n" + "deu merda");
-            }
-        });
-    }
 }
 
