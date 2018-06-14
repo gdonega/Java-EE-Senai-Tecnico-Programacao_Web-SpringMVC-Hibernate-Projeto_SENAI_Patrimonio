@@ -35,6 +35,7 @@ public class AuthRetrofitDAO {
                         results.add(0, new JSONObject(response.body().string()).get("token").toString());
                         methods.okResponse(call, response, argsOk, results);
                         changes.firePropertyChange(AUTH, null, null);
+
                     } catch (Exception e) {
                         Log.e("DAO", "Error: an exception occurred");
                     }

@@ -32,7 +32,7 @@ public class JwtUtils {
 		
 		//Calcula o tempo de expiração 
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.HOUR, 8);
+		calendar.add(Calendar.HOUR, 9);
 		
 		Date dataDeExpiracao = calendar.getTime();
 		

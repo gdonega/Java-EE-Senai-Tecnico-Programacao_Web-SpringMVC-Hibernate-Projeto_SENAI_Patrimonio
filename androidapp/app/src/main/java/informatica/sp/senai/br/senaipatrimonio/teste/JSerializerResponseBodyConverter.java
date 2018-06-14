@@ -36,7 +36,6 @@ public class JSerializerResponseBodyConverter implements Converter<ResponseBody,
     public Object convert(ResponseBody value) {
         String string = null;
 
-
         try {
             string = value.string().toString();
         } catch (IOException e) {

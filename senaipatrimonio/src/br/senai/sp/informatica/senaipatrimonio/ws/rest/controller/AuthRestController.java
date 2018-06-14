@@ -37,6 +37,8 @@ public class AuthRestController {
 			Map<String, String> mapaToken = new HashMap<>();
 			mapaToken.put("token", JwtUtils.gerarToken(usuarioBuscado));
 			
+			System.out.println(mapaToken);
+			
 			return ResponseEntity
 					.ok(mapaToken);
 		} catch (ValidationException e) {

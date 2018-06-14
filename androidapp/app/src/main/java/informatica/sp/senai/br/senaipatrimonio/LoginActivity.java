@@ -1,5 +1,7 @@
 package informatica.sp.senai.br.senaipatrimonio;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import informatica.sp.senai.br.senaipatrimonio.activities.PatrimoniosActivity;
 import informatica.sp.senai.br.senaipatrimonio.logic.daotestes.AuthRetrofitDAO;
 import informatica.sp.senai.br.senaipatrimonio.logic.daotestes.MethInterfaceDAO;
 import informatica.sp.senai.br.senaipatrimonio.logic.models.User;
@@ -47,6 +50,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         dao.addPropertyChangeListener(this);
 
+
+
         //Get Instances
         btnLogin = findViewById(R.id.btnLogin);
         etEmail = findViewById(R.id.etEmail);
@@ -55,6 +60,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         //setClick
         btnLogin.setOnClickListener(this);
+
+        if (TokenUtils.isTokenValid())
+            goToNextActivity();
 
     }
 
@@ -83,25 +91,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
          */
         JfoObject jfoObject = JSerializer.json().parseJfo("{\"require\" : [\"senha\", \"email\"]}");
 
-        ObjectWithFilter<User> requestObj = new ObjectWithFilter<User>(user, jfoObject);
+        ObjectWithFilter<User> requestObj = new ObjectWithFilter<>(user, jfoObject);
 
         dao.getToken(requestObj, okArgs, failureArgs, results, new MethInterfaceDAO() {
             @Override
             public void okResponse(Call<ResponseBody> call, Response<ResponseBody> response, List<Object> argsOK, List<Object> results){
+
             }
 
             @Override
             public void failureResponse(Call<ResponseBody> call, Throwable t, List<Object> argsFailure) {
             }
         });
+
+
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         if (AuthRetrofitDAO.AUTH.equals(propertyChangeEvent.getPropertyName())) {
-            TokenUtils.saveTokenWithoutBearer(this, (String) results.get(0));
-            tvTeste.setText(TokenUtils.getToken(this));
+            TokenUtils.saveTokenWithoutBearer(results.get(0).toString());
+            goToNextActivity();
         }
+    }
+
+    private void goToNextActivity(){
+        Intent intent = new Intent(this, PatrimoniosActivity.class);
+        startActivity(intent);
     }
 
 
