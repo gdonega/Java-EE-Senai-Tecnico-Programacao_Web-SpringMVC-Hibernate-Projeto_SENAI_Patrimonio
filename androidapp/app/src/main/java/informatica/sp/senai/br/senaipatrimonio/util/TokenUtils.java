@@ -1,10 +1,8 @@
-package informatica.sp.senai.br.senaipatrimonio.utils;
+package informatica.sp.senai.br.senaipatrimonio.util;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -23,9 +21,9 @@ public class TokenUtils {
     private static String expiresAtKeyName = "expires_at";
 
 
-    public static void saveTokenWithoutBearer(Activity activity, String tokenWithoutBearer) {
+    public static void saveTokenWithoutBearer(Context context, String tokenWithoutBearer) {
         String fullToken = "Bearer " + tokenWithoutBearer;
-        saveToken(activity, fullToken);
+        saveToken(context, fullToken);
     }
 
     public static void saveTokenWithoutBearer(String tokenWithoutBearer) {
@@ -45,7 +43,7 @@ public class TokenUtils {
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(tokenKeyName, token);
-        editor.putLong(expiresAtKeyName,expiresAt.getTime());
+        editor.putLong(expiresAtKeyName, expiresAt.getTime());
         editor.apply();
     }
 
@@ -54,25 +52,41 @@ public class TokenUtils {
         return preferences.getString(tokenKeyName, null);
     }
 
-    public static String getToken(Activity activity) {
-        SharedPreferences preferences = activity.getSharedPreferences(tokenSharedName, MODE_PRIVATE);
+    public static String getToken(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(tokenSharedName, MODE_PRIVATE);
         return preferences.getString(tokenKeyName, null);
     }
 
-    public static Long getTokenExpireDate(){
+    public static Long getTokenExpireDate() {
         SharedPreferences preferences = Main.getContext().getSharedPreferences(tokenSharedName, MODE_PRIVATE);
-        return preferences.getLong(expiresAtKeyName, new Date().getTime()-99999999L);
+        return preferences.getLong(expiresAtKeyName, new Date().getTime() - 99999999L);
     }
 
-    public static Long getTokenExpireDate(Activity activity){
-        SharedPreferences preferences = activity.getSharedPreferences(tokenSharedName, MODE_PRIVATE);
-        return preferences.getLong(expiresAtKeyName, new Date().getTime()-99999999L);
+    public static Long getTokenExpireDate(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(tokenSharedName, MODE_PRIVATE);
+        return preferences.getLong(expiresAtKeyName, new Date().getTime() - 99999999L);
     }
 
-    public static Boolean isTokenValid(){
-        if(getTokenExpireDate() > new Date().getTime())
+    public static Boolean isTokenValid() {
+        if (getTokenExpireDate() > new Date().getTime())
             return true;
 
         return false;
+    }
+
+
+    public static void logoutToken(Context context) {
+        logoutTokenMeth(context);
+    }
+
+    public static void logoutToken() {
+        logoutTokenMeth(Main.getContext());
+    }
+
+    private static void logoutTokenMeth(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(tokenSharedName, MODE_PRIVATE);
+        sharedPreferences.edit()
+                .clear()
+                .apply();
     }
 }

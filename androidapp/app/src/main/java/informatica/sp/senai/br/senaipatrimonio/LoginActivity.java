@@ -1,6 +1,5 @@
 package informatica.sp.senai.br.senaipatrimonio;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,25 +9,33 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.adataq.jserializer.JSerializer;
+import org.adataq.jserializer.json.JfoObject;
+import org.adataq.jserializer.plugins.retrofit.models.ObjectWithFilter;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import java.util.List;
 
+
 import informatica.sp.senai.br.senaipatrimonio.activities.PatrimoniosActivity;
-import informatica.sp.senai.br.senaipatrimonio.logic.daotestes.AuthRetrofitDAO;
-import informatica.sp.senai.br.senaipatrimonio.logic.daotestes.MethInterfaceDAO;
-import informatica.sp.senai.br.senaipatrimonio.logic.models.User;
-import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.ObjectWithFilter;
+import informatica.sp.senai.br.senaipatrimonio.logic.dao.AuthRetrofitDAO;
+import informatica.sp.senai.br.senaipatrimonio.logic.dao.MethInterfaceDAO;
+import informatica.sp.senai.br.senaipatrimonio.logic.model.Usuario;
+
 import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.RetrofitConfig;
-import informatica.sp.senai.br.senaipatrimonio.utils.TokenUtils;
-import io.felipepoliveira.jserializer.JSerializer;
-import io.felipepoliveira.jserializer.json.JfoObject;
+import informatica.sp.senai.br.senaipatrimonio.util.TokenUtils;
+
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, PropertyChangeListener {
 
@@ -51,7 +58,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         dao.addPropertyChangeListener(this);
 
 
-
         //Get Instances
         btnLogin = findViewById(R.id.btnLogin);
         etEmail = findViewById(R.id.etEmail);
@@ -69,33 +75,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
 
     @Override
     public void onClick(View v) {
-
         if (v.getId() == R.id.btnLogin)
             doLogin();
     }
 
 
     public void doLogin() {
-        User user = new User();
-        user.setEmail(etEmail.getText().toString());
-        user.setSenha(etPassword.getText().toString());
+        Usuario usuario = new Usuario();
+        usuario.setEmail(etEmail.getText().toString());
+        usuario.setSenha(etPassword.getText().toString());
 
-        /**
-         * Com o JFO
-         */
+        usuario
+                .setNome("006");
         JfoObject jfoObject = JSerializer.json().parseJfo("{\"require\" : [\"senha\", \"email\"]}");
 
-        ObjectWithFilter<User> requestObj = new ObjectWithFilter<>(user, jfoObject);
+        ObjectWithFilter<Usuario> requestObj = new ObjectWithFilter<Usuario>(usuario, jfoObject);
 
-        dao.getToken(requestObj, okArgs, failureArgs, results, new MethInterfaceDAO() {
+        dao.getToken(usuario, okArgs, failureArgs, results, new MethInterfaceDAO() {
             @Override
-            public void okResponse(Call<ResponseBody> call, Response<ResponseBody> response, List<Object> argsOK, List<Object> results){
+            public void okResponse(Call<ResponseBody> call, Response<ResponseBody> response, List<Object> argsOK, List<Object> results) {
 
             }
 
@@ -104,6 +107,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+
+//        Call<ResponseBody> usaraa = new RetrofitConfig(false).getTestye().usuario(usuario);
+//
+//        usaraa.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                try {
+//                    Log.e("aaa","aaa:  "+response.body().string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
 
     }
 
@@ -115,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void goToNextActivity(){
+    private void goToNextActivity() {
         Intent intent = new Intent(this, PatrimoniosActivity.class);
         startActivity(intent);
     }

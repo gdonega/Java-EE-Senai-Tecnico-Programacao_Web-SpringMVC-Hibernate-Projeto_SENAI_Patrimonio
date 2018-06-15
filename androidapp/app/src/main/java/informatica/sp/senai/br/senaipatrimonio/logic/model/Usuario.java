@@ -1,15 +1,19 @@
-package informatica.sp.senai.br.senaipatrimonio.logic.models;
+package informatica.sp.senai.br.senaipatrimonio.logic.model;
 
 
-import io.felipepoliveira.jserializer.SerializationAccess;
+import org.adataq.jserializer.SerializationInput;
+import org.adataq.jserializer.SerializationOutput;
 
-public class User {
+public class Usuario {
 
     private Long id;
+    @SerializationInput(name = "bomDia")
+    @SerializationOutput(name = "HAHAHAHA")
     private String nome;
     private TipoUsuario tipo;
     private String email;
     private String senha;
+
 
     public Long getId() {
         return id;
@@ -18,6 +22,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getNome() {
         return nome;
@@ -53,7 +58,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Usuario{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", tipo=" + tipo +

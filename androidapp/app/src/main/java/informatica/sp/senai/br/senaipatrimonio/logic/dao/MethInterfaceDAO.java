@@ -1,4 +1,4 @@
-package informatica.sp.senai.br.senaipatrimonio.logic.daotestes;
+package informatica.sp.senai.br.senaipatrimonio.logic.dao;
 
 import java.io.IOException;
 import java.util.List;

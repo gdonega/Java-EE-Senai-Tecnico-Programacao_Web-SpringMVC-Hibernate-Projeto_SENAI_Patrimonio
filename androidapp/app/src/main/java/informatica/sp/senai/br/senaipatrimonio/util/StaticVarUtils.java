@@ -1,12 +1,13 @@
-package informatica.sp.senai.br.senaipatrimonio.utils;
+package informatica.sp.senai.br.senaipatrimonio.util;
 
-public class Statics {
+public class StaticVarUtils {
 
 //    public static String SERVER_URL = "http://10.0.3.2:8080/senaipatrimonio/";
 //    public static String SERVER_URL = "http://10.0.3.2:8080/senaipatrimonio/rest/";
 //    public static String SERVER_URL = "http://10.0.2.2:8080/senaipatrimonio/rest/";
 //    public static String SERVER_URL = "http://10.0.2.2:8080/ianesws/";
     public static String SERVER_URL = "http://10.0.2.2:8080/ianesws/rest/";
+//    public static String SERVER_URL = "http://10.0.2.2:8080/ianesws/";
 //    public static String SERVER_URL = "http://10.0.2.2:8080/senaipatrimonio/";
 //    public static String SERVER_URL = "http://192.168.0.103:8080/senaipatrimonio/rest/";
 //    public static String SERVER_URL = "http://192.168.0.105:8080/senaipatrimonio/";

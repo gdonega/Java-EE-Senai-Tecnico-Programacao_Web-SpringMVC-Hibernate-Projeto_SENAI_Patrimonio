@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import informatica.sp.senai.br.senaipatrimonio.R;
-import informatica.sp.senai.br.senaipatrimonio.utils.ActivitiesUtils;
+import informatica.sp.senai.br.senaipatrimonio.util.ActivitiesUtils;
 
 public class PatrimoniosActivity extends AppCompatActivity {
 
@@ -18,10 +18,10 @@ public class PatrimoniosActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ActivitiesUtils.closeActivity(this);
+        ActivitiesUtils.closeActivityIfInvalidToken(this);
     }
 
     public void onClicka(View view) {
-
+        ActivitiesUtils.logout(this);
     }
 }
