@@ -1,8 +1,8 @@
 package br.senai.sp.informatica.senaipatrimonio.config;
 
 import br.senai.sp.informatica.senaipatrimonio.interceptor.AutenticacaoInterceptor;
-import io.felipepoliveira.jserializer.plugins.spring.JSerializationConfiguration;
 
+import org.adataq.jserializer.plugins.spring.JSerializationConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

@@ -29,6 +29,8 @@ import informatica.sp.senai.br.senaipatrimonio.logic.model.Usuario;
 import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.RetrofitConfig;
 import informatica.sp.senai.br.senaipatrimonio.util.TokenUtils;
 
+import informatica.sp.senai.br.senaipatrimonio.util.jserializer.FilerType;
+import informatica.sp.senai.br.senaipatrimonio.util.jserializer.JfoUtils;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -57,12 +59,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         dao.addPropertyChangeListener(this);
 
-
         //Get Instances
         btnLogin = findViewById(R.id.btnLogin);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         tvTeste = findViewById(R.id.tvTeste);
+
+
+        etEmail.setText("admin@email.com");
+        etPassword.setText("admin132");
 
         //setClick
         btnLogin.setOnClickListener(this);
@@ -90,13 +95,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         usuario.setEmail(etEmail.getText().toString());
         usuario.setSenha(etPassword.getText().toString());
 
-        usuario
-                .setNome("006");
-        JfoObject jfoObject = JSerializer.json().parseJfo("{\"require\" : [\"senha\", \"email\"]}");
-
+        JfoObject jfoObject = JfoUtils.createJfo(FilerType.REQUIRE, "senha", "email", "nome");
         ObjectWithFilter<Usuario> requestObj = new ObjectWithFilter<Usuario>(usuario, jfoObject);
 
-        dao.getToken(usuario, okArgs, failureArgs, results, new MethInterfaceDAO() {
+        dao.getToken(requestObj, okArgs, failureArgs, results, new MethInterfaceDAO() {
             @Override
             public void okResponse(Call<ResponseBody> call, Response<ResponseBody> response, List<Object> argsOK, List<Object> results) {
 
@@ -107,24 +109,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-
-//        Call<ResponseBody> usaraa = new RetrofitConfig(false).getTestye().usuario(usuario);
-//
-//        usaraa.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                try {
-//                    Log.e("aaa","aaa:  "+response.body().string());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//            }
-//        });
 
     }
 

@@ -73,12 +73,6 @@ public class AuthRetrofitDAO {
                         Toast.makeText(Main.getContext(), "Ocourreu algum erro!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    try {
-//                        Map aa = JSerializer.json().parse(response.errorBody().string()).asJsonObject().to;
-//                        Log.e("aaa", aa.toString());
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
 
                 }
             }

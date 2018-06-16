@@ -2,11 +2,11 @@ package br.senai.sp.informatica.senaipatrimonio.utils;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.adataq.jserializer.JSerializer;
+import org.adataq.jserializer.json.JfoObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.felipepoliveira.jserializer.JSerializer;
-import io.felipepoliveira.jserializer.json.JfoObject;
 
 @Component
 public class RequestUtils {

@@ -32,7 +32,7 @@ dependencies {
     // JSerilizer
     implementation files('libs/jserializer.jar')
     //JSerilizer plugin for retrofit
-    implementation files('libs/jserializer-retrofit-plugin.jar')
+//    implementation files('libs/jserializer-retrofit-plugin.jar')
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
 

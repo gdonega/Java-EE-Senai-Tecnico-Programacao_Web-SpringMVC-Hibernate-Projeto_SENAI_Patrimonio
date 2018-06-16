@@ -7,8 +7,8 @@ import org.adataq.jserializer.SerializationOutput;
 public class Usuario {
 
     private Long id;
-    @SerializationInput(name = "bomDia")
-    @SerializationOutput(name = "HAHAHAHA")
+    @SerializationInput(pattern = {"bomDia"})
+    @SerializationOutput(pattern = {"456789"})
     private String nome;
     private TipoUsuario tipo;
     private String email;

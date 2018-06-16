@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.senai.sp.informatica.senaipatrimonio.dao.interfaces.UsuarioDAO;
 import br.senai.sp.informatica.senaipatrimonio.model.Usuario;
 import br.senai.sp.informatica.senaipatrimonio.utils.RequestUtils;
-import io.felipepoliveira.jserializer.JSerializer;
-import io.felipepoliveira.jserializer.json.JfoObject;
-import io.felipepoliveira.jserializer.json.JsonArray;
-import io.felipepoliveira.jserializer.json.JsonSerializationBuilder;
 
 @RestController
 @RequestMapping("/teste")
