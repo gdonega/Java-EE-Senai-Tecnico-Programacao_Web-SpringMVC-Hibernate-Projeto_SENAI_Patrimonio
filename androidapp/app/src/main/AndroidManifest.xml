@@ -22,7 +22,8 @@
         </activity>
         <activity android:name=".activities.patrimonio.recyclerview.PatrimoniosActivity" />
         <activity android:name=".activities.itempatrimonio.recyclerview.ItemPatrimonioActivity" />
-        <activity android:name=".activities.movimentacoes.recyclerview.MovimentacoesActivity"></activity>
+        <activity android:name=".activities.movimentacoes.recyclerview.MovimentacoesActivity" />
+        <activity android:name=".activities.movimentacoes.NovaMovimentacao"></activity>
     </application>
 
 </manifest>

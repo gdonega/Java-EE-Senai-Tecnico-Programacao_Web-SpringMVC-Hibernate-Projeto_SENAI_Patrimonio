@@ -16,3 +16,4 @@ public interface MethInterfaceDAO<CallAtr, ResponseAtr> {
     void failureResponse(Call<CallAtr> call, Throwable t,List<Object> argsFailure);
 
 }
+

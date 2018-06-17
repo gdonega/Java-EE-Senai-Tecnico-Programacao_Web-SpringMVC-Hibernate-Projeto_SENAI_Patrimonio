@@ -72,6 +72,8 @@ public class ItemPatrimonioRestController {
 	@PatchMapping("/{idItem}/movimentacoes")
 	public ResponseEntity<Object> moverItem(@PathVariable Long idItem, @RequestBody Movimentacao movimentacao){
 		try {
+			System.out.println(movimentacao);
+			
 			return ResponseEntity.ok(itemPatrimonioServices.moverItem(idItem, movimentacao));
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity

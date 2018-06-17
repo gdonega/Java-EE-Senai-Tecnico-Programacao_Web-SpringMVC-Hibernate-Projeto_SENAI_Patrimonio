@@ -1,14 +1,15 @@
 package informatica.sp.senai.br.senaipatrimonio.logic.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 /**
  * Created by Gustavo Donegá Queiroz(gdonega).
  */
-public class ItemPatrimonio {
+public class ItemPatrimonio implements Serializable{
 
-    private DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
     private Long id;
     private Ambiente ambienteAtual;
 
@@ -19,14 +20,6 @@ public class ItemPatrimonio {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public DateFormat getDateFormat() {
-        return dateFormat;
-    }
-
-    public void setDateFormat(DateFormat dateFormat) {
-        this.dateFormat = dateFormat;
     }
 
     public Ambiente getAmbienteAtual() {
@@ -40,8 +33,7 @@ public class ItemPatrimonio {
     @Override
     public String toString() {
         return "ItemPatrimonio{" +
-                "dateFormat=" + dateFormat +
-                ", id=" + id +
+                "id=" + id +
                 ", ambienteAtual=" + ambienteAtual +
                 '}';
     }

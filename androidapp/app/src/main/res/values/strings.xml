@@ -7,5 +7,13 @@
     <string name="tvCategoria_cardPatrimonio">Categoria do patrimonio</string>
     <string name="tvData_card_item_patrimonio">Data</string>
     <string name="tvId_card_item_patrimonio">ID</string>
+    <string name="tvId_card_mov">ID</string>
+    <string name="tvData_card_mov">Data</string>
+    <string name="tvAmbienteOriginal_card_mov">Ambiente Original</string>
+    <string name="tvAmbienteNovo_card_mov">Ambiente Novo</string>
+    <string name="tvExecutou_card_mov">Executou</string>
+    <string name="btnNovaMov_activity_mov">Nova Movimentação</string>
+    <string name="tvText_activity_nova_movimentacao">Selecione o ambiente que você deseja que o item seja movido</string>
+    <string name="btnText_activity_nova_movimetacao">Mover Item</string>
 
 </resources>

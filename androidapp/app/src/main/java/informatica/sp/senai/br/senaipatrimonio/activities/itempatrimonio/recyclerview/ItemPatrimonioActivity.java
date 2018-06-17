@@ -14,23 +14,20 @@ import java.util.List;
 
 import gdonega.io.recyclerviewhelper.RVManager;
 import informatica.sp.senai.br.senaipatrimonio.R;
-import informatica.sp.senai.br.senaipatrimonio.activities.patrimonio.recyclerview.PatrimonioViewHolder;
-import informatica.sp.senai.br.senaipatrimonio.logic.dao.ItemPatrimonioDAO;
 import informatica.sp.senai.br.senaipatrimonio.logic.dao.MethInterfaceDAO;
 import informatica.sp.senai.br.senaipatrimonio.logic.dao.PatrimonioRetrofitDAO;
 import informatica.sp.senai.br.senaipatrimonio.logic.model.ItemPatrimonio;
-import informatica.sp.senai.br.senaipatrimonio.logic.model.Patrimonio;
 import informatica.sp.senai.br.senaipatrimonio.util.ActivitiesUtils;
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class ItemPatrimonioActivity extends AppCompatActivity implements PropertyChangeListener {
 
-    private ItemPatrimonioDAO itemPatrimonioDAO = new ItemPatrimonioDAO();
+    private PatrimonioRetrofitDAO patrimonioDAO = new PatrimonioRetrofitDAO();
     private List<Object> argsOk = new ArrayList<>();
     private List<Object> argsFailure = new ArrayList<>();
     private List<Object> results = new ArrayList<>();
-    private Long itemId;
+    private Long idPatrimonio;
 
     private List<ItemPatrimonio> itemPatrimonios;
     private RVManager<ItemPatrimonio> itemPatrimonioRVManager= new RVManager<ItemPatrimonio>();
@@ -46,14 +43,14 @@ public class ItemPatrimonioActivity extends AppCompatActivity implements Propert
 
         this.getSupportActionBar().setTitle("Items");
 
-        itemPatrimonioDAO.addPropertyChangeListener(this);
+        patrimonioDAO.addPropertyChangeListener(this);
 
         itemPatrimonios = new ArrayList<>();
         recyclerView = findViewById(R.id.rvItemsPatrimonio);
 
-        itemId = getIntent().getLongExtra("idPatrimonio",-10);
+        idPatrimonio = getIntent().getLongExtra("idPatrimonio",-10);
 
-        if (itemId < 0)
+        if (idPatrimonio < 0)
             finish();
 
         itemPatrimonioRVManager
@@ -72,7 +69,7 @@ public class ItemPatrimonioActivity extends AppCompatActivity implements Propert
         super.onResume();
         ActivitiesUtils.closeActivityIfInvalidToken(this);
 
-        itemPatrimonioDAO.getItemPatrimonio(itemId,argsOk, argsFailure, results, new MethInterfaceDAO<List<ItemPatrimonio>, List<ItemPatrimonio>>() {
+        patrimonioDAO.getItensDoPatrimonio(idPatrimonio,argsOk, argsFailure, results, new MethInterfaceDAO<List<ItemPatrimonio>, List<ItemPatrimonio>>() {
             @Override
             public void okResponse(Call<List<ItemPatrimonio>> call, Response<List<ItemPatrimonio>> response, List<Object> argsOK, List<Object> results) throws IOException {
 
@@ -88,8 +85,8 @@ public class ItemPatrimonioActivity extends AppCompatActivity implements Propert
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        if (ItemPatrimonioDAO.GET_ITEMPATRIMONIO.equals(propertyChangeEvent.getPropertyName())) {
-            Log.e("Patrimonios: ", results.get(0).toString());
+        if (PatrimonioRetrofitDAO.GET_PATRIMONIO_ITEMPATRIMONIOS.equals(propertyChangeEvent.getPropertyName())) {
+            Log.e("Items: ", results.get(0).toString());
             itemPatrimonioRVManager.setList((List<ItemPatrimonio>) results.get(0));
             itemPatrimonioRVManager.notificarQualquerMudanca();
         }
