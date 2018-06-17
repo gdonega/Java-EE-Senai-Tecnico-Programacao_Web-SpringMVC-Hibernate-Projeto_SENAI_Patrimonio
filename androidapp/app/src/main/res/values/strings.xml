@@ -5,5 +5,7 @@
     <string name="HINT_btnLogar">Logar</string>
     <string name="tvNome_cardPatrimonio">Patrimonio nome</string>
     <string name="tvCategoria_cardPatrimonio">Categoria do patrimonio</string>
+    <string name="tvData_card_item_patrimonio">Data</string>
+    <string name="tvId_card_item_patrimonio">ID</string>
 
 </resources>

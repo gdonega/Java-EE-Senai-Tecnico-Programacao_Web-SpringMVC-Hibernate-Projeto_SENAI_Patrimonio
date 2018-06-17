@@ -40,4 +40,5 @@ dependencies {
     implementation files('libs/jserializer-plugin-retrofit.jar')
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation project(':recyclerviewhelper-release')
 }

@@ -9,6 +9,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/recyclerviewhelper-release" />
+            <option value="$PROJECT_DIR$/recyclerviewshape2-debug" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

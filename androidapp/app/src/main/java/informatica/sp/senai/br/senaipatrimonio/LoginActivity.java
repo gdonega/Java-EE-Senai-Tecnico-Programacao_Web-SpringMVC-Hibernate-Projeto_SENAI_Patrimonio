@@ -3,7 +3,6 @@ package informatica.sp.senai.br.senaipatrimonio;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,19 +14,13 @@ import org.adataq.jserializer.plugins.retrofit.models.ObjectWithFilter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-
 import java.util.List;
 
-
-import informatica.sp.senai.br.senaipatrimonio.activities.patrimonio.recyclerview.PatrimonioViewHolder;
 import informatica.sp.senai.br.senaipatrimonio.activities.patrimonio.recyclerview.PatrimoniosActivity;
-import informatica.sp.senai.br.senaipatrimonio.activities.patrimonio.recyclerview.ViewHxH;
 import informatica.sp.senai.br.senaipatrimonio.logic.dao.AuthRetrofitDAO;
 import informatica.sp.senai.br.senaipatrimonio.logic.dao.MethInterfaceDAO;
 import informatica.sp.senai.br.senaipatrimonio.logic.model.Usuario;
-
 import informatica.sp.senai.br.senaipatrimonio.util.TokenUtils;
-
 import informatica.sp.senai.br.senaipatrimonio.util.jserializer.FilerType;
 import informatica.sp.senai.br.senaipatrimonio.util.jserializer.JfoUtils;
 import okhttp3.ResponseBody;
@@ -73,8 +66,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (TokenUtils.isTokenValid())
             goToNextActivity();
 
-//Class<? extends ViewHxH> ccc = PatrimonioViewHolder.class;
-//        Log.e("aaaa", String.valueOf(ccc.toString()));
 
     }
 

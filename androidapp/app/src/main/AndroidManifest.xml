@@ -20,7 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.patrimonio.recyclerview.PatrimoniosActivity"></activity>
+        <activity android:name=".activities.patrimonio.recyclerview.PatrimoniosActivity" />
+        <activity android:name=".activities.itempatrimonio.recyclerview.ItemPatrimonioActivity" />
+        <activity android:name=".activities.movimentacoes.recyclerview.MovimentacoesActivity"></activity>
     </application>
 
 </manifest>

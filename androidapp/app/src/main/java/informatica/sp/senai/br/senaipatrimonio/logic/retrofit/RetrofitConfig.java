@@ -4,6 +4,7 @@ package informatica.sp.senai.br.senaipatrimonio.logic.retrofit;
 import org.adataq.jserializer.plugins.retrofit.JSerializerConverterFactory;
 
 import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.endpoint.AuthEP;
+import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.endpoint.ItemPatrimonioEP;
 import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.endpoint.PatrimonioEP;
 import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.endpoint.TesteEP;
 import informatica.sp.senai.br.senaipatrimonio.util.StaticVarUtils;
@@ -13,7 +14,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 import retrofit2.Retrofit;
-
 
 
 public class RetrofitConfig {
@@ -61,6 +61,10 @@ public class RetrofitConfig {
 
     public TesteEP getTestye() {
         return this.retrofit.create(TesteEP.class);
+    }
+
+    public ItemPatrimonioEP getItemPatrimonioEndPoint() {
+        return this.retrofit.create(ItemPatrimonioEP.class);
     }
 
 }
