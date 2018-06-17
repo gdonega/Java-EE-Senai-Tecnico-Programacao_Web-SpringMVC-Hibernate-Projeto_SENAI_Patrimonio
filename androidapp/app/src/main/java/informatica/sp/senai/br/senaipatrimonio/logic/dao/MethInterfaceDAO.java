@@ -10,9 +10,9 @@ import retrofit2.Response;
 /**
  * Created by Gustavo Donegá Queiroz(gdonega).
  */
-public interface MethInterfaceDAO {
+public interface MethInterfaceDAO<CallAtr, ResponseAtr> {
 
-    void okResponse(Call<ResponseBody> call, Response<ResponseBody> response, List<Object> argsOK, List<Object> results) throws IOException;
-    void failureResponse(Call<ResponseBody> call, Throwable t,List<Object> argsFailure);
+    void okResponse(Call<CallAtr> call, Response<ResponseAtr> response, List<Object> argsOK, List<Object> results) throws IOException;
+    void failureResponse(Call<CallAtr> call, Throwable t,List<Object> argsFailure);
 
 }

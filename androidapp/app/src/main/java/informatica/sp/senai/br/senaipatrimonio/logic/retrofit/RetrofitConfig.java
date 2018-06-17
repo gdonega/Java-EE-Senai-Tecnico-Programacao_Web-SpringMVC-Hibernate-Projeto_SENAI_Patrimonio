@@ -4,6 +4,7 @@ package informatica.sp.senai.br.senaipatrimonio.logic.retrofit;
 import org.adataq.jserializer.plugins.retrofit.JSerializerConverterFactory;
 
 import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.endpoint.AuthEP;
+import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.endpoint.PatrimonioEP;
 import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.endpoint.TesteEP;
 import informatica.sp.senai.br.senaipatrimonio.util.StaticVarUtils;
 import informatica.sp.senai.br.senaipatrimonio.util.TokenUtils;
@@ -52,6 +53,10 @@ public class RetrofitConfig {
 
     public AuthEP getAuthEndPoint() {
         return this.retrofit.create(AuthEP.class);
+    }
+
+    public PatrimonioEP getPatrimonioEndPoint() {
+        return this.retrofit.create(PatrimonioEP.class);
     }
 
     public TesteEP getTestye() {

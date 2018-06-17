@@ -1,7 +1,5 @@
 package informatica.sp.senai.br.senaipatrimonio.util.jserializer;
 
-import android.util.Log;
-
 import org.adataq.jserializer.JSerializer;
 import org.adataq.jserializer.json.JfoObject;
 
@@ -16,14 +14,35 @@ public class JfoUtils {
     }
 
     public static JfoObject createJfo(FilerType filerType, List<String> attributes) {
-
-        String stringAttributes = getAttributes(attributes);
-        String stringJfo = getStringJfo(filerType, stringAttributes);
-
-        Log.e("oi",stringJfo);
-        JfoObject jfoObject = JSerializer.json().parseJfo(stringJfo);
-
+        JfoObject jfoObject = JSerializer.json().parseJfo(buildStringJfo(filerType,attributes));
         return jfoObject;
+    }
+
+
+    public static String createStringJfoHttpStandard(FilerType filerType, String... attributes) {
+        List<String> atrList = Arrays.asList(attributes);
+        return createStringJfoHttpStandard(filerType, atrList);
+    }
+
+    public static String createStringJfoHttpStandard(FilerType filerType, List<String> attributes) {
+        String stringJfo = buildStringJfo(filerType,attributes);
+        return "JFO "+stringJfo;
+    }
+
+    public static String createStringJfo(FilerType filerType, String... attributes) {
+        List<String> atrList = Arrays.asList(attributes);
+        return createStringJfo(filerType, atrList);
+    }
+
+    public static String createStringJfo(FilerType filerType, List<String> attributes) {
+        String stringJfo = buildStringJfo(filerType,attributes);
+        return stringJfo;
+    }
+
+    private static String buildStringJfo(FilerType filerType, List<String> attributes) {
+        String stringAttributes = getAttributes(attributes);
+        String stringJfo = "{\"" + filerType.getTypeName() + "\" : [" + stringAttributes + "]}";
+        return stringJfo;
     }
 
     private static String getAttributes(List<String> atrList) {
@@ -41,9 +60,5 @@ public class JfoUtils {
         return stringAttributes;
     }
 
-    private static String getStringJfo(FilerType filerType, String stringAttributes) {
-        String stringJfo = "{\"" + filerType.getTypeName() + "\" : [" + stringAttributes + "]}";
-        return stringJfo;
-    }
 
 }

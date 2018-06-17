@@ -9,33 +9,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.adataq.jserializer.JSerializer;
 import org.adataq.jserializer.json.JfoObject;
 import org.adataq.jserializer.plugins.retrofit.models.ObjectWithFilter;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
 
 
-import informatica.sp.senai.br.senaipatrimonio.activities.PatrimoniosActivity;
+import informatica.sp.senai.br.senaipatrimonio.activities.patrimonio.recyclerview.PatrimonioViewHolder;
+import informatica.sp.senai.br.senaipatrimonio.activities.patrimonio.recyclerview.PatrimoniosActivity;
+import informatica.sp.senai.br.senaipatrimonio.activities.patrimonio.recyclerview.ViewHxH;
 import informatica.sp.senai.br.senaipatrimonio.logic.dao.AuthRetrofitDAO;
 import informatica.sp.senai.br.senaipatrimonio.logic.dao.MethInterfaceDAO;
 import informatica.sp.senai.br.senaipatrimonio.logic.model.Usuario;
 
-import informatica.sp.senai.br.senaipatrimonio.logic.retrofit.RetrofitConfig;
 import informatica.sp.senai.br.senaipatrimonio.util.TokenUtils;
 
 import informatica.sp.senai.br.senaipatrimonio.util.jserializer.FilerType;
 import informatica.sp.senai.br.senaipatrimonio.util.jserializer.JfoUtils;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 
@@ -57,6 +53,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
         dao.addPropertyChangeListener(this);
 
         //Get Instances
@@ -74,6 +72,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (TokenUtils.isTokenValid())
             goToNextActivity();
+
+//Class<? extends ViewHxH> ccc = PatrimonioViewHolder.class;
+//        Log.e("aaaa", String.valueOf(ccc.toString()));
 
     }
 
@@ -98,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         JfoObject jfoObject = JfoUtils.createJfo(FilerType.REQUIRE, "senha", "email", "nome");
         ObjectWithFilter<Usuario> requestObj = new ObjectWithFilter<Usuario>(usuario, jfoObject);
 
-        dao.getToken(requestObj, okArgs, failureArgs, results, new MethInterfaceDAO() {
+        dao.getToken(requestObj, okArgs, failureArgs, results, new MethInterfaceDAO<ResponseBody, ResponseBody>() {
             @Override
             public void okResponse(Call<ResponseBody> call, Response<ResponseBody> response, List<Object> argsOK, List<Object> results) {
 
@@ -114,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        if (AuthRetrofitDAO.AUTH.equals(propertyChangeEvent.getPropertyName())) {
+        if (AuthRetrofitDAO.GET_TOKEN.equals(propertyChangeEvent.getPropertyName())) {
             TokenUtils.saveTokenWithoutBearer(results.get(0).toString());
             goToNextActivity();
         }
@@ -124,6 +125,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent(this, PatrimoniosActivity.class);
         startActivity(intent);
     }
+
 
 
 }
