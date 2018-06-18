@@ -35,7 +35,7 @@ public class ItemPatrimonioViewHolder extends BaseViewHolder<ItemPatrimonio> imp
     @Override
     public void setOnHolder(ItemPatrimonio itemPatrimonio) {
         this.itemPatrimonio = itemPatrimonio;
-        tvId.setText("ID: "+String.valueOf(itemPatrimonio.getId()));
+        tvId.setText("Item: "+String.valueOf(itemPatrimonio.getId()));
         tvAmbienteAtual.setText("Ambiente: "+itemPatrimonio.getAmbienteAtual().getNome());
     }
 

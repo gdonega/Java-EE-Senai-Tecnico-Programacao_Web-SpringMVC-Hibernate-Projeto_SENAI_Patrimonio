@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnLogin;
     private EditText etEmail;
     private EditText etPassword;
-    private TextView tvTeste;
 
     private AuthRetrofitDAO dao = new AuthRetrofitDAO();
     private List<Object> okArgs = new ArrayList<Object>();
@@ -54,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogin = findViewById(R.id.btnLogin);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
-        tvTeste = findViewById(R.id.tvTeste);
+
 
 
         etEmail.setText("admin@email.com");

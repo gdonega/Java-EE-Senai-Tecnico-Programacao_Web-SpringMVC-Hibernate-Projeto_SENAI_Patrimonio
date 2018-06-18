@@ -84,7 +84,7 @@ public class ItemPatrimonioDAO {
      */
     public void getMovimentacoesDoItem(Long id, List<Object> argsOk, List<Object> argsFailure, List<Object> results, MethInterfaceDAO<List<Movimentacao>, List<Movimentacao>> methods) {
         //Filtro JFO para o backend
-        String jfo = JfoUtils.createStringJfoHttpStandard(FilerType.REQUIRE, "id", "dataDaMovimentacao", "ambienteOriginal.nome", "ambienteNovo.nome", "executou.nome");
+        String jfo = JfoUtils.createStringJfoHttpStandard(FilerType.REQUIRE,  "dataDaMovimentacao", "ambienteOriginal.nome", "ambienteNovo.nome", "executou.nome");
 
         //Cria a "Call" HTTP
         Call<List<Movimentacao>> call = new RetrofitConfig(true).getItemPatrimonioEndPoint().buscarMovimentacoes(jfo, id);

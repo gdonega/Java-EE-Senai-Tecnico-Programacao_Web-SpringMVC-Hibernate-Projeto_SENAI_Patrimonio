@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +25,8 @@
         <activity android:name=".activities.patrimonio.recyclerview.PatrimoniosActivity" />
         <activity android:name=".activities.itempatrimonio.recyclerview.ItemPatrimonioActivity" />
         <activity android:name=".activities.movimentacoes.recyclerview.MovimentacoesActivity" />
-        <activity android:name=".activities.movimentacoes.NovaMovimentacao"></activity>
+        <activity android:name=".activities.movimentacoes.NovaMovimentacao" />
+        <activity android:name=".activities.movimentacoes.MovEasterEggActivity"></activity>
     </application>
 
 </manifest>

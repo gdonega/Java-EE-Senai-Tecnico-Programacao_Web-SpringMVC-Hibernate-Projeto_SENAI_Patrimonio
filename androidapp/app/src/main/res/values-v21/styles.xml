@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/standarColor</item>
+        <item name="colorPrimaryDark">@color/standarColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:colorBackground">@color/background_material_dark</item>
+        <item name="android:textColorSecondaryInverse">@android:color/background_dark</item>
+        <item name="android:textColorSecondary">@android:color/background_dark</item>
+        <item name="android:windowBackground">?attr/colorBackgroundFloating</item>
+        <item name="android:colorForeground">@color/cardview_shadow_start_color</item>
+        <item name="android:navigationBarColor">@color/standarColor</item>
+        <item name="android:statusBarColor">@color/standarColor</item>
+
+    </style>
+</resources>

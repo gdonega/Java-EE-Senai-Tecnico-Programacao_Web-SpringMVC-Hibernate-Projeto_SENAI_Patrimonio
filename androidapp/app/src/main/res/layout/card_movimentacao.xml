@@ -12,12 +12,6 @@
         android:layout_margin="20dp">
 
         <TextView
-            android:id="@+id/tvId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tvId_card_mov" />
-
-        <TextView
             android:id="@+id/tvData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

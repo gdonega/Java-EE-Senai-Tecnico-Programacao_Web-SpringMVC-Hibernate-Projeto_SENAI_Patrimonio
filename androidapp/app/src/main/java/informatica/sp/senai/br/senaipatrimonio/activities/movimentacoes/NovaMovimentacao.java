@@ -96,7 +96,7 @@ public class NovaMovimentacao extends AppCompatActivity implements PropertyChang
         ambientes.remove(ambiente);
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, ambientes);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
 
         sAmbientes.setAdapter(adapter);
     }
