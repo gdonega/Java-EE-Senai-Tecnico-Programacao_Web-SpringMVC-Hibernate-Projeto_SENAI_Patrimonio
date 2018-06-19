@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.movimentacoes.MovEasterEggActivity">
+    tools:context=".activities.movimentacoes.MovEasterEggActivity"
+    android:background="@color/cardview_dark_background">
 
 
     <ImageView
@@ -17,6 +18,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        app:srcCompat="@drawable/felipeone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -27,10 +29,12 @@
     <ImageView
         android:id="@+id/ivTop2"
         android:layout_width="217dp"
+        android:src="@drawable/felipetwo"
         android:layout_height="210dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
+        app:srcCompat="@drawable/felipetwo"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -46,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:textColor="@color/cardview_light_background"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -56,4 +61,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivTop" />
+
+
 </android.support.constraint.ConstraintLayout>

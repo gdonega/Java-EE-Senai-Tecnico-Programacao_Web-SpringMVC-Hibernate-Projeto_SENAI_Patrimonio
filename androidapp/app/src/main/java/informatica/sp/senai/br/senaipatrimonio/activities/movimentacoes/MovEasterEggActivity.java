@@ -18,7 +18,10 @@ public class MovEasterEggActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mov_easter_egg);
         imageView = findViewById(R.id.ivTop);
         imageView2 = findViewById(R.id.ivTop2);
-        Glide.with(this).load(R.drawable.felipeone).into(imageView);
-        Glide.with(this).load(R.drawable.felipetwo).into(imageView2);
+//        Glide.with(this).load(R.drawable.felipeone).into(imageView);
+//        Glide.with(this).load(R.drawable.felipetwo).into(imageView2);
+        imageView.setImageResource(R.drawable.felipeone);
+        imageView2.setImageResource(R.drawable.felipetwo);
+
     }
 }
